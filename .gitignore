@@ -1,0 +1,31 @@
+# Python / 虚拟环境
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# 本地生成物：HTML 预览、截图
+out/
+*.png
+*.jpg
+/*.html
+data/*.html
+
+# 密钥 / 本地配置（绝不提交）
+.env
+*.env
+*.keystore
+*.jks
+local.properties
+secrets*
+
+# 编辑器 / 系统
+.DS_Store
+.idea/
+.vscode/
+
+# Android（app 目录建好后使用）
+android/**/build/
+android/.gradle/
+android/**/*.apk
+android/**/*.aab

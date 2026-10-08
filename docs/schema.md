@@ -16,12 +16,14 @@
 - 单期：`https://raw.githubusercontent.com/WikG1018/ai-daily/main/data/2026-10-08.json`
 - 单期（镜像）：`https://cdn.jsdelivr.net/gh/WikG1018/ai-daily@main/data/2026-10-08.json`
 
+实测（2026-10-09 01:16 北京时间）：两个地址的 `index.json` 和 `2026-10-08.json` 都返回 HTTP 200，内容一致。
+
 缓存与容错建议：
 
-- Raw 地址有约 5 分钟的 CDN 缓存（`Cache-Control: max-age=300`）。国内网络有时连不上 raw.githubusercontent.com。
-- jsDelivr 按分支（`@main`）取文件时 CDN 会缓存较久（可达数小时）。发布脚本每次推送后会主动请求 purge，通常几分钟内就能拿到新文件。
+- Raw：`Cache-Control: max-age=300`（约 5 分钟），`Content-Type` 是 `text/plain`，**不要依赖 Content-Type，直接按 JSON 解析**。国内网络有时连不上 raw.githubusercontent.com。
+- jsDelivr：`Content-Type: application/json`，但响应头是 `Cache-Control: public, max-age=604800, s-maxage=43200`，即客户端可缓存 7 天、CDN 缓存 12 小时。发布脚本每次推送后会主动 purge CDN，通常几分钟内就是新文件；**客户端自己的 HTTP 缓存要绕开**：请求 `index.json` 时带请求头 `Cache-Control: no-cache`（OkHttp 可用 `CacheControl.FORCE_NETWORK`），否则可能一周都拿不到新一期。
 - 建议：**先请求主地址，失败或超时（如 8 秒）再请求镜像**；两边都失败时显示本地缓存。
-- 单期文件发布后基本不变（极少数情况下会修订重发），可以长期缓存；`index.json` 每次打开或刷新时重新拉取。
+- 单期文件发布后基本不变（极少数情况下会修订重发），可以长期缓存；`index.json` 每次打开、下拉刷新或后台检查时都重新拉取。若单期的 `published_at` 与索引里的不同，说明修订过，可重新拉取。
 
 ## 2. 索引 `data/index.json`
 

@@ -350,7 +350,8 @@ def main():
         print(f"校验通过：{date}，共 {total_count(d)} 条，新分配 id {added} 个 → {target.relative_to(repo)}")
         if target.exists() and not a.force:
             print(f"{target.relative_to(repo)} 已存在；如确认要覆盖请加 --force", file=sys.stderr)
-            return 2
+            if not a.dry_run:
+                return 2
         if a.dry_run:
             for it in all_items(d):
                 print(f"  {it['id']}  [{it['vendor']}] {plain(it['title'])}")

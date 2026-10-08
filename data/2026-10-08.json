@@ -1,0 +1,381 @@
+{
+  "title": "AI 日报",
+  "date": "2026-10-08",
+  "window": {
+    "start": "10-07 23:45",
+    "end": "10-08 23:45",
+    "tz": "北京时间"
+  },
+  "highlights": "Anthropic 凌晨发布 **Claude Haiku 5.5**，基础 API 价格约为上一代的十分之一。Cursor、GitHub Copilot、Devin 当天就接入了。同一天港股 MiniMax 和智谱大跌，有市场评论把这和海外降价联系起来。OpenAI 把 **GPT-6 + Intelligent UI** 放进了 ChatGPT，微软让 **MAI-Code-1.1 Flash** 可以在本地 PC 上运行，Google Cloud 晚间推出了 **Gemini agent**。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "本期未收录小米相关动态。"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "id": "2026-10-08-001",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 发布 Claude Haiku 5.5",
+          "summary": "官方称它是旗下最便宜、最快、能力最强的小模型，平均运行成本比 Haiku 4.5 低约 75%。100k 以内的提示按每百万 token 输入 $0.10、输出 $0.50 计价，上下文 100 万 token。",
+          "time": "10-08 02:01",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/claudeai/status/2107894039626277339"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-08-002",
+              "vendor": "Artificial Analysis",
+              "region": "us",
+              "title": "第三方评测：智能指数 43 分",
+              "summary": "Artificial Analysis 给它的智能指数是 43 分，和 Kimi K3 的 44 分差不多，但完成任务用的 token 约为 GPT-6 Luna 的 3 倍。",
+              "time": "10-08 03:12",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/ArtificialAnlys/status/2107911905822351609"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-003",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 把 GPT-6 + Intelligent UI 放进 ChatGPT",
+          "summary": "回答里可以直接生成图表、按钮、表单这类小工具。付费档用 GPT-6 Sol，Free 和 Go 档随后改用 GPT-6 Luna。",
+          "time": "10-08 02:05",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAI/status/2107894997538525580"
+            },
+            {
+              "label": "档位说明",
+              "url": "https://x.com/OpenAI/status/2107895006350791071"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-004",
+          "vendor": "微软",
+          "region": "us",
+          "title": "微软 MAI-Code-1.1 Flash 可在本地运行",
+          "summary": "这是一个 137B 参数的编码模型，上下文 256K。GitHub Copilot 可以把任务交给它在本机跑，不收推理费。",
+          "time": "10-08 02:17",
+          "links": [
+            {
+              "label": "Nadella",
+              "url": "https://x.com/satyanadella/status/2107898018112647313"
+            },
+            {
+              "label": "Microsoft AI",
+              "url": "https://x.com/MicrosoftAI/status/2107926901150908483"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-005",
+          "vendor": "阶跃星辰",
+          "region": "cn",
+          "title": "阶跃星辰 Step 5 Preview 上线 OpenRouter",
+          "summary": "定位是面向 agent 的旗舰模型，在 OpenCode、Cline、Kilo Code 等平台可以免费用一周。",
+          "time": "10-08 21:08",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/StepFun_ai/status/2108182763002278158"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-006",
+          "vendor": "Liquid AI",
+          "region": "us",
+          "title": "Liquid AI 开源 Open d1 决策模型",
+          "summary": "包括 d1-3B 和 d1-omni-600M 两个版本，可以部署到边缘设备上。",
+          "time": "10-08 01:01",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/liquidai/status/2107878924831379676"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-007",
+          "vendor": "xAI",
+          "region": "us",
+          "title": "马斯克：快速版 Grok 4.8 发布后将接手大部分简单请求",
+          "summary": "马斯克称，快速版 Grok 4.8 发布后会接手大部分简单请求，目前它还没发布。",
+          "time": "10-08 02:02",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/elonmusk/status/2107894231922876510"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-08-008",
+          "vendor": "Claude Code",
+          "region": "us",
+          "title": "Claude Code 上线 Haiku 5.5",
+          "summary": "官方建议把它当作 Opus 或 Sonnet 的子 agent。",
+          "time": "10-08 02:08",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2107895955144208813"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-08-009",
+              "vendor": "Claude Code",
+              "region": "us",
+              "title": "Max 和 Team 订阅每月附送 API 额度",
+              "summary": "Max 5x 为 $100，Max 20x 为 $200，Team 最多 $500。这笔额度也能用在第三方工具上。",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/ClaudeDevs/status/2107895957933408429"
+                }
+              ]
+            },
+            {
+              "id": "2026-10-08-010",
+              "vendor": "Claude Code",
+              "region": "us",
+              "title": "SDK 内置 computer use 和 browser use",
+              "summary": "Python 和 TypeScript SDK 内置了 computer use 和 browser use 工具。",
+              "time": "10-08 04:07",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/ClaudeDevs/status/2107925762720326090"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-011",
+          "vendor": "Codex",
+          "region": "us",
+          "title": "Codex 与 ChatGPT Work 活跃用户合计 4000 万",
+          "summary": "所有付费账户都获得一次额外的额度重置。",
+          "time": "10-08 03:19",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2107913674593644711"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-08-012",
+              "vendor": "Codex",
+              "region": "us",
+              "title": "Codex cloud 已低调重新上线",
+              "summary": "",
+              "time": "10-08 14:38",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/thsottiaux/status/2108084615349170480"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-013",
+          "vendor": "GitHub Copilot",
+          "region": "us",
+          "title": "GitHub Copilot 与 VS Code 更新",
+          "summary": "",
+          "children": [
+            {
+              "id": "2026-10-08-014",
+              "vendor": "GitHub Copilot",
+              "region": "us",
+              "title": "Copilot 本地沙箱正式可用",
+              "summary": "",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/github/status/2107915368358404147"
+                }
+              ]
+            },
+            {
+              "id": "2026-10-08-015",
+              "vendor": "VS Code",
+              "region": "us",
+              "title": "新版 VS Code 加入 agent 沙箱和多会话分屏",
+              "summary": "还能接着 Copilot CLI 或 Codex CLI 里的对话继续。",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/code/status/2107914812323680470"
+                }
+              ]
+            },
+            {
+              "id": "2026-10-08-016",
+              "vendor": "GitHub Copilot",
+              "region": "us",
+              "title": "Copilot 已能用 Haiku 5.5",
+              "summary": "",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/github/status/2107934117581189271"
+                }
+              ]
+            }
+          ],
+          "group": true
+        },
+        {
+          "id": "2026-10-08-017",
+          "vendor": "Cursor",
+          "region": "us",
+          "title": "Cursor 接入 Haiku 5.5，Sonnet 5.5 缓存读取降价",
+          "summary": "接入了 Haiku 5.5，并把 Sonnet 5.5 的缓存读取价降到每百万 token $0.10。",
+          "time": "10-08 02:14",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cursor_ai/status/2107897245282799864"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-018",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Google Gemini agent 进入私有预览",
+          "summary": "定位是“通用工作智能体”，可以直接在 Gmail、Docs、Sheets 里干活，也能写代码、跑代码。据转述，它会在 Gemini 和 Claude 模型之间按任务挑选，目前处于私有预览。",
+          "time": "10-08 21:00",
+          "links": [
+            {
+              "label": "Google Cloud",
+              "url": "https://x.com/googlecloud/status/2108180723920166972"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-019",
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline 推出 Cloud Agents",
+          "summary": "可以在云端沙箱里写代码并提交 PR。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cline/status/2107909392649826516"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-020",
+          "vendor": "Devin",
+          "region": "us",
+          "title": "Devin 接入 Haiku 5.5",
+          "summary": "",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cognition/status/2107942832921075726"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-021",
+          "vendor": "ChatGPT",
+          "region": "us",
+          "title": "ChatGPT 推出插件扩展",
+          "summary": "",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAIDevs/status/2107927072165548276"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "🌐",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-08-022",
+          "vendor": "港股",
+          "region": "cn",
+          "title": "港股 AI 股大跌",
+          "summary": "恒生科技指数跌 2.89%。据网友汇总，MiniMax 跌超 13%，智谱跌超 7%。把下跌和海外降价联系起来只是市场解读，没有得到证实。",
+          "time": "10-08 22:49",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/yangye01/status/2108208227259421013"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-023",
+          "vendor": "CrowdStrike",
+          "region": "us",
+          "title": "CrowdStrike 谈韩国银行遭攻击",
+          "summary": "据 Reuters 报道，CrowdStrike 称嫌疑人可能使用了 Claude Code 辅助攻击。",
+          "links": [
+            {
+              "label": "Reuters",
+              "url": "https://www.reuters.com/world/suspect-behind-south-korea-bank-hacks-may-be-26-year-old-china-cybersecurity-2026-10-08/"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-08-024",
+          "vendor": "State of AI",
+          "region": "intl",
+          "title": "第 9 份 State of AI Report 发布",
+          "summary": "",
+          "time": "10-08 20:52",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/raais/status/2108178731210531177"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "国内的 DeepSeek、通义、豆包、Kimi、智谱、腾讯和百度，这 24 小时里都没有发布新模型或新产品。"
+  ],
+  "source_note": "信息来源：X（原帖）及文中注明的媒体报道。时间均为北京时间（UTC+8），仅收录覆盖时间窗内的消息；已报过的事件仅在有实质新进展时以“更新”标出。",
+  "schema_version": 1,
+  "published_at": "2026-10-09T01:15:49+08:00"
+}

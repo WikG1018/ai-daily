@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "latest": "2026-10-08",
+  "updated_at": "2026-10-09T01:15:49+08:00",
+  "issues": [
+    {
+      "date": "2026-10-08",
+      "title": "AI 日报",
+      "highlights": "Anthropic 凌晨发布 Claude Haiku 5.5，基础 API 价格约为上一代的十分之一。Cursor、GitHub Copilot、Devin 当天就接入了。",
+      "item_count": 23,
+      "path": "data/2026-10-08.json",
+      "published_at": "2026-10-09T01:15:49+08:00"
+    }
+  ]
+}

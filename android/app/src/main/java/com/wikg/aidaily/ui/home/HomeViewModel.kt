@@ -126,8 +126,8 @@ class HomeViewModel(private val c: AppContainer) : ViewModel() {
 
     fun markAllRead() {
         val ids = _state.value.issue?.allItems()?.map { it.id } ?: return
+        // 反馈由首页顶栏的就地动画负责，不再弹 Snackbar
         viewModelScope.launch { c.prefs.markAllRead(ids) }
-        _messages.value = "已全部标为已读"
     }
 
     fun consumeMessage() { _messages.value = null }

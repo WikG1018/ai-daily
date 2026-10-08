@@ -2,21 +2,27 @@
 
 原生安卓 app，用来阅读本仓库每天发布的「AI 日报」。Kotlin + Jetpack Compose（Material 3），单 Activity，无服务器、无账号、**不依赖 FCM / 任何推送服务**。
 
-| 首页（浅色） | 首页（深色） | 栏目列表 | 详情 | 设置与后台引导 |
-|---|---|---|---|---|
-| ![](screenshots/home_light.png) | ![](screenshots/home_dark.png) | ![](screenshots/home_sections_light.png) | ![](screenshots/detail_light.png) | ![](screenshots/settings_light.png) |
+| 今日（浅色） | 关注专栏 | 栏目页（深色） | 详情 | 设置 | 关注厂商 |
+|---|---|---|---|---|---|
+| ![](screenshots/home_light.png) | ![](screenshots/home_featured_light.png) | ![](screenshots/home_sections_dark.png) | ![](screenshots/detail_light.png) | ![](screenshots/settings_light.png) | ![](screenshots/featured_light.png) |
+
+更多：[今日深色](screenshots/home_dark.png) · [小米空专栏](screenshots/home_featured_empty_light.png) · [编码 Agent 页](screenshots/home_sections_light.png) · [设置深色](screenshots/settings_dark.png) · [通知与后台](screenshots/settings_notify_light.png) · [启动图标](screenshots/icon.png)
 
 > 截图由 Robolectric 原生图形渲染真实的 Compose 界面生成（真实主题、MiSans 字体、`data/2026-10-08.json` 样例数据），见下文「截图」。
 
 ## 功能
 
-- **首页**：日期条快速切换最近 30 期 + 「全部」往期面板；渐变主卡展示「今日要点」（`**粗体**` 高亮）、条数与已读数；吸顶栏目条（小米 / 模型 / 编码 Agent / 其他）随滚动高亮、点击定位；**小米专栏**固定在要点之后、橙色强调；条目以分组圆角卡片呈现，子条目以内嵌列表显示，`group` 容器显示为「专题」。
+- **首页（分页）**：顶部吸顶标签条 + 左右滑动分页（`HorizontalPager`）。页序：**今日** → 每个**关注厂商**一页 → 每个栏目一页（模型 / 编码 Agent / 其他动态，标题和图标取自 JSON 的 `sections`）。指示条跟手插值、选中标签自动居中，点标签平滑翻页；每页独立纵向滚动、各自记住位置。
+  - **今日**：日期条（最近 30 期 + 「全部」往期面板）、渐变主卡「今日要点」（`**粗体**` 高亮、条数 / 已读数）、「栏目速览」（每页条数 + 前两条标题，点按直达）、补充说明与发布时间。
+  - 条目以分组圆角卡片呈现，子条目以内嵌列表显示，`group` 容器显示为「专题」。
+- **关注厂商（可自定义专栏）**：默认只关注「小米」（与 1.0 一致），可在「设置 → 关注厂商」增删、排序；支持手动输入，或从本期 / 最近几期出现的厂商、推荐列表（小米、Anthropic、OpenAI、Google、DeepSeek、通义/阿里、豆包、Kimi、智谱、Meta、Microsoft、Cursor……）一键添加。专栏从整期（`xiaomi.items` + 全部 `sections`，深度优先）收集 vendor 匹配的条目：不区分大小写，带一张小别名表（小米 ↔ Xiaomi ↔ Mi ↔ 澎湃OS，Anthropic ↔ Claude Code，OpenAI ↔ ChatGPT / Codex，微软 ↔ Microsoft ↔ GitHub Copilot ……），父条目匹配则整条收录，按 id 去重；关注小米时 schema 的 `xiaomi.items` 优先排在最前。没有动态时显示「本期未收录{厂商}相关动态」。纯客户端功能，不需要改数据格式。
 - **详情**：厂商标签（中国红 / 美国蓝 / 国际灰）+ 区域、北京时间、标题、摘要、「更新」徽标与更新说明、原帖按钮（Custom Tabs，没有支持的浏览器时退回系统浏览器）、相关进展、下一条、分享。
-- **已读**：打开详情即标记已读（DataStore 持久化），列表中已读标题变灰；顶栏可一键全部已读。
+- **已读**：打开详情即标记已读（DataStore 持久化），列表中已读标题渐变为灰；顶栏可一键全部已读——不弹窗，按钮就地变成「✓ 已读」胶囊、主卡已读数翻动。
 - **离线**：`index.json` 与每期 JSON 原样缓存在 app 私有目录；断网时显示缓存并提示。单期若在索引中的 `published_at` 变化（修订重发）会自动重新拉取。
 - **下拉刷新**；冷启动先显示缓存，再联网。
 - **每日自动检查 + 本地通知**（见下）。
-- **深色模式**：跟随系统 / 浅色 / 深色。
+- **深色模式**：跟随系统 / 浅色 / 深色。窗口底色、系统栏随 app 内主题切换，页面转场全程不透明（深色下进设置不闪白）。
+- **设置**：一级是目录（关注厂商 / 通知与后台 / 外观 / 关于），各项是独立二级页。
 - 只认 `**粗体**`（非贪婪 `\*\*(.+?)\*\*`），**从不按 HTML 解析**；忽略未知 JSON 字段，未知 `region` 按 `intl` 处理。
 
 ## 数据获取
@@ -36,9 +42,9 @@
 
 检查逻辑：拉 `index.json`，若 `latest` 比本地记录的大（字符串比较），就预取该期（保证点开通知时离线也能看），并用 `issues[0].highlights` 作为正文发本地通知，点击直达当期（`aidaily://issue/YYYY-MM-DD`）。前台已看过的期数不会再通知；首次安装只建立基线、不打扰。
 
-**小米 / 澎湃 OS**：系统默认限制后台，app 的「设置与提醒」页有分步引导和跳转按钮：自启动管理、省电策略「无限制」、系统电池优化白名单、锁定最近任务、通知横幅。首页也会提示未完成的设置。
+**小米 / 澎湃 OS**：系统默认限制后台，app 的「设置 → 通知与后台」页有分步引导和跳转按钮：自启动管理、省电策略「无限制」、系统电池优化白名单、锁定最近任务、通知横幅。首页也会提示未完成的设置。
 
-> 厂商推送（小米推送 MiPush / 统一推送联盟 UPS）**v1 不集成**，可作为以后的可选模块：只需在 `work/` 旁新增一个推送入口，复用 `DailyChecker` 的去重与通知逻辑即可。
+> 厂商推送（小米推送 MiPush / 统一推送联盟 UPS）**不集成**，可作为以后的可选模块：只需在 `work/` 旁新增一个推送入口，复用 `DailyChecker` 的去重与通知逻辑即可。
 
 ## 字体：MiSans
 
@@ -51,7 +57,7 @@
 
 ## 构建
 
-环境：JDK 17+（已用 JDK 21 验证）、Android SDK（platform 35、build-tools 35）。
+环境：JDK 17+（已用 JDK 21 验证）、Android SDK（platform `android-37.0`、build-tools 36+）。AGP 9.1.1（内置 Kotlin，KGP 2.2.10）+ Gradle 9.3.1（wrapper 自带）。`minSdk 31`（Android 12+）、`targetSdk 37`。
 
 ```bash
 cd android
@@ -94,7 +100,8 @@ keytool -genkeypair -keystore ai-daily-release.jks -storetype PKCS12 -alias aida
 从 [Releases](https://github.com/WikG1018/ai-daily/releases) 下载 `ai-daily-*.apk`，在手机上打开安装（小米手机需允许「安装未知应用」）。装好后：
 
 1. 允许通知；
-2. 进入「设置与提醒」，按小米后台设置的几步操作（自启动、省电策略无限制）。
+2. 进入「设置 → 通知与后台」，按小米后台设置的几步操作（自启动、省电策略无限制）；
+3. 需要的话在「设置 → 关注厂商」里添加想单独成页的厂商（默认是小米）。
 
 ## 截图
 
@@ -111,7 +118,7 @@ app/src/main/java/com/wikg/aidaily/
 ├── AiDailyApp.kt          # Application + 手写依赖容器，启动时排定后台任务
 ├── MainActivity.kt        # 单 Activity、深链（aidaily://issue/… / aidaily://item/…）
 ├── data/
-│   ├── model/             # index.json / 单期 JSON 数据模型（kotlinx.serialization，忽略未知字段）
+│   ├── model/             # index.json / 单期 JSON 数据模型；Featured.kt：关注厂商匹配与别名表
 │   ├── remote/DailyApi.kt # OkHttp：Raw → jsDelivr 回退、绕开缓存
 │   ├── local/             # 离线缓存（文件）+ DataStore（已读、最新期、设置）
 │   └── DailyRepository.kt
@@ -120,4 +127,4 @@ app/src/main/java/com/wikg/aidaily/
 └── util/                  # 粗体解析、北京时间格式化、Custom Tabs、小米后台设置跳转
 ```
 
-包名 `com.wikg.aidaily`，minSdk 26，target/compile SDK 35。
+包名 `com.wikg.aidaily`，minSdk 31（Android 12+），target/compile SDK 37。

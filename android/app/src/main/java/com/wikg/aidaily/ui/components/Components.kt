@@ -92,35 +92,50 @@ fun Pill(text: String, bg: Color, fg: Color, modifier: Modifier = Modifier) {
     )
 }
 
-/** 品牌标：渐变圆角方块 + 晨光半日 + 文本行（与启动图标一致）。 */
+/** 品牌标：与启动图标一致的「日」字标——白色圆角字框 + 晨光琥珀的一横。 */
 @Composable
 fun BrandMark(size: Dp = 30.dp, modifier: Modifier = Modifier) {
     Canvas(
         modifier
             .size(size)
             .clip(RoundedCornerShape(size * 0.28f))
-            .background(Brush.linearGradient(listOf(Color(0xFF5B4BFF), Color(0xFF2C1E9E)))),
+            .background(Brush.linearGradient(listOf(Color(0xFF4636E8), Color(0xFF1A1260)))),
     ) {
-        val w = this.size.width
-        val sun = Color(0xFFFFB547)
-        val stroke = w * 0.075f
-        drawArc(
-            color = sun, startAngle = 180f, sweepAngle = 180f, useCenter = true,
-            topLeft = Offset(w * 0.33f, w * 0.30f), size = Size(w * 0.34f, w * 0.34f),
+        // 以 108 视口的自适应图标为基准，放大 108/72 让字形填满（相当于去掉安全区外圈）
+        val k = this.size.width / 72f
+        fun x(v: Float) = (v - 18f) * k
+        val stroke = 6.5f * k
+        drawRoundRect(
+            color = Color.White,
+            topLeft = Offset(x(39.5f), x(34.5f)),
+            size = Size(29f * k, 39f * k),
+            cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f * k, 4f * k),
+            style = androidx.compose.ui.graphics.drawscope.Stroke(width = stroke),
         )
-        drawLine(Color.White, Offset(w * 0.2f, w * 0.52f), Offset(w * 0.8f, w * 0.52f), stroke, StrokeCap.Round)
-        drawLine(Color.White.copy(alpha = 0.75f), Offset(w * 0.27f, w * 0.66f), Offset(w * 0.73f, w * 0.66f), stroke, StrokeCap.Round)
-        drawLine(Color.White.copy(alpha = 0.75f), Offset(w * 0.35f, w * 0.79f), Offset(w * 0.65f, w * 0.79f), stroke, StrokeCap.Round)
+        drawLine(Color(0xFFFFB547), Offset(x(42.75f), x(54f)), Offset(x(65.25f), x(54f)), stroke)
     }
 }
 
 @Composable
-fun MiMark(modifier: Modifier = Modifier) {
+fun MiMark(modifier: Modifier = Modifier, size: Dp = 22.dp) {
     Box(
-        modifier.size(22.dp).clip(RoundedCornerShape(7.dp)).background(AppTheme.extra.xiaomi),
+        modifier.size(size).clip(RoundedCornerShape(size * 0.32f)).background(AppTheme.extra.featured),
         contentAlignment = Alignment.Center,
     ) {
-        Text("mi", color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+        Text("mi", color = Color.White, fontSize = (size.value * 0.5f).sp, fontWeight = FontWeight.Bold)
+    }
+}
+
+/** 关注厂商的标：小米用 mi 标，其他厂商取首字（拉丁字母大写）。 */
+@Composable
+fun VendorMark(vendor: String, isXiaomi: Boolean, modifier: Modifier = Modifier, size: Dp = 22.dp) {
+    if (isXiaomi) { MiMark(modifier, size); return }
+    val initial = vendor.trim().firstOrNull()?.uppercaseChar()?.toString() ?: "★"
+    Box(
+        modifier.size(size).clip(RoundedCornerShape(size * 0.32f)).background(AppTheme.extra.featured),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(initial, color = Color.White, fontSize = (size.value * 0.5f).sp, fontWeight = FontWeight.Bold, maxLines = 1)
     }
 }
 

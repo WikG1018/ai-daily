@@ -6,7 +6,6 @@ import java.util.zip.ZipFile
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
 }
@@ -46,15 +45,16 @@ val signing = loadSigning()
 
 android {
     namespace = "com.wikg.aidaily"
-    compileSdk = 35
+    compileSdk {
+        version = release(37)
+    }
 
     defaultConfig {
         applicationId = "com.wikg.aidaily"
-        minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
-        resourceConfigurations += listOf("zh", "en")
+        minSdk = 31
+        targetSdk = 37
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     signingConfigs {
@@ -88,7 +88,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions { jvmTarget = "17" }
     buildFeatures {
         compose = true
         buildConfig = true
@@ -96,6 +95,7 @@ android {
     androidResources {
         // 字体以 mmap 方式加载，不压缩
         noCompress += listOf("otf", "ttf")
+        localeFilters += listOf("zh", "en")
     }
     packaging {
         resources.excludes += listOf("/META-INF/{AL2.0,LGPL2.1}", "DebugProbesKt.bin")

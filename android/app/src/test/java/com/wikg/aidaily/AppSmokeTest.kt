@@ -2,9 +2,19 @@ package com.wikg.aidaily
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeLeft
+import androidx.compose.ui.test.swipeRight
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
-import androidx.compose.ui.test.performScrollToKey
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -35,14 +45,61 @@ class AppSmokeTest {
         File("../../data/2026-10-08.json").copyTo(File(dir, "issue-2026-10-08.json"), overwrite = true)
     }
 
-    @Test fun homeToDetailAndBack() {
+    private fun waitText(text: String, substring: Boolean = false) =
+        compose.waitUntil(10_000) { compose.onAllNodesWithText(text, substring = substring).fetchSemanticsNodes().isNotEmpty() }
+
+    private fun waitTag(tag: String) =
+        compose.waitUntil(10_000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() }
+
+    @Test fun homeTabsToDetailAndBack() {
         ActivityScenario.launch(MainActivity::class.java).use {
-            compose.waitUntil(10_000) { compose.onAllNodesWithText("小米专栏").fetchSemanticsNodes().isNotEmpty() }
-            compose.onNodeWithText("今日要点").assertExists()
-            compose.onNodeWithTag("home_list").performScrollToKey("i-2026-10-08-001")
-            compose.onAllNodesWithText("Anthropic 发布 Claude Haiku 5.5").onFirst().performClick()
-            compose.waitUntil(10_000) { compose.onAllNodesWithText("查看原帖", substring = true).fetchSemanticsNodes().isNotEmpty() }
+            waitText("今日要点")
+            compose.onNodeWithTag("tab-today").assertIsSelected()
+            compose.onNodeWithTag("tab-s-models").performClick()
+            compose.waitForIdle()
+            compose.onNodeWithTag("tab-s-models").assertIsSelected()
+            compose.onNode(hasText("Anthropic 发布 Claude Haiku 5.5") and hasAnyAncestor(hasTestTag("page_s-models"))).performClick()
+            waitText("查看原帖", substring = true)
             compose.onNodeWithText("相关进展 · 1").assertExists()
+        }
+    }
+
+    @Test fun swipeBetweenPages() {
+        ActivityScenario.launch(MainActivity::class.java).use {
+            waitText("今日要点")
+            compose.onNodeWithTag("home_pager").performTouchInput { swipeLeft() }
+            compose.waitForIdle()
+            compose.onNodeWithTag("tab-f-小米").assertIsSelected()
+            compose.onNode(hasText("小米专栏") and hasAnyAncestor(hasTestTag("page_f-小米"))).assertIsDisplayed()
+            compose.onNode(hasText("本期未收录小米相关动态。") and hasAnyAncestor(hasTestTag("page_f-小米"))).assertIsDisplayed()
+            compose.onNodeWithTag("home_pager").performTouchInput { swipeLeft() }
+            compose.waitForIdle()
+            compose.onNodeWithTag("tab-s-models").assertIsSelected()
+            compose.onNodeWithTag("home_pager").performTouchInput { swipeRight() }
+            compose.waitForIdle()
+            compose.onNodeWithTag("tab-f-小米").assertIsSelected()
+        }
+    }
+
+    @Test fun addFeaturedVendorCreatesPage() {
+        ActivityScenario.launch(MainActivity::class.java).use {
+            waitText("今日要点")
+            compose.onNodeWithContentDescription("设置").performClick()
+            waitTag("hub-featured")
+            compose.onNodeWithTag("hub-featured").performClick()
+            waitText("我的关注", substring = true)
+            compose.onNodeWithTag("featured-input").performTextInput("OpenAI")
+            compose.onNodeWithText("添加").performClick()
+            waitText("OpenAI专栏")
+            waitText("本期 4 条", substring = true)
+            compose.onNodeWithContentDescription("返回").performClick()
+            waitTag("hub-featured")
+            compose.onNodeWithContentDescription("返回").performClick()
+            waitTag("tab-f-openai")
+            compose.onNodeWithTag("tab-f-openai").performClick()
+            compose.waitForIdle()
+            compose.onNode(hasText("OpenAI专栏") and hasAnyAncestor(hasTestTag("page_f-openai"))).assertIsDisplayed()
+            compose.onAllNodes(hasText("Codex", substring = true) and hasAnyAncestor(hasTestTag("page_f-openai"))).onFirst().assertExists()
         }
     }
 
@@ -54,12 +111,38 @@ class AppSmokeTest {
         }
     }
 
-    @Test fun settingsOpens() {
+    @Test fun settingsHubAndSubpage() {
         ActivityScenario.launch(MainActivity::class.java).use {
-            compose.waitUntil(10_000) { compose.onAllNodesWithText("小米专栏").fetchSemanticsNodes().isNotEmpty() }
+            waitText("今日要点")
             compose.onNodeWithContentDescription("设置").performClick()
-            compose.waitUntil(10_000) { compose.onAllNodesWithText("设置与提醒").fetchSemanticsNodes().isNotEmpty() }
-            compose.onNodeWithText("允许自启动").assertExists()
+            waitTag("hub-notify")
+            compose.onNodeWithTag("hub-notify").performClick()
+            waitText("允许自启动")
+            compose.onNodeWithText("通知与后台").assertExists()
         }
+    }
+
+    @Test fun markAllReadShowsInlineConfirmation() {
+        ActivityScenario.launch(MainActivity::class.java).use {
+            waitText("今日要点")
+            compose.onNodeWithContentDescription("全部已读").performClick()
+            waitTag("marked_all_read")
+            compose.onAllNodesWithText("已全部标为已读").fetchSemanticsNodes().let { assert(it.isEmpty()) }
+        }
+    }
+
+    @Test fun darkThemeWindowBackgroundIsDark() {
+        val app = ApplicationProvider.getApplicationContext<AiDailyApp>()
+        kotlinx.coroutines.runBlocking { app.container.prefs.setTheme(com.wikg.aidaily.data.local.ThemeMode.DARK) }
+        ActivityScenario.launch(MainActivity::class.java).use { sc ->
+            waitText("今日要点")
+            sc.onActivity { a ->
+                val bg = (a.window.decorView.background as? android.graphics.drawable.ColorDrawable)?.color
+                org.junit.Assert.assertEquals(com.wikg.aidaily.ui.theme.DarkColors.background.toArgb(), bg)
+            }
+            compose.onNodeWithContentDescription("设置").performClick()
+            waitTag("hub-notify")
+        }
+        kotlinx.coroutines.runBlocking { app.container.prefs.setTheme(com.wikg.aidaily.data.local.ThemeMode.SYSTEM) }
     }
 }

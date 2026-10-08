@@ -1,9 +1,12 @@
 package com.wikg.aidaily.ui
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,6 +25,8 @@ import com.wikg.aidaily.DeepLink
 import com.wikg.aidaily.ui.detail.DetailScreen
 import com.wikg.aidaily.ui.home.HomeScreen
 import com.wikg.aidaily.ui.home.HomeViewModel
+import com.wikg.aidaily.ui.settings.FeaturedScreen
+import com.wikg.aidaily.ui.settings.SettingsPage
 import com.wikg.aidaily.ui.settings.SettingsScreen
 import kotlinx.coroutines.flow.StateFlow
 
@@ -50,20 +55,26 @@ fun AppNav(deepLinks: StateFlow<DeepLink?>, consumeDeepLink: () -> Unit) {
         }
     }
 
-    val dur = 320
+    // 转场：新页从右侧滑入（不透明），旧页轻微视差左移；底下垫一层主题背景色，
+    // 任何时刻都不会露出窗口底色（深色模式下进设置不再闪白）。
+    val dur = 300
+    val ease = FastOutSlowInEasing
     NavHost(
         navController = nav,
         startDestination = "home",
-        enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(dur)) + fadeIn(tween(dur)) },
-        exitTransition = { fadeOut(tween(dur / 2)) },
-        popEnterTransition = { fadeIn(tween(dur)) },
-        popExitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(dur)) + fadeOut(tween(dur)) },
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+        enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(dur, easing = ease)) },
+        exitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(dur, easing = ease)) { it / 4 } },
+        popEnterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(dur, easing = ease)) { it / 4 } },
+        popExitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(dur, easing = ease)) },
     ) {
         composable("home") {
             HomeScreen(
                 vm = homeVm,
                 onOpenItem = { nav.navigate("item/$it") },
                 onOpenSettings = { nav.navigate("settings") { launchSingleTop = true } },
+                onOpenFeatured = { nav.navigate("featured") { launchSingleTop = true } },
+                onOpenNotifySettings = { nav.navigate(SettingsPage.NOTIFY.route) { launchSingleTop = true } },
             )
         }
         composable("item/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { entry ->
@@ -78,6 +89,16 @@ fun AppNav(deepLinks: StateFlow<DeepLink?>, consumeDeepLink: () -> Unit) {
                 },
             )
         }
-        composable("settings") { SettingsScreen(onBack = { nav.popBackStack() }) }
+        SettingsPage.entries.forEach { page ->
+            composable(page.route) {
+                SettingsScreen(
+                    page = page,
+                    onBack = { nav.popBackStack() },
+                    onOpenFeatured = { nav.navigate("featured") { launchSingleTop = true } },
+                    onNavigate = { nav.navigate(it.route) { launchSingleTop = true } },
+                )
+            }
+        }
+        composable("featured") { FeaturedScreen(onBack = { nav.popBackStack() }) }
     }
 }

@@ -6,7 +6,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-// 「晨光 · 靛紫」：主色是偏冷的靛紫（区别于 IT之家 的红），点缀晨光琥珀；小米专栏用小米橙。
+// 「晨光 · 靛紫」：主色是偏冷的靛紫（区别于 IT之家 的红），点缀晨光琥珀；「关注」专栏用小米橙。
 object Palette {
     val Indigo = Color(0xFF4A3AFF)
     val IndigoDeep = Color(0xFF2C1E9E)
@@ -76,8 +76,8 @@ data class ExtraColors(
     val regionCn: Color,
     val regionUs: Color,
     val regionIntl: Color,
-    val xiaomi: Color,
-    val xiaomiContainer: Color,
+    val featured: Color,
+    val featuredContainer: Color,
     val update: Color,
     val updateContainer: Color,
     val card: Color,
@@ -91,8 +91,8 @@ val LightExtra = ExtraColors(
     regionCn = Color(0xFFE5484D),
     regionUs = Color(0xFF2F6FEB),
     regionIntl = Color(0xFF7C8594),
-    xiaomi = Palette.MiOrange,
-    xiaomiContainer = Color(0xFFFFF1E8),
+    featured = Palette.MiOrange,
+    featuredContainer = Color(0xFFFFF1E8),
     update = Color(0xFF0E9F6E),
     updateContainer = Color(0xFFE3F6EE),
     card = Color.White,
@@ -106,8 +106,8 @@ val DarkExtra = ExtraColors(
     regionCn = Color(0xFFFF6B6F),
     regionUs = Color(0xFF6EA2FF),
     regionIntl = Color(0xFF9AA3B2),
-    xiaomi = Color(0xFFFF8A3D),
-    xiaomiContainer = Color(0xFF2B1B10),
+    featured = Color(0xFFFF8A3D),
+    featuredContainer = Color(0xFF2B1B10),
     update = Color(0xFF34D399),
     updateContainer = Color(0xFF0F2A20),
     card = Color(0xFF171A21),

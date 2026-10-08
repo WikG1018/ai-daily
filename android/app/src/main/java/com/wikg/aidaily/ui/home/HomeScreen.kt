@@ -5,6 +5,18 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.togetherWith
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.Snackbar
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
+import kotlinx.coroutines.delay
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -28,7 +40,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.ui.platform.testTag
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
@@ -87,6 +105,8 @@ fun HomeScreen(
     vm: HomeViewModel,
     onOpenItem: (String) -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenFeatured: () -> Unit = onOpenSettings,
+    onOpenNotifySettings: () -> Unit = onOpenSettings,
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
     val message by vm.messages.collectAsStateWithLifecycle()
@@ -94,7 +114,6 @@ fun HomeScreen(
     val notifier = remember { (context.applicationContext as AiDailyApp).container.notifier }
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    val listState = rememberLazyListState()
     var showPicker by remember { mutableStateOf(false) }
 
     LaunchedEffect(message) {
@@ -128,13 +147,12 @@ fun HomeScreen(
     val effectiveDate = state.selectedDate ?: state.latest
     HomeContent(
         state = state,
-        listState = listState,
         snackbar = snackbar,
         showGuide = showGuide,
         notifGranted = notifGranted,
         onRefresh = { vm.refresh(user = true) },
         onSelectDate = { vm.select(it) },
-        onBackToLatest = { vm.backToLatest(); scope.launch { listState.scrollToItem(0) } },
+        onBackToLatest = { vm.backToLatest() },
         onMarkAllRead = vm::markAllRead,
         onShowPicker = { showPicker = true },
         onOpenItem = onOpenItem,
@@ -142,9 +160,10 @@ fun HomeScreen(
         onGuideAction = {
             if (!notifGranted && Build.VERSION.SDK_INT >= 33 && !state.settings.notifAsked) {
                 vm.setNotifAsked(); permLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            } else onOpenSettings()
+            } else onOpenNotifySettings()
         },
         onGuideDismiss = vm::dismissGuide,
+        onManageFeatured = onOpenFeatured,
     )
 
     if (showPicker && state.index != null) {
@@ -155,7 +174,6 @@ fun HomeScreen(
             onSelect = { date ->
                 showPicker = false
                 if (date == state.latest) vm.backToLatest() else vm.select(date)
-                scope.launch { listState.scrollToItem(0) }
             },
             onDismiss = { showPicker = false },
         )
@@ -167,7 +185,6 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     state: HomeUiState,
-    listState: androidx.compose.foundation.lazy.LazyListState,
     snackbar: SnackbarHostState,
     showGuide: Boolean,
     notifGranted: Boolean,
@@ -180,55 +197,81 @@ fun HomeContent(
     onOpenSettings: () -> Unit,
     onGuideAction: () -> Unit,
     onGuideDismiss: () -> Unit,
+    onManageFeatured: () -> Unit = onOpenSettings,
+    initialPage: Int = 0,
 ) {
     val scope = rememberCoroutineScope()
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val effectiveDate = state.selectedDate ?: state.latest
     val issue: Issue? = state.issue?.takeIf { it.date == effectiveDate }
+    val featured = state.settings.featuredVendors
+    val pages = remember(issue, featured) { issue?.let { buildPages(it, featured) }.orEmpty() }
+    val pagesRef by rememberUpdatedState(pages)
+    val pager = rememberPagerState(initialPage = initialPage) { pagesRef.size }
+    // 每页的滚动位置：按期号区分，换一期从头看
+    val listStates = rememberSaveable(issue?.date, saver = ListStatesSaver) { HashMap() }
+    fun listStateFor(key: String): LazyListState = listStates.getOrPut(key) { LazyListState() }
+
+    // 切换日期 / 修改关注后，尽量停留在同一个栏目（按 key 找回）
+    var currentKey by rememberSaveable { mutableStateOf<String?>(null) }
+    LaunchedEffect(pager) {
+        snapshotFlow { pager.settledPage }.collect { p -> pagesRef.getOrNull(p)?.let { currentKey = it.key } }
+    }
+    LaunchedEffect(pages) {
+        val idx = pages.indexOfFirst { it.key == currentKey }
+        if (idx >= 0 && idx != pager.currentPage) pager.scrollToPage(idx)
+    }
+    val currentList = pages.getOrNull(pager.currentPage)?.let { listStateFor(it.key) }
+    // 「全部已读」的就地确认：图标短暂变成带勾的胶囊，1.6 秒后复原
+    var justMarked by remember { mutableStateOf(false) }
+    LaunchedEffect(justMarked) { if (justMarked) { delay(1600); justMarked = false } }
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.background,
-        snackbarHost = { SnackbarHost(snackbar) },
+        snackbarHost = { SoftSnackbarHost(snackbar) },
         topBar = {
-            TopAppBar(
-                title = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        BrandMark(30.dp)
-                        Spacer(Modifier.width(10.dp))
-                        Column {
-                            Text("AI 日报", style = MaterialTheme.typography.titleLarge)
-                            val sub = when {
-                                issue != null -> issueDateLabel(issue.date) + (if (state.isLatestSelected) " · 最新一期" else " · 往期")
-                                state.refreshing || state.initialLoading -> "正在获取…"
-                                else -> "每天早上 8:30 更新"
+            Column(Modifier.background(MaterialTheme.colorScheme.background)) {
+                TopAppBar(
+                    title = {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            BrandMark(30.dp)
+                            Spacer(Modifier.width(10.dp))
+                            Column {
+                                Text("AI 日报", style = MaterialTheme.typography.titleLarge)
+                                val sub = when {
+                                    issue != null -> issueDateLabel(issue.date) + (if (state.isLatestSelected) " · 最新一期" else " · 往期")
+                                    state.refreshing || state.initialLoading -> "正在获取…"
+                                    else -> "每天早上 8:30 更新"
+                                }
+                                Text(sub, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            Text(sub, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
-                    }
-                },
-                actions = {
-                    if (issue != null) {
-                        IconButton(onClick = onMarkAllRead) { Icon(Icons.Outlined.DoneAll, "全部已读") }
-                    }
-                    IconButton(onClick = onShowPicker, enabled = state.index != null) {
-                        Icon(Icons.Outlined.CalendarMonth, "往期")
-                    }
-                    IconButton(onClick = onOpenSettings) { Icon(Icons.Outlined.Settings, "设置") }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
-                ),
-                scrollBehavior = scrollBehavior,
-            )
+                    },
+                    actions = {
+                        if (issue != null) {
+                            MarkAllReadAction(justMarked) {
+                                onMarkAllRead()
+                                justMarked = true
+                            }
+                        }
+                        IconButton(onClick = onShowPicker, enabled = state.index != null) {
+                            Icon(Icons.Outlined.CalendarMonth, "往期")
+                        }
+                        IconButton(onClick = onOpenSettings) { Icon(Icons.Outlined.Settings, "设置") }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                )
+                if (pages.isNotEmpty()) {
+                    HomeTabs(pages, pager) { i -> scope.launch { pager.animateScrollToPage(i) } }
+                }
+                AnimatedVisibility(state.offline && issue != null) { OfflineNotice() }
+            }
         },
         floatingActionButton = {
-            val showTop by remember { androidx.compose.runtime.derivedStateOf { listState.firstVisibleItemIndex > 6 } }
+            val showTop by remember(currentList) { derivedStateOf { (currentList?.firstVisibleItemIndex ?: 0) > 6 } }
             Column(horizontalAlignment = Alignment.End) {
                 AnimatedVisibility(showTop, enter = scaleIn() + fadeIn(), exit = scaleOut() + fadeOut()) {
                     androidx.compose.material3.SmallFloatingActionButton(
-                        onClick = { scope.launch { listState.animateScrollToItem(0) } },
+                        onClick = { scope.launch { currentList?.animateScrollToItem(0) } },
                         containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                     ) { Icon(Icons.Rounded.VerticalAlignTop, "回到顶部") }
                 }
@@ -251,19 +294,38 @@ fun HomeContent(
             modifier = Modifier.fillMaxSize().padding(top = padding.calculateTopPadding()),
         ) {
             when {
-                issue != null -> {
-                    IssueList(
-                        issue = issue,
-                        state = state,
-                        listState = listState,
-                        showGuide = showGuide,
-                        notifGranted = notifGranted,
-                        onGuideAction = onGuideAction,
-                        onGuideDismiss = onGuideDismiss,
-                        onSelectDate = onSelectDate,
-                        onShowPicker = onShowPicker,
-                        onOpenItem = onOpenItem,
-                    )
+                issue != null && pages.isNotEmpty() -> {
+                    HorizontalPager(
+                        state = pager,
+                        key = { i -> pagesRef.getOrNull(i)?.key ?: "p$i" },
+                        beyondViewportPageCount = 1,
+                        modifier = Modifier.fillMaxSize().testTag("home_pager"),
+                    ) { i ->
+                        when (val p = pages.getOrNull(i)) {
+                            is HomePage.Today -> TodayPage(
+                                issue = issue,
+                                pages = pages,
+                                state = state,
+                                listState = listStateFor(p.key),
+                                showGuide = showGuide,
+                                notifGranted = notifGranted,
+                                onGuideAction = onGuideAction,
+                                onGuideDismiss = onGuideDismiss,
+                                onSelectDate = onSelectDate,
+                                onShowPicker = onShowPicker,
+                                onJump = { target -> scope.launch { pager.animateScrollToPage(target) } },
+                                onManageFeatured = onManageFeatured,
+                            )
+                            null -> Box(Modifier.fillMaxSize())
+                            else -> ColumnPage(
+                                page = p,
+                                readIds = state.readIds,
+                                listState = listStateFor(p.key),
+                                onOpenItem = onOpenItem,
+                                onManageFeatured = onManageFeatured,
+                            )
+                        }
+                    }
                 }
                 state.fatalError != null && !state.issueLoading -> MessageState(
                     title = "加载失败",
@@ -283,7 +345,60 @@ fun HomeContent(
             }
         }
     }
+}
 
+/** 顶栏「全部已读」：点按后就地变成「✓ 已读」胶囊（勾号弹入），不打断阅读、深浅色都协调。 */
+@Composable
+private fun MarkAllReadAction(justMarked: Boolean, onClick: () -> Unit) {
+    AnimatedContent(
+        targetState = justMarked,
+        transitionSpec = {
+            (fadeIn(tween(180)) + scaleIn(tween(220), initialScale = 0.8f)) togetherWith
+                (fadeOut(tween(120)) + scaleOut(tween(150), targetScale = 0.9f)) using SizeTransform(clip = false)
+        },
+        contentAlignment = Alignment.Center,
+        label = "markAllRead",
+    ) { done ->
+        if (done) {
+            val check = remember { Animatable(0f) }
+            LaunchedEffect(Unit) { check.animateTo(1f, spring(dampingRatio = 0.45f, stiffness = 500f)) }
+            Row(
+                Modifier
+                    .padding(horizontal = 4.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(AppTheme.extra.updateContainer)
+                    .padding(start = 8.dp, end = 12.dp, top = 6.dp, bottom = 6.dp)
+                    .semantics { liveRegion = LiveRegionMode.Polite }
+                    .testTag("marked_all_read"),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    Icons.Rounded.Check, null,
+                    Modifier.size(18.dp).graphicsLayer { scaleX = check.value; scaleY = check.value },
+                    tint = AppTheme.extra.update,
+                )
+                Spacer(Modifier.width(4.dp))
+                Text("已读", style = MaterialTheme.typography.labelLarge, color = AppTheme.extra.update)
+            }
+        } else {
+            IconButton(onClick = onClick) { Icon(Icons.Outlined.DoneAll, "全部已读") }
+        }
+    }
+}
+
+/** 主题化的轻量 Snackbar：低饱和容器色 + 圆角，深色模式下不刺眼。 */
+@Composable
+private fun SoftSnackbarHost(state: SnackbarHostState) {
+    SnackbarHost(state) { data ->
+        Snackbar(
+            snackbarData = data,
+            modifier = Modifier.padding(horizontal = 12.dp),
+            shape = RoundedCornerShape(16.dp),
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+            actionColor = MaterialTheme.colorScheme.primary,
+        )
+    }
 }
 
 @Composable

@@ -2,7 +2,14 @@ package com.wikg.aidaily
 
 import android.content.Intent
 import android.os.Bundle
+import android.graphics.drawable.ColorDrawable
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.graphics.toArgb
+import com.wikg.aidaily.ui.theme.DarkColors
+import com.wikg.aidaily.ui.theme.LightColors
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -47,8 +54,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) deepLinks.value = DeepLink.parse(intent)
         val prefs = (application as AiDailyApp).container.prefs
+        // 首帧就用用户选的主题（DataStore 很小，读一次只要几毫秒），避免「浅色一闪再变深色」
+        val initial = runBlocking { runCatching { withTimeoutOrNull(300) { prefs.settings.first() } }.getOrNull() } ?: Settings()
         setContent {
-            val settings by prefs.settings.collectAsStateWithLifecycle(initialValue = Settings())
+            val settings by prefs.settings.collectAsStateWithLifecycle(initialValue = initial)
             val dark = when (settings.themeMode) {
                 ThemeMode.SYSTEM -> isSystemInDarkTheme()
                 ThemeMode.LIGHT -> false
@@ -58,6 +67,8 @@ class MainActivity : ComponentActivity() {
                 val style = if (dark) SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
                 else SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT)
                 enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
+                // 窗口底色跟随 app 内主题（「深色」不跟随系统时，资源里的窗口色仍是浅色）
+                window.setBackgroundDrawable(ColorDrawable(if (dark) DarkColors.background.toArgb() else LightColors.background.toArgb()))
                 onDispose { }
             }
             AiDailyTheme(settings.themeMode) {

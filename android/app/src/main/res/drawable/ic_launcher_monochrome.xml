@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 「日」字标：白色圆角字框 = 一页日报，中间一横换成晨光琥珀 = 地平线上的日出。
-     字形 30×40dp，完整落在自适应图标 66dp 安全区内。 -->
+<!-- 主题图标（Android 13+ 单色）：同一字形，统一颜色。 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
     <path android:strokeColor="#FFFFFF" android:strokeWidth="6.5" android:strokeLineJoin="round"
         android:pathData="M43.5,34.5h21a4,4 0,0 1,4 4v31a4,4 0,0 1,-4 4h-21a4,4 0,0 1,-4 -4v-31a4,4 0,0 1,4 -4z" />
-    <path android:strokeColor="#FFB547" android:strokeWidth="6.5"
+    <path android:strokeColor="#FFFFFF" android:strokeWidth="6.5"
         android:pathData="M42.75,54h22.5" />
 </vector>

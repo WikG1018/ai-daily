@@ -10,6 +10,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import com.wikg.aidaily.data.model.normalizeFeatured
 
 private val Context.dataStore by preferencesDataStore("ai_daily_prefs")
 
@@ -24,7 +25,11 @@ data class Settings(
     val lastCheckResult: String? = null,
     val lastMirror: String? = null,
     val notifAsked: Boolean = false,
+    /** 首页「关注」专栏的厂商，有序；默认只有小米（与 v1.0 体验一致）。 */
+    val featuredVendors: List<String> = DEFAULT_FEATURED,
 )
+
+val DEFAULT_FEATURED = listOf("小米")
 
 class Prefs(private val context: Context) {
     private object K {
@@ -38,6 +43,8 @@ class Prefs(private val context: Context) {
         val lastCheckResult = stringPreferencesKey("last_check_result")
         val lastMirror = stringPreferencesKey("last_mirror")
         val notifAsked = booleanPreferencesKey("notif_asked")
+        /** 有序列表，用换行分隔（字符串集合不保证顺序，而专栏需要可排序）。键不存在 = 默认值；空串 = 用户清空了。 */
+        val featured = stringPreferencesKey("featured_vendors")
     }
 
     private val store get() = context.dataStore
@@ -54,6 +61,8 @@ class Prefs(private val context: Context) {
             lastCheckResult = p[K.lastCheckResult],
             lastMirror = p[K.lastMirror],
             notifAsked = p[K.notifAsked] ?: false,
+            featuredVendors = p[K.featured]?.let { raw -> raw.split('\n').map { it.trim() }.filter { it.isNotEmpty() } }
+                ?: DEFAULT_FEATURED,
         )
     }
 
@@ -85,6 +94,10 @@ class Prefs(private val context: Context) {
             }
         }
         return advanced to before
+    }
+
+    suspend fun setFeaturedVendors(list: List<String>) = store.edit {
+        it[K.featured] = normalizeFeatured(list).joinToString("\n")
     }
 
     suspend fun setNotifAsked() = store.edit { it[K.notifAsked] = true }

@@ -88,4 +88,7 @@ class DailyRepository(
     }
 
     fun cachedDates(): Set<String> = cache.cachedDates()
+
+    /** 只读本地（内存 / 磁盘），不联网。 */
+    suspend fun cachedIssue(date: String): Issue? = memory[date] ?: cache.readIssue(date)?.also { memory[date] = it }
 }

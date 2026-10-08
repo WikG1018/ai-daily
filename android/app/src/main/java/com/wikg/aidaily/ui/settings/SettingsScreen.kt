@@ -1,0 +1,383 @@
+package com.wikg.aidaily.ui.settings
+
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.wikg.aidaily.AiDailyApp
+import com.wikg.aidaily.BuildConfig
+import com.wikg.aidaily.data.local.Settings
+import com.wikg.aidaily.data.local.ThemeMode
+import com.wikg.aidaily.ui.components.BrandMark
+import com.wikg.aidaily.ui.components.CardRadius
+import com.wikg.aidaily.ui.theme.AppFonts
+import com.wikg.aidaily.ui.theme.AppTheme
+import com.wikg.aidaily.util.BackgroundGuide
+import com.wikg.aidaily.util.epochToBeijingLabel
+import com.wikg.aidaily.util.openUrl
+import com.wikg.aidaily.work.WorkScheduler
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SettingsScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
+    val c = remember { (context.applicationContext as AiDailyApp).container }
+    val settings by c.prefs.settings.collectAsStateWithLifecycle(initialValue = Settings())
+    val scope = rememberCoroutineScope()
+
+    var notifGranted by remember { mutableStateOf(c.notifier.canNotify()) }
+    var batteryOk by remember { mutableStateOf(BackgroundGuide.isIgnoringBatteryOptimizations(context)) }
+    LifecycleResumeEffect(Unit) {
+        notifGranted = c.notifier.canNotify()
+        batteryOk = BackgroundGuide.isIgnoringBatteryOptimizations(context)
+        onPauseOrDispose { }
+    }
+    val permLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
+        notifGranted = c.notifier.canNotify()
+        if (!notifGranted) BackgroundGuide.openNotificationSettings(context)
+    }
+    val requestNotif = {
+        if (Build.VERSION.SDK_INT >= 33 && !settings.notifAsked) {
+            scope.launch { c.prefs.setNotifAsked() }
+            permLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else BackgroundGuide.openNotificationSettings(context)
+    }
+
+    SettingsContent(
+        settings = settings,
+        notifGranted = notifGranted,
+        batteryOk = batteryOk,
+        isXiaomi = BackgroundGuide.isXiaomi,
+        miSans = AppFonts.isMiSans,
+        actions = SettingsActions(
+            onBack = onBack,
+            setNotify = { on -> scope.launch { c.prefs.setNotify(on) } },
+            notifAction = { if (notifGranted) BackgroundGuide.openNotificationSettings(context) else requestNotif() },
+            checkNow = {
+                WorkScheduler.runNow(context)
+                android.widget.Toast.makeText(context, "已开始检查，有新一期会发通知", android.widget.Toast.LENGTH_SHORT).show()
+            },
+            autostart = {
+                BackgroundGuide.openAutostart(context)
+                scope.launch { c.prefs.setAutostartConfirmed(true) }
+            },
+            batterySaver = { BackgroundGuide.openBatterySaver(context) },
+            ignoreBattery = { BackgroundGuide.requestIgnoreBatteryOptimizations(context) },
+            notificationSettings = { BackgroundGuide.openNotificationSettings(context) },
+            setTheme = { m -> scope.launch { c.prefs.setTheme(m) } },
+            openUrl = { url -> openUrl(context, url) },
+        ),
+    )
+}
+
+class SettingsActions(
+    val onBack: () -> Unit = {},
+    val setNotify: (Boolean) -> Unit = {},
+    val notifAction: () -> Unit = {},
+    val checkNow: () -> Unit = {},
+    val autostart: () -> Unit = {},
+    val batterySaver: () -> Unit = {},
+    val ignoreBattery: () -> Unit = {},
+    val notificationSettings: () -> Unit = {},
+    val setTheme: (ThemeMode) -> Unit = {},
+    val openUrl: (String) -> Unit = {},
+)
+
+/** 无状态设置页（便于截图测试）。 */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SettingsContent(
+    settings: Settings,
+    notifGranted: Boolean,
+    batteryOk: Boolean,
+    isXiaomi: Boolean,
+    miSans: Boolean,
+    actions: SettingsActions,
+) {
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            TopAppBar(
+                title = { Text("设置与提醒") },
+                navigationIcon = { IconButton(onClick = actions.onBack) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, "返回") } },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+            )
+        },
+    ) { padding ->
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(top = padding.calculateTopPadding())
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
+        ) {
+            // —— 每日提醒 ——
+            GroupTitle("每日提醒")
+            Card {
+                SwitchRow(
+                    "新一期推送",
+                    "每天北京时间 8:35 起检查；没发布就每 20 分钟重试到中午",
+                    settings.notifyEnabled,
+                ) { on -> actions.setNotify(on) }
+                Divider()
+                StatusRow(
+                    "系统通知权限",
+                    if (notifGranted) "已开启" else "未开启，收不到推送",
+                    ok = notifGranted,
+                    action = if (notifGranted) "通知设置" else "去开启",
+                    onAction = actions.notifAction,
+                )
+                Divider()
+                StatusRow(
+                    "上次检查",
+                    epochToBeijingLabel(settings.lastCheckAt) + (settings.lastCheckResult?.let { " · $it" } ?: "") +
+                        (settings.lastMirror?.let { " · 数据源 $it" } ?: ""),
+                    ok = null,
+                    action = "立即检查",
+                    onAction = actions.checkNow,
+                )
+            }
+
+            // —— 后台保活 ——
+            GroupTitle(if (isXiaomi) "小米 / 澎湃OS 后台设置" else "后台运行设置")
+            Card {
+                Text(
+                    "AI 日报不使用任何推送服务，靠系统定时任务在后台检查新一期。小米等国产系统默认会限制后台，" +
+                        "请按下面几步放行，否则可能要打开 app 才能看到新一期。",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(16.dp),
+                )
+                Divider()
+                StepRow(
+                    1, "允许自启动",
+                    "手机管家 → 应用管理 → 权限 → 自启动管理 → 打开「AI 日报」",
+                    done = if (isXiaomi) settings.autostartConfirmed else null,
+                    action = "去设置",
+                    onAction = actions.autostart,
+                )
+                Divider()
+                StepRow(
+                    2, "省电策略设为「无限制」",
+                    "设置 → 应用设置 → 应用管理 → AI 日报 → 省电策略 → 无限制",
+                    done = null,
+                    action = "去设置",
+                    onAction = actions.batterySaver,
+                )
+                Divider()
+                StepRow(
+                    3, "忽略电池优化",
+                    if (batteryOk) "已加入系统电池优化白名单" else "在系统弹窗中选择「允许」",
+                    done = batteryOk,
+                    action = if (batteryOk) null else "允许",
+                    onAction = actions.ignoreBattery,
+                )
+                Divider()
+                StepRow(
+                    4, "锁定最近任务（可选）",
+                    "打开多任务界面，长按 AI 日报卡片（或下拉）点「锁定」，清理后台时不会被杀",
+                    done = null, action = null, onAction = {},
+                )
+                Divider()
+                StepRow(
+                    5, "允许通知横幅与锁屏显示（可选）",
+                    "通知管理 → AI 日报 → 每日简报，打开悬浮通知和锁屏通知",
+                    done = null, action = "去设置",
+                    onAction = actions.notificationSettings,
+                )
+            }
+
+            // —— 外观 ——
+            GroupTitle("外观")
+            Card {
+                Column(Modifier.padding(16.dp)) {
+                    Text("深色模式", style = MaterialTheme.typography.titleSmall)
+                    Spacer(Modifier.height(10.dp))
+                    val modes = listOf(ThemeMode.SYSTEM to "跟随系统", ThemeMode.LIGHT to "浅色", ThemeMode.DARK to "深色")
+                    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                        modes.forEachIndexed { i, (m, label) ->
+                            SegmentedButton(
+                                selected = settings.themeMode == m,
+                                onClick = { actions.setTheme(m) },
+                                shape = SegmentedButtonDefaults.itemShape(i, modes.size),
+                            ) { Text(label) }
+                        }
+                    }
+                }
+            }
+
+            // —— 关于 ——
+            GroupTitle("关于")
+            Card {
+                Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                    BrandMark(44.dp)
+                    Spacer(Modifier.width(14.dp))
+                    Column {
+                        Text("AI 日报", style = MaterialTheme.typography.titleMedium)
+                        Text("版本 ${BuildConfig.VERSION_NAME}（${BuildConfig.VERSION_CODE}）· MIT 开源", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                Divider()
+                LinkRow("源代码与数据", "github.com/WikG1018/ai-daily") {
+                    actions.openUrl("https://github.com/WikG1018/ai-daily")
+                }
+                Divider()
+                LinkRow("数据源", "GitHub Raw（主）· jsDelivr（镜像，8 秒超时切换）") {}
+                Divider()
+                LinkRow(
+                    "界面字体",
+                    if (miSans) "本应用使用 MiSans 字体（© 小米科技），查看许可协议" else "系统默认字体（本次构建未打包 MiSans）",
+                ) { actions.openUrl("https://hyperos.mi.com/font/zh/download") }
+            }
+            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
+        }
+    }
+}
+
+@Composable
+private fun GroupTitle(text: String) {
+    Text(
+        text,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(start = 8.dp, top = 20.dp, bottom = 8.dp),
+    )
+}
+
+@Composable
+private fun Card(content: @Composable ColumnScope.() -> Unit) {
+    Column(
+        Modifier.fillMaxWidth().clip(RoundedCornerShape(CardRadius)).background(AppTheme.extra.card),
+        content = content,
+    )
+}
+
+@Composable
+private fun Divider() = HorizontalDivider(Modifier.padding(horizontal = 16.dp), thickness = 0.6.dp, color = MaterialTheme.colorScheme.outlineVariant)
+
+@Composable
+private fun SwitchRow(title: String, subtitle: String, checked: Boolean, onChange: (Boolean) -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().clickable { onChange(!checked) }.padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Spacer(Modifier.width(12.dp))
+        Switch(checked = checked, onCheckedChange = onChange)
+    }
+}
+
+@Composable
+private fun StatusRow(title: String, subtitle: String, ok: Boolean?, action: String?, onAction: () -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            Text(
+                subtitle,
+                style = MaterialTheme.typography.bodySmall,
+                color = when (ok) {
+                    true -> AppTheme.extra.update
+                    false -> MaterialTheme.colorScheme.error
+                    null -> MaterialTheme.colorScheme.onSurfaceVariant
+                },
+            )
+        }
+        if (action != null) {
+            Spacer(Modifier.width(12.dp))
+            FilledTonalButton(onClick = onAction) { Text(action) }
+        }
+    }
+}
+
+@Composable
+private fun StepRow(n: Int, title: String, subtitle: String, done: Boolean?, action: String?, onAction: () -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp), verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            Modifier.size(26.dp).clip(CircleShape)
+                .background(if (done == true) AppTheme.extra.update else MaterialTheme.colorScheme.primaryContainer),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (done == true) Icon(Icons.Rounded.Check, null, Modifier.size(16.dp), tint = Color.White)
+            else Text("$n", style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold), color = MaterialTheme.colorScheme.primary)
+        }
+        Spacer(Modifier.width(12.dp))
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        if (action != null) {
+            Spacer(Modifier.width(12.dp))
+            FilledTonalButton(onClick = onAction) { Text(action) }
+        }
+    }
+}
+
+@Composable
+private fun LinkRow(title: String, subtitle: String, onClick: () -> Unit) {
+    Row(Modifier.fillMaxWidth().clickable(onClick = onClick).padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Icon(Icons.Rounded.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
+    }
+}

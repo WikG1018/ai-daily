@@ -29,3 +29,8 @@ android/**/build/
 android/.gradle/
 android/**/*.apk
 android/**/*.aab
+# 安卓截图需要入库
+!android/screenshots/*.png
+# MiSans 字体不入库（许可不允许单独再分发，构建时下载）
+android/**/*.otf
+android/**/*.ttf

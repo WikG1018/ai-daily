@@ -6,7 +6,7 @@
 - 跨天去重：已报过的事件只有出现实质新进展才以“更新”标出
 - 数据开放：每期都是一份结构化 JSON，任何客户端都可以直接读取
 
-本仓库包含**数据**和**安卓客户端**（开发中）两部分。
+本仓库包含**数据**和**安卓客户端**两部分。安卓 app「AI 日报」见 [android/](android/README.md)，安装包在 [Releases](https://github.com/WikG1018/ai-daily/releases)。
 
 ## 目录结构
 
@@ -20,7 +20,7 @@ ai-daily/
 ├── tools/
 │   ├── publish.py          # 发布脚本：校验 → 补 id → 写入 data/ → 重建索引 → 提交推送 → 刷新 CDN
 │   └── build_brief.py      # 把一期 JSON 渲染成单文件 HTML（响应式、暗色模式）
-├── android/                # 安卓客户端（仿 IT 之家，开发中）
+├── android/                # 安卓客户端（Kotlin + Jetpack Compose）
 ├── LICENSE                 # MIT
 └── README.md
 ```

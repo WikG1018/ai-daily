@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AI 日报</string>
+    <string name="channel_daily">每日简报</string>
+    <string name="channel_daily_desc">新一期 AI 日报发布时提醒</string>
+</resources>

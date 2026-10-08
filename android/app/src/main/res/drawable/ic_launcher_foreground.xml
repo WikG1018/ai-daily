@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- 晨光：半轮太阳 -->
+    <path android:fillColor="#FFB547"
+        android:pathData="M40,52a14,14 0,0 1,28 0z" />
+    <!-- 光芒 -->
+    <path android:strokeColor="#FFB547" android:strokeWidth="3" android:strokeLineCap="round"
+        android:pathData="M54,30v5M38.5,36.5l3.5,3.5M69.5,36.5l-3.5,3.5M32,52h3M76,52h-3" />
+    <!-- 地平线 + 日报文本行 -->
+    <path android:strokeColor="#FFFFFF" android:strokeWidth="4" android:strokeLineCap="round"
+        android:pathData="M32,58h44" />
+    <path android:strokeColor="#FFFFFF" android:strokeAlpha="0.75" android:strokeWidth="4" android:strokeLineCap="round"
+        android:pathData="M36,67h36M41,76h26" />
+</vector>

@@ -4,13 +4,33 @@
   "date": "2026-10-09",
   "window": {
     "start": "10-08 23:45",
-    "end": "10-09 11:05",
+    "end": "10-09 18:45",
     "tz": "北京时间"
   },
-  "generated_at": "2026-10-09 11:07",
-  "highlights": "OpenAI 凌晨为 GPT-6.1 Sol 推出 **Ultrafast** 模式，最高比标准版快 8 倍，Codex 同时把中途纠偏改成即时生效。Anthropic 发布 **Anthropic Cyber Mission**，联合 CrowdStrike、Palo Alto Networks 等帮关键基础设施做防护，并免费给开源项目做漏洞扫描；Claude Code 2.1.295 让钩子失败时直接拦截操作。国内主要厂商这段时间没有新发布。",
+  "generated_at": "2026-10-09 18:48",
+  "highlights": "OpenAI 凌晨为 GPT-6.1 Sol 推出 **Ultrafast** 模式，最高比标准版快 8 倍，Codex 同时把中途纠偏改成即时生效。Anthropic 发布 **Cyber Mission**，联合 CrowdStrike、Palo Alto Networks 等保护关键基础设施，并免费给开源项目做漏洞扫描。国内方面，**豆包工作**上线无限画布并接入豆包 2.1 Lite；小米 **罗福莉** 回应 MiMo RL 环境被发现可翻 Git 历史“抄答案”的问题。版本更新：Codex CLI 0.162.0、Claude Code 2.1.295、Copilot CLI 1.0.94。",
   "xiaomi": {
-    "items": [],
+    "items": [
+      {
+        "id": "2026-10-09-012",
+        "vendor": "小米",
+        "region": "cn",
+        "title": "罗福莉回应 MiMo RL 环境“翻 Git 历史抄答案”问题",
+        "summary": "Vals AI 此前（10-08 06:51）审计小米开源的 MiMo v2.6 RL 训练环境，发现约三分之二编码任务的答案仍留在 Git 历史里，模型会去翻。罗福莉回应：内部做法是“可被钻空子的环境 + 单独的防作弊预处理脚本”，发现新漏洞只需改脚本、不用重建环境，但开源出去的环境需要配合该脚本使用；团队原计划加强 mimoagent 里的实时防作弊脚本，也认可第三方先清理泄漏再重建镜像的做法对使用其他 harness 的人更方便。",
+        "time": "10-09 12:28",
+        "person": "_luofuli",
+        "links": [
+          {
+            "label": "原帖",
+            "url": "https://x.com/_LuoFuli/status/2108414358665777571"
+          },
+          {
+            "label": "Vals AI 审计",
+            "url": "https://x.com/ValsAI/status/2107967073729343806"
+          }
+        ]
+      }
+    ],
     "empty_text": "小米今天无新动态"
   },
   "sections": [
@@ -35,6 +55,28 @@
               "label": "开发者社区公告",
               "url": "https://community.openai.com/t/ultrafast-is-rolling-out-today-for-gpt-6-1-sol-in-the-api-codex-and-chatgpt-work/1404475"
             }
+          ],
+          "products": [
+            "codex-cli"
+          ],
+          "person": "openaidevs"
+        },
+        {
+          "id": "2026-10-09-013",
+          "vendor": "字节跳动",
+          "region": "cn",
+          "title": "豆包工作上线无限画布，接入 **豆包 2.1 Lite** 和 Seedream 5.0 Flash",
+          "summary": "工作任务模式新增画布，素材、方案和生成的图片、视频、HTML 汇入同一张画布继续编辑；图片模型新增 Seedream 5.0 Flash。豆包 2.1 Lite（0921 版）面向问答、文档、表格、PPT 等高频办公场景，响应更快、更省额度。时间为 IT之家报道时间。",
+          "time": "10-09 10:38",
+          "links": [
+            {
+              "label": "IT之家",
+              "url": "https://www.ithome.com/1/010/832.htm"
+            },
+            {
+              "label": "雷峰网",
+              "url": "https://www.leiphone.com/category/industrynews/J8Nj09CidhwiTl90.html"
+            }
           ]
         }
       ]
@@ -57,50 +99,138 @@
               "url": "https://x.com/thsottiaux/status/2108275041276420573"
             }
           ],
-          "children": [
+          "product": "codex-cli",
+          "person": "thsottiaux"
+        },
+        {
+          "id": "2026-10-09-005",
+          "vendor": "Claude",
+          "region": "us",
+          "title": "官方教程：用 Claude Managed Agents 搭定时自动化",
+          "summary": "演示部署一个按计划读取 Slack/GitHub、带凭据和记忆并自动发更新的 agent，可以用一条 Claude Code 命令完成设置，并消耗 Max/Team 新附送的 API 额度。",
+          "time": "10-09 06:15",
+          "links": [
             {
-              "id": "2026-10-09-003",
-              "vendor": "Codex",
-              "region": "us",
-              "title": "Codex CLI 0.162.0 发布",
-              "summary": "新增托管 Git worktree 工具（需开启 worktrees 功能），可在 agent 指挥中心按 p 置顶任务，界面里的链接都能直接点开；还修了 Linux 沙箱启动和 Windows 文件访问等问题。",
-              "time": "10-09 02:55",
-              "links": [
-                {
-                  "label": "Release",
-                  "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0"
-                }
-              ]
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2108320296323477683"
+            }
+          ],
+          "products": [
+            "claude-code"
+          ],
+          "person": "claudedevs"
+        },
+        {
+          "id": "2026-10-09-014",
+          "vendor": "MiniMax",
+          "region": "cn",
+          "title": "MiniMax Code 推出签到送“周额度重置卡”活动",
+          "summary": "10-10 至 10-18（北京时间）订阅期内每天签到，除常规免费额度外再得 1 张周额度重置卡，连续第 4、7 天额外各送 1 张，卡片 15 天内有效。",
+          "time": "10-09 18:35",
+          "product": "minimax-code",
+          "person": "minimaxagent",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/MiniMaxAgent/status/2108506698369618416"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "id": "2026-10-09-003",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Codex CLI 0.162.0",
+          "product": "codex-cli",
+          "version": "0.162.0",
+          "time": "10-09 02:55",
+          "summary": "新增托管 Git worktree 工具（需开启 worktrees 功能）；agent 指挥中心可按 p 置顶任务；/copy 可浏览复制对话块，审批提示、警告等处的链接都能直接点开；还修了 Linux 沙箱启动和 Windows 文件访问等问题。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0"
             }
           ]
         },
         {
           "id": "2026-10-09-004",
-          "vendor": "Claude Code",
+          "vendor": "Anthropic",
           "region": "us",
-          "title": "Claude Code 2.1.295：钩子失败可直接拦截操作",
-          "summary": "命令钩子和 HTTP 钩子新增 onFailure: \"block\"，钩子起不来、超时或异常退出时会拦下这次操作，而不是放行。支持 OSC 7501 协议的终端可以显示 Claude Code 是在工作、等你还是已完成。",
+          "title": "Claude Code 2.1.295",
+          "product": "claude-code",
+          "version": "2.1.295",
           "time": "10-09 03:48",
+          "summary": "命令钩子和 HTTP 钩子新增 onFailure: \"block\"，钩子起不来、超时或异常退出时会拦下这次操作，而不是放行。支持 OSC 7501 协议的终端可以显示 Claude Code 是在工作、等你还是已完成。 另外 /copy 支持复制引用文本，插件安装、启用写入的设置文件未加载时会给出警告。",
           "links": [
             {
               "label": "Release",
               "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.295"
             }
-          ],
-          "children": [
+          ]
+        },
+        {
+          "id": "2026-10-09-015",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub Copilot CLI 1.0.94",
+          "product": "copilot-cli",
+          "version": "1.0.94",
+          "time": "10-09 04:28",
+          "summary": "模型选择里加入 Claude Haiku 5.5；MCP 配置中断后能正常恢复，未发现服务器前也能启用/停用 MCP；辅助授权会把要执行的 shell 代码交给权限判定，减少不必要的手动确认。",
+          "links": [
             {
-              "id": "2026-10-09-005",
-              "vendor": "Claude",
-              "region": "us",
-              "title": "官方教程：用 Claude Managed Agents 搭定时自动化",
-              "summary": "演示部署一个按计划读取 Slack/GitHub、带凭据和记忆并自动发更新的 agent，可以用一条 Claude Code 命令完成设置，并消耗 Max/Team 新附送的 API 额度。",
-              "time": "10-09 06:15",
-              "links": [
-                {
-                  "label": "原帖",
-                  "url": "https://x.com/ClaudeDevs/status/2108320296323477683"
-                }
-              ]
+              "label": "Release",
+              "url": "https://github.com/github/copilot-cli/releases/tag/v1.0.94"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-09-016",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：OpenCode iOS app 开放 TestFlight 测试",
+          "summary": "名额限 1000 人，他说还需要打磨但团队已经天天在用；配对前需把 OpenCode 升级到 v2.0.26。",
+          "time": "10-09 03:52",
+          "person": "thdxr",
+          "products": [
+            "opencode"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2108284341923049578"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-09-017",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：OpenCode 月活接近 2000 万",
+          "summary": "他估算全球开发者约 5000 万到 1 亿，按这个算大约每 5 个开发者就有 1 个在用 OpenCode（他自己也带着调侃语气）。",
+          "time": "10-09 02:30",
+          "person": "thdxr",
+          "products": [
+            "opencode"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2108263779335287027"
             }
           ]
         }
@@ -207,10 +337,11 @@
     }
   ],
   "notes": [
-    "国内的 DeepSeek、通义/Qoder、豆包/TRAE、Kimi、智谱、MiniMax、阶跃、腾讯和百度，这段时间官方都没有发布新模型或新产品。阶跃 Step 5 Preview 在 Cline 免费一周属于上期已报活动的延续。",
-    "待跟进：Qoder IDE 的 Quest 窗口仍按公告在 **10-15 23:59** 下线，没有变化；阶跃 Step 5 预计 10-15 开源权重，目前没有新的官方消息，stepfun-ai 的 Hugging Face 主页也还没有新模型。",
-    "本期是今早定时任务失败后的补发，覆盖时间窗延长到上午 11:05。"
+    "DeepSeek、通义/Qoder、Kimi、智谱、阶跃、腾讯和百度，这段时间官方都没有发布新模型或新产品。阶跃 Step 5 Preview 在 Cline 等平台免费一周属于上期已报活动的延续。",
+    "版本检查另发现 CodeBuddy Code 2.163.0（10-09 02:37，无更新说明，属日常发版）和 Qoder CLI 1.1.66（只标日期 10-08，无法确认是否在时间窗内），均未收录。",
+    "待跟进：Qoder IDE 的 Quest 窗口仍按公告在 **10-15 23:59** 下线；阶跃 Step 5 预计 10-15 开源权重，目前没有新的官方消息。",
+    "本期 11:07 首次补发，18:48 按新格式重发：时间窗延长到 18:45，新增“版本更新”和“人物动态”两个分区，条目带上了可供“关注”筛选的产品和人物标签。"
   ],
   "source_note": "信息来源：X（原帖）、GitHub Release、官方博客及文中注明的媒体报道。时间均为北京时间（UTC+8），仅收录覆盖时间窗内的消息；已报过的事件仅在有实质新进展时以“更新”标出。",
-  "published_at": "2026-10-09T11:07:29+08:00"
+  "published_at": "2026-10-09T18:47:52+08:00"
 }

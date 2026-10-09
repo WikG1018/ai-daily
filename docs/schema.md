@@ -91,7 +91,7 @@
 
 | 字段 | 类型 | 必有 | 说明 |
 |---|---|---|---|
-| `id` | string | 是 | 栏目标识，小写字母/数字/`-`/`_`。目前固定有 `models`（模型）、`harness`（编码 / Agent 框架）、`other`（其他动态），以后可能增加 |
+| `id` | string | 是 | 栏目标识，小写字母/数字/`-`/`_`。常用的有 `models`（模型）、`harness`（编码 / Agent 框架）、`releases`（版本更新）、`people`（人物动态）、`other`（其他动态）。客户端应按通用栏目渲染**任何** id，不认识的 id 也照常显示 |
 | `title` | string | 是 | 栏目名，如 `模型` |
 | `icon` | string | 否 | 一个 emoji，如 `🧠` |
 | `items` | Item[] | 是 | 新闻条目，可为空数组 |
@@ -157,6 +157,13 @@ id 编号顺序：小米专栏 → 各栏目，深度优先（父条目在前，
   "published_at": "2026-10-09T01:30:00+08:00"
 }
 ```
+
+### 栏目约定（2026-10-09 起）
+
+- 推荐顺序：`models` → `harness` → `releases` → `people` → `other`。没有内容的栏目可以省略，也可以给空 `items` 加 `empty_text`。
+- `releases`（📦 版本更新）：各家 harness 的新版本，来自 `tools/check_versions.py`。`vendor` 填厂商，`title` 形如 `Codex CLI 0.162.0`，`links` 放 release 页。
+- `people`（🗣️ 人物动态）：负责人和核心成员的 X 帖子，名单见 `docs/watchlist.md`。`vendor` 填公司，`links` 放原帖。
+- 这两个栏目的条目和其他栏目一样计入 `item_count`，id 也按同样的规则连续编号。
 
 ## 4. 文本约定
 

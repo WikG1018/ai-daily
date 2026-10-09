@@ -1,0 +1,336 @@
+{
+ "_comment": "harness 版本源清单（check_versions.py 读取）。每个产品的 sources 按顺序尝试，第一个成功的为准；说明见 docs/watchlist.md",
+ "products": [
+  {
+   "id": "codex-cli",
+   "name": "Codex CLI",
+   "vendor": "OpenAI",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "openai/codex",
+     "tag_regex": "^rust-v\\d+\\.\\d+\\.\\d+$"
+    },
+    {
+     "type": "npm",
+     "package": "@openai/codex"
+    }
+   ]
+  },
+  {
+   "id": "claude-code",
+   "name": "Claude Code",
+   "vendor": "Anthropic",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "anthropics/claude-code"
+    },
+    {
+     "type": "npm",
+     "package": "@anthropic-ai/claude-code"
+    }
+   ]
+  },
+  {
+   "id": "cursor",
+   "name": "Cursor",
+   "vendor": "Cursor",
+   "region": "us",
+   "sources": [
+    {
+     "type": "rss",
+     "url": "https://cursor.com/changelog/rss.xml",
+     "date_only": true
+    }
+   ]
+  },
+  {
+   "id": "gemini-cli",
+   "name": "Gemini CLI",
+   "vendor": "Google",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "google-gemini/gemini-cli",
+     "tag_regex": "^v\\d+\\.\\d+\\.\\d+$"
+    },
+    {
+     "type": "npm",
+     "package": "@google/gemini-cli"
+    }
+   ]
+  },
+  {
+   "id": "copilot-cli",
+   "name": "GitHub Copilot CLI",
+   "vendor": "GitHub",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "github/copilot-cli"
+    },
+    {
+     "type": "npm",
+     "package": "@github/copilot"
+    }
+   ]
+  },
+  {
+   "id": "vscode",
+   "name": "VS Code（含 Copilot Chat / Agent）",
+   "vendor": "Microsoft",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "microsoft/vscode"
+    }
+   ]
+  },
+  {
+   "id": "opencode",
+   "name": "OpenCode",
+   "vendor": "OpenCode",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "anomalyco/opencode"
+    },
+    {
+     "type": "npm",
+     "package": "opencode-ai"
+    }
+   ]
+  },
+  {
+   "id": "cline",
+   "name": "Cline（VS Code 扩展）",
+   "vendor": "Cline",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "cline/cline",
+     "tag_regex": "^v\\d+\\.\\d+\\.\\d+$"
+    }
+   ]
+  },
+  {
+   "id": "cline-cli",
+   "name": "Cline CLI",
+   "vendor": "Cline",
+   "region": "us",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "cline/cline",
+     "tag_regex": "^cli-v\\d+\\.\\d+\\.\\d+$"
+    },
+    {
+     "type": "npm",
+     "package": "cline"
+    }
+   ]
+  },
+  {
+   "id": "mimo-code",
+   "name": "MiMo Code",
+   "vendor": "小米",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "XiaomiMiMo/MiMo-Code"
+    },
+    {
+     "type": "npm",
+     "package": "@mimo-ai/cli"
+    }
+   ]
+  },
+  {
+   "id": "trae",
+   "name": "TRAE / TraeCode（国际版 IDE）",
+   "vendor": "字节跳动",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "trae_ssr",
+     "url": "https://docs.trae.ai/ide/changelog",
+     "entry_regex": "(?P<date>[A-Z][a-z]+ \\d{1,2}, \\d{4}) \\((?P<kind>[^)]*)\\)\\n\\*?(?:TRAE|TraeCode|Trae) v(?P<version>\\d+\\.\\d+\\.\\d+(?: ~ \\d+\\.\\d+\\.\\d+)?)",
+     "date_format": "%B %d, %Y"
+    }
+   ]
+  },
+  {
+   "id": "qwen-code",
+   "name": "Qwen Code",
+   "vendor": "阿里",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "npm",
+     "package": "@qwen-code/qwen-code",
+     "changelog": "https://github.com/QwenLM/qwen-code/releases"
+    },
+    {
+     "type": "github",
+     "repo": "QwenLM/qwen-code",
+     "tag_regex": "^v\\d+\\.\\d+\\.\\d+$"
+    }
+   ]
+  },
+  {
+   "id": "qoder-cli",
+   "name": "Qoder CLI（qodercli）",
+   "vendor": "阿里",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "md_changelog",
+     "url": "https://docs.qoder.com/release-notes/qoder-cli.md",
+     "html_url": "https://docs.qoder.com/release-notes/qoder-cli",
+     "entry_regex": "<Update label=\"(?P<date>[A-Z][a-z]+ \\d{1,2}, \\d{4})\" description=\"CLI (?P<version>[\\d.]+)\">",
+     "date_format": "%B %d, %Y"
+    },
+    {
+     "type": "npm",
+     "package": "@qoder-ai/qodercli"
+    }
+   ]
+  },
+  {
+   "id": "qoder-ide",
+   "name": "Qoder IDE",
+   "vendor": "阿里",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "md_changelog",
+     "url": "https://docs.qoder.com/release-notes/desktop.md",
+     "html_url": "https://docs.qoder.com/release-notes/desktop",
+     "entry_regex": "<Update label=\"(?P<date>[A-Z][a-z]+ \\d{1,2}, \\d{4})\" description=\"(?:IDE )?(?P<version>[\\d.]+)\">",
+     "date_format": "%B %d, %Y"
+    }
+   ]
+  },
+  {
+   "id": "codebuddy-code",
+   "name": "CodeBuddy Code（CLI）",
+   "vendor": "腾讯",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "npm",
+     "package": "@tencent-ai/codebuddy-code",
+     "changelog": "https://cnb.cool/codebuddy/codebuddy-code"
+    }
+   ]
+  },
+  {
+   "id": "comate-cli",
+   "name": "文心快码 Comate CLI（comatecli）",
+   "vendor": "百度",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "npm",
+     "package": "@comate/comatecli"
+    }
+   ]
+  },
+  {
+   "id": "zcode",
+   "name": "ZCode",
+   "vendor": "智谱",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "zai-org/ZCode"
+    }
+   ]
+  },
+  {
+   "id": "kimi-code",
+   "name": "Kimi Code CLI",
+   "vendor": "月之暗面",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "MoonshotAI/kimi-code",
+     "tag_regex": "^@moonshot-ai/kimi-code@\\d+\\.\\d+\\.\\d+$"
+    },
+    {
+     "type": "npm",
+     "package": "@moonshot-ai/kimi-code"
+    }
+   ]
+  },
+  {
+   "id": "kimi-cli-legacy",
+   "name": "kimi-cli（Python 旧版）",
+   "vendor": "月之暗面",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "MoonshotAI/kimi-cli"
+    }
+   ]
+  },
+  {
+   "id": "deepseek-harness",
+   "name": "DeepSeek Harness（dsh）",
+   "vendor": "DeepSeek",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "github",
+     "repo": "deepseek-ai/deepseek-harness",
+     "include_prerelease": true
+    },
+    {
+     "type": "npm",
+     "package": "@deepseek-ai/dsh",
+     "include_prerelease": true
+    }
+   ]
+  },
+  {
+   "id": "minimax-code",
+   "name": "MiniMax Code CLI（mcode）",
+   "vendor": "MiniMax",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "npm",
+     "package": "@minimax-ai/code",
+     "changelog": "https://agent.minimax.io/docs/changelog"
+    }
+   ]
+  },
+  {
+   "id": "step-code",
+   "name": "Step Code",
+   "vendor": "阶跃星辰",
+   "region": "cn",
+   "sources": [
+    {
+     "type": "md_changelog",
+     "url": "https://platform.stepfun.com/docs/zh/step-code/release-notes.md",
+     "html_url": "https://platform.stepfun.com/docs/zh/step-code/release-notes",
+     "entry_regex": "## v(?P<version>\\d+\\.\\d+\\.\\d+)\\s*\\n\\s*\\n?(?P<date>\\d{4} 年 \\d{1,2} 月 \\d{1,2} 日)",
+     "date_format": "%Y 年 %m 月 %d 日"
+    }
+   ]
+  }
+ ]
+}

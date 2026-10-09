@@ -1,0 +1,584 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-09T12:45:31+08:00",
+  "products": [
+    {
+      "id": "codex-cli",
+      "name": "Codex CLI",
+      "vendor": "OpenAI",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/openai/codex/releases"
+    },
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "vendor": "Anthropic",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/anthropics/claude-code/releases"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "vendor": "Cursor",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://cursor.com/changelog/rss.xml"
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI",
+      "vendor": "Google",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/google-gemini/gemini-cli/releases"
+    },
+    {
+      "id": "copilot-cli",
+      "name": "GitHub Copilot CLI",
+      "vendor": "GitHub",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/github/copilot-cli/releases"
+    },
+    {
+      "id": "vscode",
+      "name": "VS Code（含 Copilot Chat / Agent）",
+      "vendor": "Microsoft",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/microsoft/vscode/releases"
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "vendor": "OpenCode",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/anomalyco/opencode/releases"
+    },
+    {
+      "id": "cline",
+      "name": "Cline（VS Code 扩展）",
+      "vendor": "Cline",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/cline/cline/releases"
+    },
+    {
+      "id": "cline-cli",
+      "name": "Cline CLI",
+      "vendor": "Cline",
+      "region": "us",
+      "kind": "harness",
+      "url": "https://github.com/cline/cline/releases"
+    },
+    {
+      "id": "mimo-code",
+      "name": "MiMo Code",
+      "vendor": "小米",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://github.com/XiaomiMiMo/MiMo-Code/releases"
+    },
+    {
+      "id": "trae",
+      "name": "TRAE / TraeCode（国际版 IDE）",
+      "vendor": "字节跳动",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://docs.trae.ai/ide/changelog"
+    },
+    {
+      "id": "qwen-code",
+      "name": "Qwen Code",
+      "vendor": "阿里",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://www.npmjs.com/package/@qwen-code/qwen-code"
+    },
+    {
+      "id": "qoder-cli",
+      "name": "Qoder CLI（qodercli）",
+      "vendor": "阿里",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://docs.qoder.com/release-notes/qoder-cli"
+    },
+    {
+      "id": "qoder-ide",
+      "name": "Qoder IDE",
+      "vendor": "阿里",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://docs.qoder.com/release-notes/desktop"
+    },
+    {
+      "id": "codebuddy-code",
+      "name": "CodeBuddy Code（CLI）",
+      "vendor": "腾讯",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://www.npmjs.com/package/@tencent-ai/codebuddy-code"
+    },
+    {
+      "id": "comate-cli",
+      "name": "文心快码 Comate CLI（comatecli）",
+      "vendor": "百度",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://www.npmjs.com/package/@comate/comatecli"
+    },
+    {
+      "id": "zcode",
+      "name": "ZCode",
+      "vendor": "智谱",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://github.com/zai-org/ZCode/releases"
+    },
+    {
+      "id": "kimi-code",
+      "name": "Kimi Code CLI",
+      "vendor": "月之暗面",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://github.com/MoonshotAI/kimi-code/releases"
+    },
+    {
+      "id": "kimi-cli-legacy",
+      "name": "kimi-cli（Python 旧版）",
+      "vendor": "月之暗面",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://github.com/MoonshotAI/kimi-cli/releases"
+    },
+    {
+      "id": "deepseek-harness",
+      "name": "DeepSeek Harness（dsh）",
+      "vendor": "DeepSeek",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://github.com/deepseek-ai/deepseek-harness/releases"
+    },
+    {
+      "id": "minimax-code",
+      "name": "MiniMax Code CLI（mcode）",
+      "vendor": "MiniMax",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://www.npmjs.com/package/@minimax-ai/code"
+    },
+    {
+      "id": "step-code",
+      "name": "Step Code",
+      "vendor": "阶跃星辰",
+      "region": "cn",
+      "kind": "harness",
+      "url": "https://platform.stepfun.com/docs/zh/step-code/release-notes"
+    }
+  ],
+  "people": [
+    {
+      "id": "thsottiaux",
+      "name": "Tibo (Thibault Sottiaux)",
+      "handle": "thsottiaux",
+      "org": "OpenAI",
+      "role": "Codex 负责人",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/thsottiaux"
+    },
+    {
+      "id": "embirico",
+      "name": "Alexander Embiricos",
+      "handle": "embirico",
+      "org": "OpenAI",
+      "role": "Codex 产品",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/embirico"
+    },
+    {
+      "id": "romainhuet",
+      "name": "Romain Huet",
+      "handle": "romainhuet",
+      "org": "OpenAI",
+      "role": "开发者体验负责人（Codex / API）",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/romainhuet"
+    },
+    {
+      "id": "openaidevs",
+      "name": "OpenAI Developers",
+      "handle": "OpenAIDevs",
+      "org": "OpenAI",
+      "role": "官方开发者号（Codex）",
+      "region": "us",
+      "kind": "official",
+      "url": "https://x.com/OpenAIDevs"
+    },
+    {
+      "id": "bcherny",
+      "name": "Boris Cherny",
+      "handle": "bcherny",
+      "org": "Anthropic",
+      "role": "Claude Code 创建者 / 负责人",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/bcherny"
+    },
+    {
+      "id": "_catwu",
+      "name": "Cat Wu",
+      "handle": "_catwu",
+      "org": "Anthropic",
+      "role": "Claude Code + Cowork 产品",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/_catwu"
+    },
+    {
+      "id": "claudedevs",
+      "name": "ClaudeDevs",
+      "handle": "ClaudeDevs",
+      "org": "Anthropic",
+      "role": "官方开发者号（Claude Code）",
+      "region": "us",
+      "kind": "official",
+      "url": "https://x.com/ClaudeDevs"
+    },
+    {
+      "id": "mntruell",
+      "name": "Michael Truell",
+      "handle": "mntruell",
+      "org": "Cursor（SpaceX 旗下）",
+      "role": "Cursor CEO / 联合创始人",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/mntruell"
+    },
+    {
+      "id": "amanrsanger",
+      "name": "Aman Sanger",
+      "handle": "amanrsanger",
+      "org": "Cursor（SpaceX 旗下）",
+      "role": "Cursor 联合创始人",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/amanrsanger"
+    },
+    {
+      "id": "cursor_ai",
+      "name": "Cursor",
+      "handle": "cursor_ai",
+      "org": "Cursor",
+      "role": "官方号",
+      "region": "us",
+      "kind": "official",
+      "url": "https://x.com/cursor_ai"
+    },
+    {
+      "id": "ntaylormullen",
+      "name": "N. Taylor Mullen",
+      "handle": "ntaylormullen",
+      "org": "Google DeepMind",
+      "role": "Gemini CLI 创建者，现做 Antigravity SDK",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/ntaylormullen"
+    },
+    {
+      "id": "officiallogank",
+      "name": "Logan Kilpatrick",
+      "handle": "OfficialLoganK",
+      "org": "Google",
+      "role": "Gemini API / AI Studio",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/OfficialLoganK"
+    },
+    {
+      "id": "_mohansolo",
+      "name": "Varun Mohan",
+      "handle": "_mohansolo",
+      "org": "Google DeepMind",
+      "role": "Antigravity 负责人（前 Windsurf CEO）",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/_mohansolo"
+    },
+    {
+      "id": "geminicli",
+      "name": "Gemini CLI",
+      "handle": "geminicli",
+      "org": "Google",
+      "role": "官方号",
+      "region": "us",
+      "kind": "official",
+      "url": "https://x.com/geminicli"
+    },
+    {
+      "id": "antigravity",
+      "name": "Google Antigravity",
+      "handle": "antigravity",
+      "org": "Google DeepMind",
+      "role": "官方号",
+      "region": "us",
+      "kind": "official",
+      "url": "https://x.com/antigravity"
+    },
+    {
+      "id": "mariorod1",
+      "name": "Mario Rodriguez",
+      "handle": "mariorod1",
+      "org": "GitHub",
+      "role": "GitHub CPO，负责 Copilot",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/mariorod1"
+    },
+    {
+      "id": "pierceboggan",
+      "name": "Pierce Boggan",
+      "handle": "pierceboggan",
+      "org": "GitHub",
+      "role": "GitHub 开发者工具（VS Code / Copilot）",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/pierceboggan"
+    },
+    {
+      "id": "kdaigle",
+      "name": "Kyle Daigle",
+      "handle": "kdaigle",
+      "org": "GitHub",
+      "role": "GitHub COO",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/kdaigle"
+    },
+    {
+      "id": "code",
+      "name": "Visual Studio Code",
+      "handle": "code",
+      "org": "Microsoft",
+      "role": "官方号",
+      "region": "us",
+      "kind": "official",
+      "url": "https://x.com/code"
+    },
+    {
+      "id": "thdxr",
+      "name": "dax",
+      "handle": "thdxr",
+      "org": "OpenCode",
+      "role": "OpenCode 核心开发",
+      "region": "us",
+      "kind": "person",
+      "url": "https://x.com/thdxr"
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "handle": "cline",
+      "org": "Cline",
+      "role": "官方号",
+      "region": "us",
+      "kind": "official",
+      "url": "https://x.com/cline"
+    },
+    {
+      "id": "_luofuli",
+      "name": "罗福莉 Fuli Luo",
+      "handle": "_LuoFuli",
+      "org": "小米",
+      "role": "Xiaomi MiMo 团队负责人",
+      "region": "cn",
+      "kind": "person",
+      "url": "https://x.com/_LuoFuli"
+    },
+    {
+      "id": "xiaomimimo",
+      "name": "Xiaomi MiMo",
+      "handle": "XiaomiMiMo",
+      "org": "小米",
+      "role": "官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/XiaomiMiMo"
+    },
+    {
+      "id": "xiaomimimodevs",
+      "name": "Xiaomi MiMo Developers",
+      "handle": "XiaomiMiMoDevs",
+      "org": "小米",
+      "role": "官方开发者号（API / MiMo Code）",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/XiaomiMiMoDevs"
+    },
+    {
+      "id": "zixuanli_",
+      "name": "Zixuan Li",
+      "handle": "ZixuanLi_",
+      "org": "智谱 Z.ai",
+      "role": "Z.ai 负责人（海外），常回应 ZCode 问题",
+      "region": "cn",
+      "kind": "person",
+      "url": "https://x.com/ZixuanLi_"
+    },
+    {
+      "id": "jietang",
+      "name": "唐杰 Jie Tang",
+      "handle": "jietang",
+      "org": "智谱 Z.ai",
+      "role": "创始人 / 首席科学家",
+      "region": "cn",
+      "kind": "person",
+      "url": "https://x.com/jietang"
+    },
+    {
+      "id": "zcode_ai",
+      "name": "ZCode",
+      "handle": "zcode_ai",
+      "org": "智谱 Z.ai",
+      "role": "ZCode 官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/zcode_ai"
+    },
+    {
+      "id": "zai_org",
+      "name": "Z.ai",
+      "handle": "Zai_org",
+      "org": "智谱 Z.ai",
+      "role": "官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/Zai_org"
+    },
+    {
+      "id": "young_agi",
+      "name": "Young",
+      "handle": "Young_AGI",
+      "org": "月之暗面",
+      "role": "Kimi Code 团队（负责人，代表团队回应风控事件）",
+      "region": "cn",
+      "kind": "person",
+      "url": "https://x.com/Young_AGI"
+    },
+    {
+      "id": "crystalsssup",
+      "name": "Crystal",
+      "handle": "crystalsssup",
+      "org": "月之暗面",
+      "role": "Kimi 团队成员",
+      "region": "cn",
+      "kind": "person",
+      "url": "https://x.com/crystalsssup"
+    },
+    {
+      "id": "kimidevs",
+      "name": "Kimi Developers",
+      "handle": "KimiDevs",
+      "org": "月之暗面",
+      "role": "官方开发者号（Kimi Code / API）",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/KimiDevs"
+    },
+    {
+      "id": "kimi_moonshot",
+      "name": "Kimi.ai",
+      "handle": "Kimi_Moonshot",
+      "org": "月之暗面",
+      "role": "官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/Kimi_Moonshot"
+    },
+    {
+      "id": "alibaba_qwen",
+      "name": "Qwen",
+      "handle": "Alibaba_Qwen",
+      "org": "阿里",
+      "role": "千问官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/Alibaba_Qwen"
+    },
+    {
+      "id": "qoder_ai_ide",
+      "name": "Qoder",
+      "handle": "qoder_ai_ide",
+      "org": "阿里",
+      "role": "Qoder 官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/qoder_ai_ide"
+    },
+    {
+      "id": "deepseek_ai",
+      "name": "DeepSeek",
+      "handle": "deepseek_ai",
+      "org": "DeepSeek",
+      "role": "官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/deepseek_ai"
+    },
+    {
+      "id": "minimax_ai",
+      "name": "MiniMax (official)",
+      "handle": "MiniMax_AI",
+      "org": "MiniMax",
+      "role": "官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/MiniMax_AI"
+    },
+    {
+      "id": "minimaxagent",
+      "name": "MiniMax_Agent",
+      "handle": "MiniMaxAgent",
+      "org": "MiniMax",
+      "role": "MiniMax Code / Agent 官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/MiniMaxAgent"
+    },
+    {
+      "id": "trae_ai",
+      "name": "TRAE",
+      "handle": "Trae_ai",
+      "org": "字节跳动",
+      "role": "TRAE 官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/Trae_ai"
+    },
+    {
+      "id": "stepfun_ai",
+      "name": "StepFun",
+      "handle": "StepFun_ai",
+      "org": "阶跃星辰",
+      "role": "官方号",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/StepFun_ai"
+    },
+    {
+      "id": "tencentai_news",
+      "name": "Tencent AI",
+      "handle": "TencentAI_News",
+      "org": "腾讯",
+      "role": "腾讯 AI 官方新闻号（含 CodeBuddy）",
+      "region": "cn",
+      "kind": "official",
+      "url": "https://x.com/TencentAI_News"
+    }
+  ]
+}

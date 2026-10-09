@@ -7,7 +7,7 @@
     python3 tools/publish.py brief.json --dry-run     # 只校验并预览 id / 索引，不写任何文件
     python3 tools/publish.py brief.json --no-push     # 写入并本地提交，不推送、不 purge
     python3 tools/publish.py brief.json --force       # 覆盖已存在的同日期一期（默认拒绝覆盖）
-    python3 tools/publish.py --reindex                # 只按 data/ 现有文件重建 index.json 并提交推送
+    python3 tools/publish.py --reindex                # 只按 data/ 现有文件重建 index.json、watchlist.json 并提交推送
 可选参数: --repo PATH（仓库根目录）、--no-purge、--no-commit、-m "提交信息"
 
 格式说明见 docs/schema.md。
@@ -33,7 +33,10 @@ TIME_RE = re.compile(r"^\d{2}-\d{2} \d{2}:\d{2}$")
 SECTION_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 ISSUE_FILE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}\.json$")
 ITEM_KEYS = {"id", "vendor", "region", "title", "summary", "time", "links",
-             "children", "update", "update_note", "group"}
+             "children", "update", "update_note", "group",
+             "product", "products", "person", "people", "version"}
+# 这些栏目里每个顶层非 group 条目必须带的字段（引用 data/watchlist.json）
+SECTION_REQUIRED = {"releases": ("product", "version"), "people": ("person",)}
 TOP_KEYS = {"schema_version", "title", "date", "window", "generated_at", "published_at",
             "highlights", "xiaomi", "sections", "notes", "source_note"}
 
@@ -44,8 +47,33 @@ def now_iso():
 
 # ---------------------------------------------------------------- 校验
 class Validator:
-    def __init__(self):
+    def __init__(self, watchlist=None):
         self.errors, self.warnings = [], []
+        wl = watchlist or {}
+        self.product_ids = {p["id"] for p in wl.get("products", [])}
+        self.person_ids = {p["id"] for p in wl.get("people", [])}
+
+    def refs(self, it, path):
+        """product/person（字符串）与 products/people（字符串数组）必须引用 watchlist 里存在的 id。"""
+        for single, multi, ids, label in (("product", "products", self.product_ids, "products"),
+                                          ("person", "people", self.person_ids, "people")):
+            vals = []
+            if single in it:
+                if not isinstance(it[single], str) or not it[single]:
+                    self.err(f"{path}.{single}", "应为非空字符串（watchlist id）")
+                else:
+                    vals.append((f"{path}.{single}", it[single]))
+            if multi in it:
+                v = it[multi]
+                if not isinstance(v, list) or not all(isinstance(x, str) and x for x in v):
+                    self.err(f"{path}.{multi}", "应为非空字符串数组（watchlist id）")
+                else:
+                    vals += [(f"{path}.{multi}[{i}]", x) for i, x in enumerate(v)]
+            for vp, x in vals:
+                if x not in ids:
+                    self.err(vp, f"{x!r} 不在 data/watchlist.json 的 {label} 里")
+        if "version" in it and (not isinstance(it["version"], str) or not it["version"].strip()):
+            self.err(f"{path}.version", "应为非空字符串")
 
     def err(self, path, msg):
         self.errors.append(f"{path}: {msg}")
@@ -81,6 +109,7 @@ class Validator:
         self.opt_str(it, "update_note", path)
         self.opt_bool(it, "update", path)
         self.opt_bool(it, "group", path)
+        self.refs(it, path)
         t = it.get("time")
         if t is not None and (not isinstance(t, str) or not TIME_RE.match(t)):
             self.err(f"{path}.time", f"应为 'MM-DD HH:MM'（北京时间），当前 {t!r}")
@@ -180,6 +209,11 @@ class Validator:
                 continue
             for i, it in enumerate(items):
                 self.item(it, f"{sp}.items[{i}]", date)
+                need = SECTION_REQUIRED.get(sid, ())
+                if isinstance(it, dict) and not it.get("group"):
+                    for k in need:
+                        if k not in it:
+                            self.err(f"{sp}.items[{i}].{k}", f"{sid} 栏目的条目必填")
 
 
 # ---------------------------------------------------------------- id / 统计
@@ -327,9 +361,17 @@ def main():
 
     changed = []
     date = None
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import build_watchlist  # noqa: E402
+    if a.dry_run:
+        watchlist, wl_changed = build_watchlist.build(repo)
+    else:
+        watchlist, wl_changed = build_watchlist.write(repo)
+        if wl_changed:
+            changed.append("data/watchlist.json")
     if a.json:
         d = json.loads(Path(a.json).read_text(encoding="utf-8"))
-        v = Validator()
+        v = Validator(watchlist)
         v.issue(d)
         for w in v.warnings:
             print("警告", w)
@@ -341,7 +383,6 @@ def main():
         added = assign_ids(d)
         date = d["date"]
         # 用 HTML 生成器试渲染一遍，确保数据可用
-        sys.path.insert(0, str(Path(__file__).resolve().parent))
         import build_brief  # noqa: E402
         build_brief.build(d)
         d["schema_version"] = SCHEMA_VERSION

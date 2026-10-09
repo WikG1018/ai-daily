@@ -5,7 +5,7 @@
 - **版本更新**（分区 id `releases`）：各家 harness，也就是编码 / Agent 运行框架的新版本
 - **人物动态**（分区 id `people`）：各家负责人、核心成员在 X 上发的内容
 
-机器可读的清单有两份：`tools/harness_sources.json`（版本源）和 `tools/x_people.json`（X 账号）。这份文档是给人看的说明和核实记录，两边改动要同步。
+机器可读的清单有两份：`tools/harness_sources.json`（版本源）和 `tools/x_people.json`（X 账号）。app 用的 `data/watchlist.json` 由 `tools/build_watchlist.py` 从这两份生成（`publish.py` 发布和 `--reindex` 时自动重建），格式见 `docs/schema.md` 第 5 节。简报条目通过 `product` / `person` 字段引用其中的 id。这份文档是给人看的说明和核实记录，两边改动要同步。
 
 核实时间：2026-10-09 12:45 前后（北京时间）。
 

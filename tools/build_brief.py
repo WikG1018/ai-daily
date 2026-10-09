@@ -82,6 +82,15 @@ def render_item(it, depth=0):
     if it.get("id"):
         iid = esc(it["id"])
         attrs = f' id="i-{iid}" data-id="{iid}"'
+    # 关注对象引用（见 docs/schema.md）：product/person 单值 + products/people 数组，合并后写成 data 属性
+    prods = ([it["product"]] if it.get("product") else []) + list(it.get("products") or [])
+    ppl = ([it["person"]] if it.get("person") else []) + list(it.get("people") or [])
+    if prods:
+        attrs += f' data-products="{esc(" ".join(dict.fromkeys(prods)))}"'
+    if ppl:
+        attrs += f' data-people="{esc(" ".join(dict.fromkeys(ppl)))}"'
+    if it.get("version"):
+        attrs += f' data-version="{esc(it["version"])}"'
     return f'<article class="{cls}"{attrs}>{"".join(parts)}</article>'
 
 

@@ -37,7 +37,9 @@ if [[ $MANIFEST_ONLY == 0 ]]; then
   cp "$ANDROID_DIR/app/build/outputs/apk/release/app-release.apk" "$APK"
   # 签名检查：必须是发布证书
   APKSIGNER="$(ls -d "${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/opt/android-sdk}}"/build-tools/*/apksigner | sort -V | tail -1)"
-  "$APKSIGNER" verify --print-certs "$APK" | tee /dev/stderr | grep -qi "SHA-256 digest: 77a57d2f0f077d90b40ddb821af45084e9ae594da4086e1225dc91848cb5f0a2" \
+  CERTS="$("$APKSIGNER" verify --print-certs "$APK")"
+  echo "$CERTS"
+  grep -qi "SHA-256 digest: 77a57d2f0f077d90b40ddb821af45084e9ae594da4086e1225dc91848cb5f0a2" <<<"$CERTS" \
     || { echo "APK 不是用发布证书签名的！" >&2; exit 1; }
   gh release create "$TAG" "$APK" --repo "$REPO" --title "AI 日报 $TAG" --notes-file "$NOTES_FILE" --target main
 else

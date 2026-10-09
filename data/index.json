@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "latest": "2026-10-09",
-  "updated_at": "2026-10-09T11:07:12+08:00",
+  "updated_at": "2026-10-09T11:07:29+08:00",
   "issues": [
     {
       "date": "2026-10-09",
@@ -9,7 +9,7 @@
       "highlights": "OpenAI 凌晨为 GPT-6.1 Sol 推出 Ultrafast 模式，最高比标准版快 8 倍，Codex 同时把中途纠偏改成即时生效。",
       "item_count": 11,
       "path": "data/2026-10-09.json",
-      "published_at": "2026-10-09T11:07:12+08:00"
+      "published_at": "2026-10-09T11:07:29+08:00"
     },
     {
       "date": "2026-10-08",

@@ -4,10 +4,10 @@
   "date": "2026-10-09",
   "window": {
     "start": "10-08 23:45",
-    "end": "10-09 11:10",
+    "end": "10-09 11:05",
     "tz": "北京时间"
   },
-  "generated_at": "2026-10-09 11:20",
+  "generated_at": "2026-10-09 11:07",
   "highlights": "OpenAI 凌晨为 GPT-6.1 Sol 推出 **Ultrafast** 模式，最高比标准版快 8 倍，Codex 同时把中途纠偏改成即时生效。Anthropic 发布 **Anthropic Cyber Mission**，联合 CrowdStrike、Palo Alto Networks 等帮关键基础设施做防护，并免费给开源项目做漏洞扫描；Claude Code 2.1.295 让钩子失败时直接拦截操作。国内主要厂商这段时间没有新发布。",
   "xiaomi": {
     "items": [],
@@ -209,8 +209,8 @@
   "notes": [
     "国内的 DeepSeek、通义/Qoder、豆包/TRAE、Kimi、智谱、MiniMax、阶跃、腾讯和百度，这段时间官方都没有发布新模型或新产品。阶跃 Step 5 Preview 在 Cline 免费一周属于上期已报活动的延续。",
     "待跟进：Qoder IDE 的 Quest 窗口仍按公告在 **10-15 23:59** 下线，没有变化；阶跃 Step 5 预计 10-15 开源权重，目前没有新的官方消息，stepfun-ai 的 Hugging Face 主页也还没有新模型。",
-    "本期是今早定时任务失败后的补发，覆盖时间窗延长到上午 11:10。"
+    "本期是今早定时任务失败后的补发，覆盖时间窗延长到上午 11:05。"
   ],
   "source_note": "信息来源：X（原帖）、GitHub Release、官方博客及文中注明的媒体报道。时间均为北京时间（UTC+8），仅收录覆盖时间窗内的消息；已报过的事件仅在有实质新进展时以“更新”标出。",
-  "published_at": "2026-10-09T11:07:12+08:00"
+  "published_at": "2026-10-09T11:07:29+08:00"
 }

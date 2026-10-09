@@ -8,7 +8,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.material.icons.rounded.Groups
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Inventory2
+import com.wikg.aidaily.data.model.Watchlist
 import androidx.compose.material.icons.rounded.NotificationsActive
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.Star
@@ -87,10 +90,13 @@ fun SettingsScreen(
     onBack: () -> Unit,
     onOpenFeatured: () -> Unit = {},
     onNavigate: (SettingsPage) -> Unit = {},
+    onOpenFollow: (FollowKind) -> Unit = {},
 ) {
     val context = LocalContext.current
     val c = remember { (context.applicationContext as AiDailyApp).container }
     val settings by c.prefs.settings.collectAsStateWithLifecycle(initialValue = Settings())
+    val watchlist by c.repository.watchlist.collectAsStateWithLifecycle()
+    androidx.compose.runtime.LaunchedEffect(Unit) { runCatching { c.repository.loadCachedWatchlist() } }
     val scope = rememberCoroutineScope()
 
     var notifGranted by remember { mutableStateOf(c.notifier.canNotify()) }
@@ -118,9 +124,11 @@ fun SettingsScreen(
         batteryOk = batteryOk,
         isXiaomi = BackgroundGuide.isXiaomi,
         miSans = AppFonts.isMiSans,
+        watchlist = watchlist,
         actions = SettingsActions(
             onBack = onBack,
             openFeatured = onOpenFeatured,
+            openFollow = onOpenFollow,
             navigate = onNavigate,
             setNotify = { on -> scope.launch { c.prefs.setNotify(on) } },
             notifAction = { if (notifGranted) BackgroundGuide.openNotificationSettings(context) else requestNotif() },
@@ -145,6 +153,7 @@ fun SettingsScreen(
 class SettingsActions(
     val onBack: () -> Unit = {},
     val openFeatured: () -> Unit = {},
+    val openFollow: (FollowKind) -> Unit = {},
     val navigate: (SettingsPage) -> Unit = {},
     val setNotify: (Boolean) -> Unit = {},
     val notifAction: () -> Unit = {},
@@ -176,6 +185,7 @@ fun SettingsContent(
     isXiaomi: Boolean,
     miSans: Boolean,
     actions: SettingsActions,
+    watchlist: Watchlist? = null,
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -195,7 +205,7 @@ fun SettingsContent(
                 .padding(horizontal = 16.dp),
         ) {
             when (page) {
-                SettingsPage.HUB -> SettingsHub(settings, notifGranted, batteryOk, isXiaomi, actions)
+                SettingsPage.HUB -> SettingsHub(settings, notifGranted, batteryOk, isXiaomi, actions, watchlist)
                 SettingsPage.NOTIFY -> NotifySettings(settings, notifGranted, batteryOk, isXiaomi, actions)
                 SettingsPage.APPEARANCE -> AppearanceSettings(settings, actions)
                 SettingsPage.ABOUT -> AboutSettings(miSans, actions)
@@ -207,7 +217,7 @@ fun SettingsContent(
 }
 
 @Composable
-private fun SettingsHub(settings: Settings, notifGranted: Boolean, batteryOk: Boolean, isXiaomi: Boolean, actions: SettingsActions) {
+private fun SettingsHub(settings: Settings, notifGranted: Boolean, batteryOk: Boolean, isXiaomi: Boolean, actions: SettingsActions, watchlist: Watchlist?) {
     // 顶部品牌卡
     Row(
         Modifier
@@ -246,6 +256,18 @@ private fun SettingsHub(settings: Settings, notifGranted: Boolean, batteryOk: Bo
         )
         Divider()
         HubRow(
+            icon = Icons.Rounded.Inventory2, tint = MaterialTheme.colorScheme.primary, title = "关注产品",
+            subtitle = followSummary(settings.followProducts, "未关注任何产品 · 版本更新里只看关注的") { watchlist?.product(it)?.displayName },
+            tag = "hub-follow-products", onClick = { actions.openFollow(FollowKind.PRODUCTS) },
+        )
+        Divider()
+        HubRow(
+            icon = Icons.Rounded.Groups, tint = Color(0xFFE0457B), title = "关注人物",
+            subtitle = followSummary(settings.followPeople, "未关注任何人物 · 人物动态里只看关注的") { watchlist?.person(it)?.displayName },
+            tag = "hub-follow-people", onClick = { actions.openFollow(FollowKind.PEOPLE) },
+        )
+        Divider()
+        HubRow(
             icon = Icons.Rounded.NotificationsActive, tint = MaterialTheme.colorScheme.primary, title = "通知与后台",
             subtitle = notifySummary, warn = !notifGranted || bgNeeds,
             tag = "hub-notify", onClick = { actions.navigate(SettingsPage.NOTIFY) },
@@ -266,6 +288,9 @@ private fun SettingsHub(settings: Settings, notifGranted: Boolean, batteryOk: Bo
         )
     }
 }
+
+private fun followSummary(ids: List<String>, empty: String, nameOf: (String) -> String?): String =
+    if (ids.isEmpty()) empty else ids.joinToString("、") { nameOf(it) ?: it }
 
 @Composable
 private fun HubRow(

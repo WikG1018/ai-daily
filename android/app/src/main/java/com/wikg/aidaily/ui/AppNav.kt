@@ -26,6 +26,8 @@ import com.wikg.aidaily.ui.detail.DetailScreen
 import com.wikg.aidaily.ui.home.HomeScreen
 import com.wikg.aidaily.ui.home.HomeViewModel
 import com.wikg.aidaily.ui.settings.FeaturedScreen
+import com.wikg.aidaily.ui.settings.FollowKind
+import com.wikg.aidaily.ui.settings.FollowScreen
 import com.wikg.aidaily.ui.settings.SettingsPage
 import com.wikg.aidaily.ui.settings.SettingsScreen
 import kotlinx.coroutines.flow.StateFlow
@@ -75,6 +77,7 @@ fun AppNav(deepLinks: StateFlow<DeepLink?>, consumeDeepLink: () -> Unit) {
                 onOpenSettings = { nav.navigate("settings") { launchSingleTop = true } },
                 onOpenFeatured = { nav.navigate("featured") { launchSingleTop = true } },
                 onOpenNotifySettings = { nav.navigate(SettingsPage.NOTIFY.route) { launchSingleTop = true } },
+                onOpenFollows = { sid -> nav.navigate(FollowKind.forSection(sid).route) { launchSingleTop = true } },
             )
         }
         composable("item/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { entry ->
@@ -96,9 +99,13 @@ fun AppNav(deepLinks: StateFlow<DeepLink?>, consumeDeepLink: () -> Unit) {
                     onBack = { nav.popBackStack() },
                     onOpenFeatured = { nav.navigate("featured") { launchSingleTop = true } },
                     onNavigate = { nav.navigate(it.route) { launchSingleTop = true } },
+                    onOpenFollow = { k -> nav.navigate(k.route) { launchSingleTop = true } },
                 )
             }
         }
         composable("featured") { FeaturedScreen(onBack = { nav.popBackStack() }) }
+        FollowKind.entries.forEach { kind ->
+            composable(kind.route) { FollowScreen(kind = kind, onBack = { nav.popBackStack() }) }
+        }
     }
 }

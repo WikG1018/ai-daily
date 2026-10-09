@@ -3,6 +3,7 @@ package com.wikg.aidaily.data.local
 import android.content.Context
 import com.wikg.aidaily.data.model.DailyIndex
 import com.wikg.aidaily.data.model.Issue
+import com.wikg.aidaily.data.model.Watchlist
 import com.wikg.aidaily.data.remote.AppJson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,10 +13,16 @@ import java.io.File
 class CacheStore(context: Context) {
     private val dir = File(context.filesDir, "daily").apply { mkdirs() }
     private val indexFile = File(dir, "index.json")
+    private val watchlistFile = File(dir, "watchlist.json")
 
     suspend fun readIndex(): DailyIndex? = read(indexFile) { AppJson.decodeFromString(DailyIndex.serializer(), it) }
     suspend fun writeIndex(index: DailyIndex) = write(indexFile, AppJson.encodeToString(DailyIndex.serializer(), index))
     fun indexSavedAt(): Long = indexFile.lastModified()
+
+    suspend fun readWatchlist(): Watchlist? = read(watchlistFile) { AppJson.decodeFromString(Watchlist.serializer(), it) }
+    suspend fun writeWatchlist(w: Watchlist) = write(watchlistFile, AppJson.encodeToString(Watchlist.serializer(), w))
+    /** 0 = 没有缓存。 */
+    fun watchlistSavedAt(): Long = if (watchlistFile.exists()) watchlistFile.lastModified() else 0L
 
     suspend fun readIssue(date: String): Issue? = read(issueFile(date)) { AppJson.decodeFromString(Issue.serializer(), it) }
     suspend fun writeIssue(issue: Issue) = write(issueFile(issue.date), AppJson.encodeToString(Issue.serializer(), issue))

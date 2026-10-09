@@ -6,6 +6,9 @@ import com.wikg.aidaily.AppContainer
 import com.wikg.aidaily.data.local.Settings
 import com.wikg.aidaily.data.model.DailyIndex
 import com.wikg.aidaily.data.model.Issue
+import com.wikg.aidaily.data.model.Watchlist
+import com.wikg.aidaily.data.local.FollowFilter
+import android.util.Log
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,10 +29,14 @@ data class HomeUiState(
     val fatalError: String? = null,
     val readIds: Set<String> = emptySet(),
     val settings: Settings = Settings(),
+    /** v1.2 关注清单；null = 还没有（不影响任何功能，只是少了人名 / 产品名等补充信息）。 */
+    val watchlist: Watchlist? = null,
 ) {
     val latest: String? get() = index?.latest
     val isLatestSelected: Boolean get() = selectedDate == null || selectedDate == latest
 }
+
+private const val TAG = "HomeViewModel"
 
 class HomeViewModel(private val c: AppContainer) : ViewModel() {
     private val repo = c.repository
@@ -46,6 +53,21 @@ class HomeViewModel(private val c: AppContainer) : ViewModel() {
         viewModelScope.launch { c.prefs.readIds.collect { ids -> _state.update { it.copy(readIds = ids) } } }
         viewModelScope.launch { c.prefs.settings.collect { s -> _state.update { it.copy(settings = s) } } }
         viewModelScope.launch { repo.index.collect { idx -> _state.update { it.copy(index = idx) } } }
+        // 关注清单：全部包在 try 里，任何异常都不能影响启动
+        viewModelScope.launch {
+            try {
+                repo.watchlist.collect { w -> _state.update { it.copy(watchlist = w) } }
+            } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException) throw t
+                Log.w(TAG, "watchlist flow failed", t)
+            }
+        }
+        viewModelScope.launch {
+            try { repo.loadCachedWatchlist() } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException) throw t
+                Log.w(TAG, "load cached watchlist failed", t)
+            }
+        }
         viewModelScope.launch {
             // 冷启动：先显示缓存，再联网
             val cached = repo.loadCachedIndex()
@@ -57,6 +79,7 @@ class HomeViewModel(private val c: AppContainer) : ViewModel() {
     private fun currentDate(): String? = _state.value.selectedDate ?: _state.value.index?.latest
 
     fun refresh(user: Boolean = true) {
+        refreshWatchlist(user)
         viewModelScope.launch {
             _state.update { it.copy(refreshing = user) }
             val r = repo.refreshIndex()
@@ -129,6 +152,21 @@ class HomeViewModel(private val c: AppContainer) : ViewModel() {
         // 反馈由首页顶栏的就地动画负责，不再弹 Snackbar
         viewModelScope.launch { c.prefs.markAllRead(ids) }
     }
+
+    /** 约每天一次随 index 刷新；用户下拉时放宽到 1 小时。独立协程，失败静默（继续用缓存）。 */
+    private fun refreshWatchlist(user: Boolean) {
+        viewModelScope.launch {
+            try {
+                repo.refreshWatchlist(maxAgeMs = if (user) 60L * 60 * 1000 else com.wikg.aidaily.data.WATCHLIST_MAX_AGE_MS)
+            } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException) throw t
+                Log.w(TAG, "refresh watchlist failed", t)
+            }
+        }
+    }
+
+    fun setReleasesFilter(f: FollowFilter) { viewModelScope.launch { c.prefs.setReleasesFilter(f) } }
+    fun setPeopleFilter(f: FollowFilter) { viewModelScope.launch { c.prefs.setPeopleFilter(f) } }
 
     fun consumeMessage() { _messages.value = null }
 

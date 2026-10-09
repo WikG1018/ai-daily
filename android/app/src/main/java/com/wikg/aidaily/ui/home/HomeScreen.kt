@@ -107,6 +107,8 @@ fun HomeScreen(
     onOpenSettings: () -> Unit,
     onOpenFeatured: () -> Unit = onOpenSettings,
     onOpenNotifySettings: () -> Unit = onOpenSettings,
+    /** 参数：releases → 关注产品；people → 关注人物。 */
+    onOpenFollows: (String) -> Unit = { onOpenSettings() },
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
     val message by vm.messages.collectAsStateWithLifecycle()
@@ -164,6 +166,10 @@ fun HomeScreen(
         },
         onGuideDismiss = vm::dismissGuide,
         onManageFeatured = onOpenFeatured,
+        onSetFilter = { sid, f ->
+            if (sid == com.wikg.aidaily.data.model.SectionIds.RELEASES) vm.setReleasesFilter(f) else vm.setPeopleFilter(f)
+        },
+        onManageFollows = onOpenFollows,
     )
 
     if (showPicker && state.index != null) {
@@ -199,12 +205,23 @@ fun HomeContent(
     onGuideDismiss: () -> Unit,
     onManageFeatured: () -> Unit = onOpenSettings,
     initialPage: Int = 0,
+    onSetFilter: (String, com.wikg.aidaily.data.local.FollowFilter) -> Unit = { _, _ -> },
+    onManageFollows: (String) -> Unit = {},
 ) {
     val scope = rememberCoroutineScope()
     val effectiveDate = state.selectedDate ?: state.latest
     val issue: Issue? = state.issue?.takeIf { it.date == effectiveDate }
     val featured = state.settings.featuredVendors
-    val pages = remember(issue, featured) { issue?.let { buildPages(it, featured) }.orEmpty() }
+    val follows = state.settings.follows
+    val pages = remember(issue, featured, follows) { issue?.let { buildPages(it, featured, follows) }.orEmpty() }
+    val followUi = FollowUi(
+        watchlist = state.watchlist,
+        follows = follows,
+        releasesFilter = state.settings.releasesFilter,
+        peopleFilter = state.settings.peopleFilter,
+        onSetFilter = onSetFilter,
+        onManage = onManageFollows,
+    )
     val pagesRef by rememberUpdatedState(pages)
     val pager = rememberPagerState(initialPage = initialPage) { pagesRef.size }
     // 每页的滚动位置：按期号区分，换一期从头看
@@ -213,12 +230,12 @@ fun HomeContent(
 
     // 切换日期 / 修改关注后，尽量停留在同一个栏目（按 key 找回）
     var currentKey by rememberSaveable { mutableStateOf<String?>(null) }
-    LaunchedEffect(pager) {
-        snapshotFlow { pager.settledPage }.collect { p -> pagesRef.getOrNull(p)?.let { currentKey = it.key } }
-    }
+    // 先按 key 找回位置，再开始跟踪当前页（同一个协程里顺序执行，避免返回首页时
+    // 恢复的旧页码先把 currentKey 覆盖掉——例如新增关注后多出一页，页码整体后移）
     LaunchedEffect(pages) {
         val idx = pages.indexOfFirst { it.key == currentKey }
         if (idx >= 0 && idx != pager.currentPage) pager.scrollToPage(idx)
+        snapshotFlow { pager.settledPage }.collect { p -> pages.getOrNull(p)?.let { currentKey = it.key } }
     }
     val currentList = pages.getOrNull(pager.currentPage)?.let { listStateFor(it.key) }
     // 「全部已读」的就地确认：图标短暂变成带勾的胶囊，1.6 秒后复原
@@ -323,6 +340,7 @@ fun HomeContent(
                                 listState = listStateFor(p.key),
                                 onOpenItem = onOpenItem,
                                 onManageFeatured = onManageFeatured,
+                                follow = followUi,
                             )
                         }
                     }

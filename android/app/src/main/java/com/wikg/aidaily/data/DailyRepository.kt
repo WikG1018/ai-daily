@@ -6,6 +6,7 @@ import com.wikg.aidaily.data.model.DailyIndex
 import com.wikg.aidaily.data.model.Issue
 import com.wikg.aidaily.data.model.IssueSummary
 import com.wikg.aidaily.data.model.ItemContext
+import com.wikg.aidaily.data.model.Watchlist
 import com.wikg.aidaily.data.model.locate
 import com.wikg.aidaily.data.remote.DailyApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +18,8 @@ import java.util.concurrent.ConcurrentHashMap
 
 /** 单期加载结果：fromCache=true 且 error!=null 表示网络失败、显示的是离线缓存。 */
 data class IssueResult(val issue: Issue, val fromCache: Boolean, val error: Throwable? = null)
+
+const val WATCHLIST_MAX_AGE_MS = 20L * 60 * 60 * 1000
 
 class DailyRepository(
     private val api: DailyApi,
@@ -32,7 +35,8 @@ class DailyRepository(
 
     /** 先读本地缓存的索引（冷启动秒开）。 */
     suspend fun loadCachedIndex(): DailyIndex? = indexLock.withLock {
-        if (!indexLoaded) {
+        // 内存里还没有时每次都再读一次磁盘（读不到不算“已加载”，便宜且更稳）
+        if (!indexLoaded || _index.value == null) {
             cache.readIndex()?.let { if (_index.value == null) _index.value = it }
             indexLoaded = true
         }
@@ -54,6 +58,44 @@ class DailyRepository(
         }
         prefs.recordCheck("成功，最新一期 ${_index.value?.latest ?: "无"}", fetched.mirror.label)
         _index.value!!
+    }
+
+    // —— 关注清单 data/watchlist.json：低频变化，约每天随 index 拉一次；任何失败都只用缓存，不影响主流程 ——
+    private val _watchlist = MutableStateFlow<Watchlist?>(null)
+    val watchlist: StateFlow<Watchlist?> = _watchlist.asStateFlow()
+    private val watchlistLock = Mutex()
+    private var watchlistLoaded = false
+
+    /** 读本地缓存的清单（永不抛异常）。 */
+    suspend fun loadCachedWatchlist(): Watchlist? = try {
+        watchlistLock.withLock {
+            if (!watchlistLoaded || _watchlist.value == null) {
+                watchlistLoaded = true
+                runCatching { cache.readWatchlist() }.getOrNull()?.let { if (_watchlist.value == null) _watchlist.value = it }
+            }
+            _watchlist.value
+        }
+    } catch (e: Exception) {
+        if (e is kotlinx.coroutines.CancellationException) throw e
+        null
+    }
+
+    /**
+     * 缓存超过 [maxAgeMs] 才联网刷新（默认 20 小时 ≈ 每天一次）。失败返回 failure，但不清空已有缓存。
+     */
+    suspend fun refreshWatchlist(maxAgeMs: Long = WATCHLIST_MAX_AGE_MS, now: Long = System.currentTimeMillis()): Result<Watchlist?> {
+        return try {
+            val cached = loadCachedWatchlist()
+            val savedAt = runCatching { cache.watchlistSavedAt() }.getOrDefault(0L)
+            if (cached != null && savedAt > 0 && now - savedAt in 0 until maxAgeMs) return Result.success(cached)
+            val fresh = api.fetchWatchlist().value
+            _watchlist.value = fresh
+            runCatching { cache.writeWatchlist(fresh) }
+            Result.success(fresh)
+        } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            Result.failure(e)
+        }
     }
 
     fun summaryOf(date: String): IssueSummary? = _index.value?.issues?.firstOrNull { it.date == date }

@@ -6,9 +6,15 @@
 |---|---|---|---|---|---|
 | ![](screenshots/home_light.png) | ![](screenshots/home_featured_light.png) | ![](screenshots/home_sections_dark.png) | ![](screenshots/detail_light.png) | ![](screenshots/settings_light.png) | ![](screenshots/featured_light.png) |
 
-更多：[今日深色](screenshots/home_dark.png) · [小米空专栏](screenshots/home_featured_empty_light.png) · [编码 Agent 页](screenshots/home_sections_light.png) · [设置深色](screenshots/settings_dark.png) · [通知与后台](screenshots/settings_notify_light.png) · [启动图标](screenshots/icon.png)
+**v1.2：版本更新 / 人物动态 / 关注**
 
-> 截图由 Robolectric 原生图形渲染真实的 Compose 界面生成（真实主题、MiSans 字体、`data/2026-10-08.json` 样例数据），见下文「截图」。
+| 版本更新 | 人物动态 | 我的关注 | 关注产品 | 关注人物 | 详情（版本） |
+|---|---|---|---|---|---|
+| ![](screenshots/home_releases_light.png) | ![](screenshots/home_people_light.png) | ![](screenshots/home_follow_light.png) | ![](screenshots/follow_products_light.png) | ![](screenshots/follow_people_light.png) | ![](screenshots/detail_release_light.png) |
+
+更多：[版本更新深色](screenshots/home_releases_dark.png) · [只看关注](screenshots/home_releases_followed_light.png) · [人物动态深色](screenshots/home_people_dark.png) · [关注人物深色](screenshots/follow_people_dark.png) · [详情（人物）](screenshots/detail_person_light.png) · [今日深色](screenshots/home_dark.png) · [小米空专栏](screenshots/home_featured_empty_light.png) · [编码 Agent 页](screenshots/home_sections_light.png) · [设置深色](screenshots/settings_dark.png) · [通知与后台](screenshots/settings_notify_light.png) · [启动图标](screenshots/icon.png)
+
+> 截图由 Robolectric 原生图形渲染真实的 Compose 界面生成（真实主题、MiSans 字体、`data/2026-10-08.json` 样例数据；v1.2 的几张用 `app/src/test/resources/fixtures/` 里的合成一期 + 仓库的 `data/watchlist.json`），见下文「截图」。
 
 ## 功能
 
@@ -16,6 +22,13 @@
   - **今日**：日期条（最近 30 期 + 「全部」往期面板）、渐变主卡「今日要点」（`**粗体**` 高亮、条数 / 已读数）、「栏目速览」（每页条数 + 前两条标题，点按直达）、补充说明与发布时间。
   - 条目以分组圆角卡片呈现，子条目以内嵌列表显示，`group` 容器显示为「专题」。
 - **关注厂商（可自定义专栏）**：默认只关注「小米」（与 1.0 一致），可在「设置 → 关注厂商」增删、排序；支持手动输入，或从本期 / 最近几期出现的厂商、推荐列表（小米、Anthropic、OpenAI、Google、DeepSeek、通义/阿里、豆包、Kimi、智谱、Meta、Microsoft、Cursor……）一键添加。专栏从整期（`xiaomi.items` + 全部 `sections`，深度优先）收集 vendor 匹配的条目：不区分大小写，带一张小别名表（小米 ↔ Xiaomi ↔ Mi ↔ 澎湃OS，Anthropic ↔ Claude Code，OpenAI ↔ ChatGPT / Codex，微软 ↔ Microsoft ↔ GitHub Copilot ……），父条目匹配则整条收录，按 id 去重；关注小米时 schema 的 `xiaomi.items` 优先排在最前。没有动态时显示「本期未收录{厂商}相关动态」。纯客户端功能，不需要改数据格式。
+- **版本更新（`releases`）/ 人物动态（`people`）**（v1.2）：仍是通用栏目页，但条目用定制样式——
+  - 版本更新：紧凑行，产品标（区域色）+ 产品名（取自 `watchlist.json`，没有则用标题去掉版本号）+ 版本号徽标（原文，等宽数字）+ 厂商 + 北京时间，点按进详情；
+  - 人物动态：头像 + 人名 + `@handle` + 组织 · 身份（取自清单；清单里没有的人显示原始 id 和 vendor），下方是帖子标题与摘要；
+  - 页头有「全部 / 只看关注」切换：没选过时，关注了对应类别（产品 / 人物）就默认「只看关注」，否则「全部」；切换后记住选择。只看关注但没有命中时给出「看全部 / 去关注」入口。
+- **自定义关注产品 / 人物**（v1.2）：「设置 → 关注产品 / 关注人物」两个二级页，列出 `data/watchlist.json` 的 harness 产品与人物（个人、官方账号分组），可搜索，显示本期命中条数。只存 id；清单里已经没有的 id 会保留并标成「已下线 / 未知」，可手动移除，不会被自动删掉。关注了任何产品或人物后，首页多出一页「**我的关注**」，跨栏目汇总命中的条目。
+  - 匹配规则同 schema：条目产品集 = `{product} ∪ products`，人物集 = `{person} ∪ people`（去重、id 不区分大小写），命中任一已关注 id 即算，跨栏目，子条目同规则（父条目命中则整条收录）；未知 id 忽略不崩。与按 vendor 的「关注厂商」专栏互相独立。
+  - 详情页：版本号徽标；「关联」卡片列出条目涉及的产品 / 人物，可一键关注，可打开更新日志 / X 主页。
 - **详情**：厂商标签（中国红 / 美国蓝 / 国际灰）+ 区域、北京时间、标题、摘要、「更新」徽标与更新说明、原帖按钮（Custom Tabs，没有支持的浏览器时退回系统浏览器）、相关进展、下一条、分享。
 - **已读**：打开详情即标记已读（DataStore 持久化），列表中已读标题渐变为灰；顶栏可一键全部已读——不弹窗，按钮就地变成「✓ 已读」胶囊、主卡已读数翻动。
 - **离线**：`index.json` 与每期 JSON 原样缓存在 app 私有目录；断网时显示缓存并提示。单期若在索引中的 `published_at` 变化（修订重发）会自动重新拉取。
@@ -31,6 +44,7 @@
 - 不看 `Content-Type`（Raw 返回 `text/plain`），直接按 JSON 解析。
 - OkHttp 不配置 HTTP 缓存；请求 `index.json` 额外带 `CacheControl.FORCE_NETWORK` 与 `Cache-Control: no-cache`，绕开 jsDelivr 的 7 天 `max-age`。
 - 镜像返回的索引如果比本地已有的旧（`latest` 更小），不会把本地降级。
+- `data/watchlist.json`（v1.2）：同样的双源 + 绕缓存策略；本地缓存超过 20 小时才联网刷新（≈ 每天随 index 一次；下拉刷新放宽到 1 小时；后台每日检查时也会顺带刷新）。失败一律回退离线缓存；没有清单时一切照常，只是缺少人名 / 产品名等补充信息。启动路径上的清单读取全部包在 try 里，绝不影响启动。
 
 ## 每天早上自动提醒（无 FCM）
 
@@ -102,6 +116,7 @@ keytool -genkeypair -keystore ai-daily-release.jks -storetype PKCS12 -alias aida
 1. 允许通知；
 2. 进入「设置 → 通知与后台」，按小米后台设置的几步操作（自启动、省电策略无限制）；
 3. 需要的话在「设置 → 关注厂商」里添加想单独成页的厂商（默认是小米）。
+4. 想只看某几个编码 Agent 的新版本或某几位负责人的动态，到「设置 → 关注产品 / 关注人物」里勾选。
 
 ## 截图
 
@@ -111,6 +126,8 @@ keytool -genkeypair -keystore ai-daily-release.jks -storetype PKCS12 -alias aida
 
 用 Roborazzi + Robolectric（`GraphicsMode.NATIVE`）把真实的 Compose 界面渲染成 PNG，写到 `android/screenshots/`。
 
+测试全部离线、不依赖线上数据：端到端冒烟测试把 `DailyApi.offlineForTests` 打开，用固定的样例 / 合成数据预置缓存。
+
 ## 目录结构
 
 ```
@@ -118,7 +135,7 @@ app/src/main/java/com/wikg/aidaily/
 ├── AiDailyApp.kt          # Application + 手写依赖容器，启动时排定后台任务
 ├── MainActivity.kt        # 单 Activity、深链（aidaily://issue/… / aidaily://item/…）
 ├── data/
-│   ├── model/             # index.json / 单期 JSON 数据模型；Featured.kt：关注厂商匹配与别名表
+│   ├── model/             # index.json / 单期 JSON 数据模型；Featured.kt：关注厂商匹配与别名表；Watchlist.kt：关注清单与产品 / 人物匹配
 │   ├── remote/DailyApi.kt # OkHttp：Raw → jsDelivr 回退、绕开缓存
 │   ├── local/             # 离线缓存（文件）+ DataStore（已读、最新期、设置）
 │   └── DailyRepository.kt

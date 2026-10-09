@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "latest": "2026-10-10",
+  "updated_at": "2026-10-10T08:28:00+08:00",
+  "issues": [
+    { "date": "2026-10-10", "title": "AI 日报", "highlights": "合成测试数据：Codex CLI 0.162.0 新增托管 Git worktree。",
+      "item_count": 17, "path": "data/2026-10-10.json", "published_at": "2026-10-10T08:28:00+08:00" }
+  ]
+}

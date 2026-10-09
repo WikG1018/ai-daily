@@ -2,6 +2,7 @@ package com.wikg.aidaily.data.remote
 
 import com.wikg.aidaily.data.model.DailyIndex
 import com.wikg.aidaily.data.model.Issue
+import com.wikg.aidaily.data.model.Watchlist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -28,11 +29,16 @@ class DailyApi(
     suspend fun fetchIndex(): Fetched<DailyIndex> =
         fetch("data/index.json", noCache = true) { json.decodeFromString(DailyIndex.serializer(), it) }
 
+    /** 关注清单：缓存策略同 index.json（绕开 HTTP 缓存，Raw 优先、8 秒内失败走 jsDelivr）。 */
+    suspend fun fetchWatchlist(): Fetched<Watchlist> =
+        fetch("data/watchlist.json", noCache = true) { json.decodeFromString(Watchlist.serializer(), it) }
+
     suspend fun fetchIssue(path: String, noCache: Boolean = false): Fetched<Issue> =
         fetch(path.trimStart('/'), noCache) { json.decodeFromString(Issue.serializer(), it) }
 
     private suspend fun <T> fetch(path: String, noCache: Boolean, parse: (String) -> T): Fetched<T> =
         withContext(Dispatchers.IO) {
+            if (offlineForTests) throw IOException("offline (test)")
             var last: Exception? = null
             for (m in mirrors) {
                 try {
@@ -63,6 +69,9 @@ class DailyApi(
         }
 
     companion object {
+        /** 仅测试用：让端到端测试不依赖线上数据（线上每天都在变）。 */
+        @Volatile @JvmStatic var offlineForTests: Boolean = false
+
         fun defaultClient(): OkHttpClient = OkHttpClient.Builder()
             .callTimeout(8, TimeUnit.SECONDS)
             .connectTimeout(8, TimeUnit.SECONDS)

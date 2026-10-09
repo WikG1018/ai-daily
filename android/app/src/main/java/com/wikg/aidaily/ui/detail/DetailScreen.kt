@@ -60,6 +60,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wikg.aidaily.AiDailyApp
 import com.wikg.aidaily.data.model.ItemContext
 import com.wikg.aidaily.data.model.NewsItem
+import com.wikg.aidaily.data.model.Follows
+import com.wikg.aidaily.data.model.Watchlist
+import com.wikg.aidaily.data.model.normId
+import com.wikg.aidaily.ui.components.VersionBadge
+import kotlinx.coroutines.launch
 import com.wikg.aidaily.ui.components.CardRadius
 import com.wikg.aidaily.ui.components.DotSeparator
 import com.wikg.aidaily.ui.components.RegionLabel
@@ -92,6 +97,10 @@ fun DetailScreen(itemId: String, onBack: () -> Unit, onOpenItem: (String) -> Uni
         load = if (found != null) DetailLoad.Ready(found) else DetailLoad.NotFound
     }
     val readIds by container.prefs.readIds.collectAsStateWithLifecycle(initialValue = emptySet())
+    val settings by container.prefs.settings.collectAsStateWithLifecycle(initialValue = null)
+    val watchlist by container.repository.watchlist.collectAsStateWithLifecycle()
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    LaunchedEffect(Unit) { runCatching { container.repository.loadCachedWatchlist() } }
     LaunchedEffect(load) {
         (load as? DetailLoad.Ready)?.let { if (!it.ctx.item.group) container.prefs.markRead(it.ctx.item.id) }
     }
@@ -102,6 +111,16 @@ fun DetailScreen(itemId: String, onBack: () -> Unit, onOpenItem: (String) -> Uni
         onBack = onBack,
         onOpenItem = onOpenItem,
         onOpenIssue = onOpenIssue,
+        watchlist = watchlist,
+        follows = settings?.follows ?: Follows(),
+        onToggleProduct = { id ->
+            val cur = settings?.followProducts ?: return@DetailContent
+            scope.launch { container.prefs.setFollowProducts(if (cur.any { normId(it) == id }) cur.filterNot { normId(it) == id } else cur + id) }
+        },
+        onTogglePerson = { id ->
+            val cur = settings?.followPeople ?: return@DetailContent
+            scope.launch { container.prefs.setFollowPeople(if (cur.any { normId(it) == id }) cur.filterNot { normId(it) == id } else cur + id) }
+        },
     )
 }
 
@@ -115,6 +134,10 @@ fun DetailContent(
     onBack: () -> Unit,
     onOpenItem: (String) -> Unit,
     onOpenIssue: (String) -> Unit,
+    watchlist: Watchlist? = null,
+    follows: Follows = Follows(),
+    onToggleProduct: (String) -> Unit = {},
+    onTogglePerson: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -167,6 +190,7 @@ fun DetailContent(
                 is DetailLoad.Ready -> DetailBody(
                     l.ctx, readIds, onOpenItem, onOpenIssue,
                     openLink = { url -> openUrl(context, url, toolbarColor, e.isDark) },
+                    refs = RefsUi(watchlist, follows, onToggleProduct, onTogglePerson),
                 )
             }
         }
@@ -181,6 +205,7 @@ private fun DetailBody(
     onOpenItem: (String) -> Unit,
     onOpenIssue: (String) -> Unit,
     openLink: (String) -> Unit,
+    refs: RefsUi = RefsUi(),
 ) {
     val item = ctx.item
     val e = AppTheme.extra
@@ -209,6 +234,7 @@ private fun DetailBody(
             VendorTag(item.vendor, item.regionKind, large = true)
             Spacer(Modifier.width(8.dp))
             RegionLabel(item.regionKind)
+            item.versionText?.let { Spacer(Modifier.width(8.dp)); VersionBadge(it, large = true) }
             if (item.update) { Spacer(Modifier.width(8.dp)); UpdateBadge() }
         }
         Spacer(Modifier.height(14.dp))
@@ -225,6 +251,8 @@ private fun DetailBody(
                 Text("$t 北京时间", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
+
+        RefCards(item, refs, openLink)
 
         ctx.parent?.let { p ->
             Spacer(Modifier.height(16.dp))

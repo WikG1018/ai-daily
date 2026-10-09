@@ -58,7 +58,9 @@ class ScreenshotTest {
     @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
 
     private val outDir = File(System.getProperty("aidaily.screenshotDir") ?: "build/screenshots")
+    // 固定到 2026-10-08 这一期（data/index.json 每天都会前进）
     private val index = AppJson.decodeFromString(DailyIndex.serializer(), File("../../data/index.json").readText())
+        .let { idx -> idx.copy(latest = "2026-10-08", issues = idx.issues.filter { it.date <= "2026-10-08" }) }
     private val issue = AppJson.decodeFromString(Issue.serializer(), File("../../data/2026-10-08.json").readText())
     private val readIds = setOf("2026-10-08-003", "2026-10-08-006")
 
@@ -116,8 +118,10 @@ class ScreenshotTest {
                     settings = Settings(
                         lastCheckAt = 1_791_506_000_000, lastCheckResult = "已是最新（2026-10-08）", lastMirror = "GitHub Raw",
                         featuredVendors = featured,
+                        followProducts = followProducts, followPeople = followPeople.take(2),
                     ),
                     notifGranted = true, batteryOk = false, isXiaomi = true, miSans = true, actions = SettingsActions(),
+                    watchlist = watchlist,
                 )
             }
         }
@@ -143,6 +147,84 @@ class ScreenshotTest {
     }
 
     /** 启动图标：自适应图标的前景 / 背景按圆形与圆角方形两种遮罩渲染。 */
+    // —— v1.2：版本更新 / 人物动态 / 我的关注 / 关注设置（合成数据 test/resources/fixtures + 仓库 data/watchlist.json）——
+    private fun res(name: String) = javaClass.classLoader!!.getResource("fixtures/$name")!!.readText()
+    private val synIssue by lazy { AppJson.decodeFromString(Issue.serializer(), res("issue-2026-10-10.json")) }
+    private val synIndex by lazy { AppJson.decodeFromString(DailyIndex.serializer(), res("index-2026-10-10.json")) }
+    private val watchlist by lazy {
+        AppJson.decodeFromString(com.wikg.aidaily.data.model.Watchlist.serializer(), File("../../data/watchlist.json").readText())
+    }
+    private val followProducts = listOf("codex-cli", "mimo-code", "claude-code")
+    private val followPeople = listOf("_luofuli", "thsottiaux", "ghost_person")
+    private val synRead = setOf("2026-10-10-007")
+
+    private fun followSettings(filter: com.wikg.aidaily.data.local.FollowFilter? = com.wikg.aidaily.data.local.FollowFilter.ALL) = Settings(
+        guideDismissed = true, featuredVendors = listOf("小米"),
+        followProducts = followProducts, followPeople = followPeople,
+        releasesFilter = filter, peopleFilter = filter,
+    )
+
+    // 页序：今日 0 · 小米 1 · 我的关注 2 · 模型 3 · 编码 Agent 4 · 版本更新 5 · 人物动态 6 · 其他 7
+    private fun followHome(mode: ThemeMode, name: String, page: Int, filter: com.wikg.aidaily.data.local.FollowFilter? = com.wikg.aidaily.data.local.FollowFilter.ALL) {
+        compose.setContent {
+            AiDailyTheme(mode) {
+                HomeContent(
+                    state = HomeUiState(index = synIndex, issue = synIssue, initialLoading = false, readIds = synRead,
+                        settings = followSettings(filter), watchlist = watchlist),
+                    snackbar = remember { SnackbarHostState() }, initialPage = page,
+                    showGuide = false, notifGranted = true,
+                    onRefresh = {}, onSelectDate = {}, onBackToLatest = {}, onMarkAllRead = {}, onShowPicker = {},
+                    onOpenItem = {}, onOpenSettings = {}, onGuideAction = {}, onGuideDismiss = {},
+                )
+            }
+        }
+        compose.waitForIdle()
+        compose.onRoot().captureRoboImage(File(outDir, "$name.png").path)
+    }
+
+    @Test fun releasesLight() = followHome(ThemeMode.LIGHT, "home_releases_light", 5)
+    @Test fun releasesDark() = followHome(ThemeMode.DARK, "home_releases_dark", 5)
+    @Test fun releasesFollowedLight() = followHome(ThemeMode.LIGHT, "home_releases_followed_light", 5, com.wikg.aidaily.data.local.FollowFilter.FOLLOWED)
+    @Test fun peopleLight() = followHome(ThemeMode.LIGHT, "home_people_light", 6)
+    @Test fun peopleDark() = followHome(ThemeMode.DARK, "home_people_dark", 6)
+    @Test fun myFollowsLight() = followHome(ThemeMode.LIGHT, "home_follow_light", 2)
+
+    private fun followPage(mode: ThemeMode, kind: com.wikg.aidaily.ui.settings.FollowKind, name: String) {
+        compose.setContent {
+            AiDailyTheme(mode) {
+                com.wikg.aidaily.ui.settings.FollowContent(
+                    kind = kind, watchlist = watchlist,
+                    followed = if (kind == com.wikg.aidaily.ui.settings.FollowKind.PRODUCTS) followProducts else followPeople,
+                    counts = com.wikg.aidaily.ui.settings.issueCounts(synIssue, kind),
+                    onChange = {}, onBack = {},
+                )
+            }
+        }
+        compose.waitForIdle()
+        compose.onRoot().captureRoboImage(File(outDir, "$name.png").path)
+    }
+
+    @Test fun followProductsLight() = followPage(ThemeMode.LIGHT, com.wikg.aidaily.ui.settings.FollowKind.PRODUCTS, "follow_products_light")
+    @Test fun followPeopleLight() = followPage(ThemeMode.LIGHT, com.wikg.aidaily.ui.settings.FollowKind.PEOPLE, "follow_people_light")
+    @Test fun followPeopleDark() = followPage(ThemeMode.DARK, com.wikg.aidaily.ui.settings.FollowKind.PEOPLE, "follow_people_dark")
+
+    private fun synDetail(mode: ThemeMode, id: String, name: String) {
+        val ctx = synIssue.locate(id)!!
+        compose.setContent {
+            AiDailyTheme(mode) {
+                DetailContent(
+                    ctx = ctx, loading = false, readIds = synRead, onBack = {}, onOpenItem = {}, onOpenIssue = {},
+                    watchlist = watchlist, follows = followSettings().follows,
+                )
+            }
+        }
+        compose.waitForIdle()
+        compose.onRoot().captureRoboImage(File(outDir, "$name.png").path)
+    }
+
+    @Test fun detailReleaseLight() = synDetail(ThemeMode.LIGHT, "2026-10-10-006", "detail_release_light")
+    @Test fun detailPersonLight() = synDetail(ThemeMode.LIGHT, "2026-10-10-016", "detail_person_light")
+
     @Test fun launcherIcon() {
         compose.setContent {
             AiDailyTheme(ThemeMode.LIGHT) {

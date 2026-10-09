@@ -85,9 +85,37 @@ data class NewsItem(
     val update: Boolean = false,
     @SerialName("update_note") val updateNote: String? = null,
     val group: Boolean = false,
+    /** v1.2：主要 harness 产品 id（watchlist.products[].id），releases 栏目必带。 */
+    val product: String? = null,
+    /** v1.2：其他相关产品 id。 */
+    val products: List<String> = emptyList(),
+    /** v1.2：主要人物 / 账号 id（小写 X handle），people 栏目必带。 */
+    val person: String? = null,
+    /** v1.2：其他相关人物 id。 */
+    val people: List<String> = emptyList(),
+    /** v1.2：版本号原文，如 0.162.0；releases 栏目必带。 */
+    val version: String? = null,
 ) {
     val regionKind: Region get() = Region.of(region)
+
+    /** 产品集合 = {product} ∪ products（去空白、去重，保持顺序）。 */
+    val productIds: Set<String> get() = idSet(product, products)
+
+    /** 人物集合 = {person} ∪ people（id 为小写 handle，比较时统一小写）。 */
+    val personIds: Set<String> get() = idSet(person, people)
+
+    val versionText: String? get() = version?.trim()?.takeIf { it.isNotEmpty() }
 }
+
+internal fun idSet(single: String?, many: List<String>?): Set<String> {
+    val out = LinkedHashSet<String>()
+    single?.let { normId(it) }?.let { out += it }
+    many.orEmpty().forEach { s -> normId(s)?.let { out += it } }
+    return out
+}
+
+/** id 规范化：去空白、去 @、小写；空串返回 null。 */
+fun normId(raw: String?): String? = raw?.trim()?.removePrefix("@")?.lowercase()?.takeIf { it.isNotEmpty() }
 
 @Serializable
 data class NewsLink(

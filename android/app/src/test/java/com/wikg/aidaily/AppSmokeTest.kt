@@ -38,10 +38,18 @@ import java.io.File
 class AppSmokeTest {
     @get:Rule val compose = createEmptyComposeRule()
 
+    @org.junit.After fun online() { com.wikg.aidaily.data.remote.DailyApi.offlineForTests = false }
+
     @Before fun seedCache() {
+        com.wikg.aidaily.data.remote.DailyApi.offlineForTests = true
         val ctx = ApplicationProvider.getApplicationContext<AiDailyApp>()
         val dir = File(ctx.filesDir, "daily").apply { mkdirs() }
-        File("../../data/index.json").copyTo(File(dir, "index.json"), overwrite = true)
+        // 离线、固定数据：索引只保留 2026-10-08 这一期（线上 data/ 每天都在变）
+        val idx = com.wikg.aidaily.data.remote.AppJson.decodeFromString(
+            com.wikg.aidaily.data.model.DailyIndex.serializer(), File("../../data/index.json").readText(),
+        )
+        val pinned = idx.copy(latest = "2026-10-08", issues = idx.issues.filter { it.date == "2026-10-08" })
+        File(dir, "index.json").writeText(com.wikg.aidaily.data.remote.AppJson.encodeToString(com.wikg.aidaily.data.model.DailyIndex.serializer(), pinned))
         File("../../data/2026-10-08.json").copyTo(File(dir, "issue-2026-10-08.json"), overwrite = true)
     }
 

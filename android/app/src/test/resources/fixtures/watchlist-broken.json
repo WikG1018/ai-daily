@@ -1,0 +1,3 @@
+{ "schema_version": 3, "products": [ { "id": "codex-cli", "name": "Codex CLI", "kind": "ide", "extra": [1,2] }, { "name": "no id" } ],
+  "people": [ { "id": "THSottiaux", "name": "Tibo", "kind": "alien" }, { "id": "openaidevs", "handle": "OpenAIDevs", "kind": "official" } ],
+  "future": true }

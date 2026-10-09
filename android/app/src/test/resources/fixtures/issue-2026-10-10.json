@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-10",
+  "window": { "start": "10-09 23:45", "end": "10-10 23:45", "tz": "北京时间" },
+  "highlights": "合成测试数据：**Codex CLI 0.162.0** 新增托管 Git worktree，Tibo 宣布 Codex cloud 重新上线。",
+  "xiaomi": {
+    "items": [
+      { "id": "2026-10-10-001", "vendor": "小米", "region": "cn", "title": "MiMo Code 支持多仓库工作区",
+        "summary": "合成条目：小米专栏里也可以带 product。", "time": "10-10 09:12", "product": "mimo-code",
+        "links": [{ "label": "原帖", "url": "https://x.com/XiaomiMiMoDevs/status/1" }] }
+    ],
+    "empty_text": "本期未收录小米相关动态。"
+  },
+  "sections": [
+    { "id": "models", "icon": "🧠", "title": "模型", "items": [
+      { "id": "2026-10-10-002", "vendor": "OpenAI", "region": "us", "title": "OpenAI 为 GPT-6.1 Sol 推出 Ultrafast 模式",
+        "summary": "合成条目：其他栏目里明确围绕某产品时带 products。", "time": "10-10 01:20", "products": ["codex-cli"],
+        "links": [{ "label": "原帖", "url": "https://x.com/OpenAI/status/2" }] },
+      { "id": "2026-10-10-003", "vendor": "Anthropic", "region": "us", "title": "Anthropic 发布 Claude Haiku 5.6",
+        "summary": "不带任何关注字段。", "time": "10-10 02:01", "links": [{ "url": "https://x.com/claudeai/status/3" }] }
+    ] },
+    { "id": "harness", "icon": "🛠️", "title": "编码 / Agent 框架", "items": [
+      { "id": "2026-10-10-004", "vendor": "Cursor", "region": "us", "title": "Cursor 3.2 发布后台 Agent 面板",
+        "summary": "父条目不带字段，子条目带 person。", "time": "10-10 03:30",
+        "links": [{ "url": "https://x.com/cursor_ai/status/4" }],
+        "children": [
+          { "id": "2026-10-10-005", "vendor": "Cursor", "region": "us", "title": "Michael Truell：面板默认开启",
+            "time": "10-10 04:00", "person": "mntruell", "links": [{ "url": "https://x.com/mntruell/status/5" }] }
+        ] }
+    ] },
+    { "id": "releases", "icon": "📦", "title": "版本更新", "items": [
+      { "id": "2026-10-10-006", "vendor": "OpenAI", "region": "us", "title": "Codex CLI 0.162.0",
+        "product": "codex-cli", "version": "0.162.0", "time": "10-09 02:55",
+        "summary": "新增托管 Git worktree 工具。",
+        "links": [{ "label": "Release", "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0" }] },
+      { "id": "2026-10-10-007", "vendor": "Anthropic", "region": "us", "title": "Claude Code 2.3.1",
+        "product": "claude-code", "version": "2.3.1", "time": "10-09 06:40",
+        "summary": "修复 /resume 在大仓库里卡顿。",
+        "links": [{ "label": "Release", "url": "https://github.com/anthropics/claude-code/releases/tag/v2.3.1" }] },
+      { "id": "2026-10-10-008", "vendor": "DeepSeek", "region": "cn", "title": "DeepSeek Harness dsh-v0.2.1-alpha.1",
+        "product": "deepseek-harness", "products": ["deepseek-harness"], "version": "dsh-v0.2.1-alpha.1", "time": "10-09 11:05",
+        "links": [{ "label": "Release", "url": "https://github.com/deepseek-ai/dsh/releases" }] },
+      { "id": "2026-10-10-009", "vendor": "小米", "region": "cn", "title": "MiMo Code 1.4.0",
+        "product": "mimo-code", "version": "1.4.0", "time": "10-09 15:30", "update": true, "update_note": "补发了 Windows 安装包。",
+        "summary": "新增多仓库工作区。",
+        "links": [{ "label": "Release", "url": "https://github.com/XiaomiMiMo/mimo-code/releases" }] },
+      { "id": "2026-10-10-010", "vendor": "Ghost", "region": "intl", "title": "Ghost CLI 9.9.9",
+        "product": "ghost-cli", "version": "9.9.9", "time": "10-09 18:00", "futureField": {"x": 1},
+        "links": [{ "label": "Release", "url": "https://example.com/ghost" }] },
+      { "id": "2026-10-10-011", "vendor": "GitHub", "region": "us", "title": "GitHub Copilot 与 VS Code 更新", "group": true,
+        "children": [
+          { "id": "2026-10-10-012", "vendor": "GitHub", "region": "us", "title": "GitHub Copilot CLI 1.0.40",
+            "product": "copilot-cli", "version": "1.0.40", "time": "10-09 20:10",
+            "links": [{ "label": "Release", "url": "https://github.com/github/copilot-cli/releases" }] },
+          { "id": "2026-10-10-013", "vendor": "Microsoft", "region": "us", "title": "VS Code 1.110",
+            "product": "vscode", "version": "1.110", "time": "10-09 21:00",
+            "links": [{ "label": "Release", "url": "https://code.visualstudio.com/updates" }] }
+        ] }
+    ] },
+    { "id": "people", "icon": "🗣️", "title": "人物动态", "items": [
+      { "id": "2026-10-10-014", "vendor": "OpenAI", "region": "us", "title": "Tibo：Codex cloud 重新上线",
+        "person": "thsottiaux", "products": ["codex-cli"], "time": "10-08 14:38",
+        "summary": "排查完队列积压后恢复，所有任务会自动重试。",
+        "links": [{ "url": "https://x.com/thsottiaux/status/2108084615349170480" }] },
+      { "id": "2026-10-10-015", "vendor": "小米", "region": "cn", "title": "罗福莉：MiMo 下一代模型进入内测",
+        "person": "_luofuli", "time": "10-09 22:10",
+        "summary": "首批面向 MiMo Code 用户开放。",
+        "links": [{ "url": "https://x.com/_LuoFuli/status/15" }] },
+      { "id": "2026-10-10-016", "vendor": "Anthropic", "region": "us", "title": "ClaudeDevs：Claude Code 新增 hooks 文档",
+        "person": "claudedevs", "people": ["bcherny", "ClaudeDevs"], "products": ["claude-code"], "time": "10-09 08:00",
+        "links": [{ "url": "https://x.com/ClaudeDevs/status/16" }] },
+      { "id": "2026-10-10-017", "vendor": "Unknown", "region": "mars", "title": "某位不在清单里的人发帖",
+        "person": "nobody_here", "time": "10-09 09:00",
+        "links": [{ "url": "https://x.com/nobody_here/status/17" }] }
+    ] },
+    { "id": "other", "icon": "📰", "title": "其他动态", "items": [
+      { "id": "2026-10-10-018", "vendor": "智谱", "region": "cn", "title": "智谱开放 ZCode 企业版",
+        "time": "10-10 10:00", "product": "zcode", "people": ["jietang"],
+        "links": [{ "url": "https://x.com/Zai_org/status/18" }] }
+    ] }
+  ],
+  "notes": ["这是测试用的合成数据，不会出现在 data/ 里。"],
+  "source_note": "合成测试数据。",
+  "published_at": "2026-10-10T08:28:00+08:00"
+}

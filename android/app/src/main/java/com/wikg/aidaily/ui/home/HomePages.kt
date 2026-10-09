@@ -37,6 +37,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.GridView
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
@@ -76,7 +77,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.wikg.aidaily.data.local.FollowFilter
 import com.wikg.aidaily.data.model.FeaturedColumn
+import com.wikg.aidaily.data.model.FollowHit
+import com.wikg.aidaily.data.model.Follows
+import com.wikg.aidaily.data.model.SectionIds
+import com.wikg.aidaily.data.model.Watchlist
+import com.wikg.aidaily.data.model.collectFollowed
+import com.wikg.aidaily.data.model.followedHits
+import com.wikg.aidaily.data.model.newsCount
+import com.wikg.aidaily.ui.components.FollowFilterToggle
 import com.wikg.aidaily.data.model.Issue
 import com.wikg.aidaily.data.model.NewsItem
 import com.wikg.aidaily.data.model.Section
@@ -122,6 +132,14 @@ internal sealed interface HomePage {
         override val featured = true
     }
 
+    /** v1.2「我的关注」：命中关注产品 / 人物的条目（跨栏目）。只有关注了至少一个产品或人物才出现。 */
+    data class Follow(val hits: List<FollowHit>) : HomePage {
+        override val key = "follow"
+        override val tabTitle = "我的关注"
+        override val count = hits.sumOf { it.item.newsCount() }
+        override val featured = true
+    }
+
     data class Sec(val section: Section) : HomePage {
         override val key = "s-" + section.id.ifBlank { section.title }
         override val tabTitle = shortTitle(section)
@@ -138,11 +156,38 @@ private fun shortTitle(s: Section) = when {
     else -> s.title
 }.ifBlank { s.id.ifBlank { "栏目" } }
 
-internal fun buildPages(issue: Issue, featured: List<String>): List<HomePage> = buildList {
+internal fun buildPages(issue: Issue, featured: List<String>, follows: Follows = Follows()): List<HomePage> = buildList {
     add(HomePage.Today(issue.newsCount))
     normalizeFeatured(featured).forEach { add(HomePage.Featured(issue.featuredColumn(it))) }
+    if (!follows.isEmpty) add(HomePage.Follow(runCatching { issue.followedHits(follows) }.getOrDefault(emptyList())))
     issue.sections.forEach { add(HomePage.Sec(it)) }
 }.distinctBy { it.key }
+
+/** 版本更新 / 人物动态 / 我的关注 所需的关注状态与回调。 */
+internal data class FollowUi(
+    val watchlist: Watchlist? = null,
+    val follows: Follows = Follows(),
+    val releasesFilter: FollowFilter? = null,
+    val peopleFilter: FollowFilter? = null,
+    val onSetFilter: (String, FollowFilter) -> Unit = { _, _ -> },
+    /** 参数：栏目 id（releases → 关注产品，people → 关注人物）。 */
+    val onManage: (String) -> Unit = {},
+) {
+    /** 用户没选过时：关注了对应类别就默认「只看关注」，否则「全部」。 */
+    fun followedOnly(sectionId: String?): Boolean = when (sectionId) {
+        SectionIds.RELEASES -> (releasesFilter ?: if (follows.products.isNotEmpty()) FollowFilter.FOLLOWED else FollowFilter.ALL) == FollowFilter.FOLLOWED
+        SectionIds.PEOPLE -> (peopleFilter ?: if (follows.people.isNotEmpty()) FollowFilter.FOLLOWED else FollowFilter.ALL) == FollowFilter.FOLLOWED
+        else -> false
+    }
+
+    fun hasRelevantFollows(sectionId: String?): Boolean = when (sectionId) {
+        SectionIds.RELEASES -> follows.products.isNotEmpty()
+        SectionIds.PEOPLE -> follows.people.isNotEmpty()
+        else -> !follows.isEmpty
+    }
+}
+
+internal fun isFilterable(sectionId: String?) = sectionId == SectionIds.RELEASES || sectionId == SectionIds.PEOPLE
 
 /** 每页一个 LazyListState，跨导航（进详情再返回）保留滚动位置。 */
 internal val ListStatesSaver = Saver<HashMap<String, LazyListState>, ArrayList<Any>>(
@@ -311,6 +356,10 @@ private fun PageIcon(p: HomePage, size: androidx.compose.ui.unit.Dp = 26.dp) {
             Modifier.size(size).clip(RoundedCornerShape(size * 0.3f)).background(MaterialTheme.colorScheme.surfaceContainerHigh),
             contentAlignment = Alignment.Center,
         ) { Text(p.section.icon ?: "•", fontSize = (size.value * 0.54f).sp) }
+        is HomePage.Follow -> Box(
+            Modifier.size(size).clip(RoundedCornerShape(size * 0.3f)).background(AppTheme.extra.featured),
+            contentAlignment = Alignment.Center,
+        ) { Icon(Icons.Rounded.Star, null, Modifier.size(size * 0.62f), tint = Color.White) }
         is HomePage.Today -> Unit
     }
 }
@@ -318,18 +367,21 @@ private fun PageIcon(p: HomePage, size: androidx.compose.ui.unit.Dp = 26.dp) {
 private fun pageTitle(p: HomePage) = when (p) {
     is HomePage.Featured -> p.column.vendor + "专栏"
     is HomePage.Sec -> p.section.title.ifBlank { p.tabTitle }
+    is HomePage.Follow -> "我的关注"
     is HomePage.Today -> "今日"
 }
 
 private fun pageItems(p: HomePage): List<NewsItem> = when (p) {
     is HomePage.Featured -> p.column.items
     is HomePage.Sec -> p.section.items
+    is HomePage.Follow -> p.hits.map { it.item }
     is HomePage.Today -> emptyList()
 }
 
 private fun pageEmptyText(p: HomePage): String = when (p) {
     is HomePage.Featured -> p.column.emptyText
     is HomePage.Sec -> p.section.emptyText?.takeIf { it.isNotBlank() } ?: "本期无相关动态"
+    is HomePage.Follow -> "本期没有你关注的产品或人物的动态"
     is HomePage.Today -> ""
 }
 
@@ -427,25 +479,79 @@ internal fun ColumnPage(
     listState: LazyListState,
     onOpenItem: (String) -> Unit,
     onManageFeatured: () -> Unit,
+    follow: FollowUi = FollowUi(),
 ) {
-    val items = pageItems(page)
+    val sectionId = (page as? HomePage.Sec)?.section?.id
+    val filterable = isFilterable(sectionId)
+    val followedOnly = filterable && follow.followedOnly(sectionId)
+    // (条目, 来源栏目 id)：决定用通用样式还是版本 / 人物的定制样式
+    val rows: List<Pair<NewsItem, String?>> = remember(page, followedOnly, follow.follows) {
+        when {
+            page is HomePage.Follow -> page.hits.map { it.item to it.sectionId }
+            followedOnly -> collectFollowed(pageItems(page), follow.follows).map { it to sectionId }
+            else -> pageItems(page).map { it to sectionId }
+        }
+    }
     LazyColumn(
         state = listState,
         modifier = Modifier.fillMaxSize().testTag("page_${page.key}"),
         contentPadding = PaddingValues(bottom = 24.dp),
     ) {
-        item(key = "header", contentType = "header") { PageHeader(page, onManageFeatured) }
-        if (items.isEmpty()) {
+        item(key = "header", contentType = "header") {
+            PageHeader(
+                page, onManageFeatured,
+                trailing = when {
+                    filterable -> ({
+                        FollowFilterToggle(
+                            followedOnly = followedOnly,
+                            onChange = { on -> follow.onSetFilter(sectionId!!, if (on) FollowFilter.FOLLOWED else FollowFilter.ALL) },
+                            tagPrefix = "filter-$sectionId",
+                        )
+                    })
+                    page is HomePage.Follow -> ({
+                        TextButton(onClick = { follow.onManage(SectionIds.RELEASES) }) {
+                            Icon(Icons.Rounded.Tune, null, Modifier.size(16.dp), tint = AppTheme.extra.featured)
+                            Spacer(Modifier.width(4.dp))
+                            Text("管理关注", style = MaterialTheme.typography.labelMedium, color = AppTheme.extra.featured)
+                        }
+                    })
+                    else -> null
+                },
+            )
+        }
+        if (rows.isEmpty()) {
             item(key = "empty", contentType = "empty") {
-                val hint = (page as? HomePage.Featured)?.column?.let { c ->
-                    if (c.isXiaomi) "小米 / 澎湃OS / 小爱相关动态会第一时间出现在这里"
-                    else "「${c.vendor}」相关动态会第一时间出现在这里"
+                when {
+                    followedOnly && !follow.hasRelevantFollows(sectionId) -> FollowEmptyCard(
+                        text = if (sectionId == SectionIds.RELEASES) "还没有关注任何产品" else "还没有关注任何人物",
+                        hint = if (sectionId == SectionIds.RELEASES) "选几个常用的编码 Agent，只看它们的新版本" else "选几位关心的负责人或官方号，只看他们的动态",
+                        action = "去关注",
+                        onAction = { follow.onManage(sectionId!!) },
+                    )
+                    followedOnly -> FollowEmptyCard(
+                        text = if (sectionId == SectionIds.RELEASES) "本期没有你关注的产品更新" else "本期没有你关注的人物动态",
+                        hint = "本栏目共 ${page.count} 条，切到「全部」查看",
+                        action = "看全部",
+                        onAction = { follow.onSetFilter(sectionId!!, FollowFilter.ALL) },
+                    )
+                    else -> {
+                        val hint = (page as? HomePage.Featured)?.column?.let { c ->
+                            if (c.isXiaomi) "小米 / 澎湃OS / 小爱相关动态会第一时间出现在这里"
+                            else "「${c.vendor}」相关动态会第一时间出现在这里"
+                        } ?: if (page is HomePage.Follow) "你关注的产品发新版、人物发帖时会汇总到这里" else null
+                        EmptyCard(pageEmptyText(page), page.featured, hint)
+                    }
                 }
-                EmptyCard(pageEmptyText(page), page.featured, hint)
             }
         } else {
-            itemsIndexed(items, key = { _, it -> "i-" + it.id }, contentType = { _, _ -> "item" }) { i, item ->
-                NewsRow(item, first = i == 0, last = i == items.lastIndex, featured = page.featured, readIds = readIds, onOpen = onOpenItem)
+            itemsIndexed(rows, key = { _, it -> "i-" + it.first.id }, contentType = { _, it -> rowStyleOf(it.first, it.second).name }) { i, (item, sid) ->
+                val first = i == 0
+                val last = i == rows.lastIndex
+                when (rowStyleOf(item, sid)) {
+                    RowStyle.RELEASE -> ReleaseRow(item, first, last, readIds, follow, onOpenItem)
+                    RowStyle.PERSON -> PersonRow(item, first, last, readIds, follow, onOpenItem)
+                    RowStyle.NEWS -> NewsRow(item, first = first, last = last, featured = page is HomePage.Featured, readIds = readIds, onOpen = onOpenItem)
+                }
             }
         }
         item(key = "end", contentType = "end") { PageEnd() }
@@ -454,9 +560,9 @@ internal fun ColumnPage(
 }
 
 @Composable
-private fun PageHeader(p: HomePage, onManageFeatured: () -> Unit) {
+private fun PageHeader(p: HomePage, onManageFeatured: () -> Unit, trailing: (@Composable () -> Unit)? = null) {
     Row(
-        Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp, top = 16.dp, bottom = 10.dp),
+        Modifier.fillMaxWidth().padding(start = 20.dp, end = if (trailing != null && p !is HomePage.Follow) 16.dp else 12.dp, top = 16.dp, bottom = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         PageIcon(p, 28.dp)
@@ -472,13 +578,36 @@ private fun PageHeader(p: HomePage, onManageFeatured: () -> Unit) {
             Spacer(Modifier.width(8.dp))
             if (p.count > 0) Text("${p.count} 条", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
         }
-        if (p is HomePage.Featured) {
+        if (trailing != null) trailing()
+        else if (p is HomePage.Featured) {
             TextButton(onClick = onManageFeatured) {
                 Icon(Icons.Rounded.Tune, null, Modifier.size(16.dp), tint = AppTheme.extra.featured)
                 Spacer(Modifier.width(4.dp))
                 Text("管理关注", style = MaterialTheme.typography.labelMedium, color = AppTheme.extra.featured)
             }
         }
+    }
+}
+
+@Composable
+private fun FollowEmptyCard(text: String, hint: String, action: String, onAction: () -> Unit) {
+    val e = AppTheme.extra
+    Row(
+        Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(CardRadius))
+            .background(e.featuredContainer)
+            .padding(start = 16.dp, end = 12.dp, top = 14.dp, bottom = 14.dp)
+            .testTag("follow-empty"),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(text, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface)
+            Text(hint, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Spacer(Modifier.width(10.dp))
+        FilledTonalButton(onClick = onAction) { Text(action) }
     }
 }
 
@@ -678,7 +807,7 @@ private fun MetaLine(item: NewsItem) {
     }
 }
 
-private fun timeShort(t: String): String =
+internal fun timeShort(t: String): String =
     Regex("""^(\d{1,2})-(\d{1,2})\s+(\d{1,2}:\d{2})$""").find(t.trim())?.destructured?.let { (m, d, hm) -> "${m.toInt()}/${d.toInt()} $hm" } ?: t
 
 @Composable
@@ -718,7 +847,7 @@ private fun ItemBody(item: NewsItem, read: Boolean) {
 }
 
 @Composable
-private fun ChildList(children: List<NewsItem>, readIds: Set<String>, onOpen: (String) -> Unit) {
+internal fun ChildList(children: List<NewsItem>, readIds: Set<String>, onOpen: (String) -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()

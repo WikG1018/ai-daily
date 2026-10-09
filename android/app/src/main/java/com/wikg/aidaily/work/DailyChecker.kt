@@ -24,6 +24,10 @@ class DailyChecker(
             val cached = repo.index.value
             return CheckOutcome(true, cached?.latest, cached?.issues?.firstOrNull()?.publishedAt, false)
         }
+        // 关注清单约每天随 index 拉一次；失败只用缓存，绝不影响通知
+        try { repo.refreshWatchlist() } catch (t: Throwable) {
+            if (t is kotlinx.coroutines.CancellationException) throw t
+        }
         val latest = index.latest
         val head = index.issues.firstOrNull { it.date == latest } ?: index.issues.firstOrNull()
         if (latest == null || head == null) {

@@ -20,6 +20,11 @@ object AppFonts {
 
     fun family(context: Context): FontFamily {
         cached?.let { return it }
+        // 上次崩溃跟字体有关 → 本次退回系统字体（安全模式）
+        val fontCrash = runCatching {
+            com.wikg.aidaily.crash.CrashLog.read(context)?.let { it.contains("Typeface") || it.contains("FontFamily") || it.contains("Font(") }
+        }.getOrNull() == true
+        if (fontCrash) return FontFamily.Default.also { cached = it }
         val assets = context.applicationContext.assets
         val names = runCatching { assets.list("fonts")?.toSet() }.getOrNull().orEmpty()
         val need = listOf("MiSans-Regular.otf", "MiSans-Medium.otf", "MiSans-Semibold.otf")

@@ -8,6 +8,10 @@ import androidx.compose.ui.graphics.toArgb
 import com.wikg.aidaily.ui.theme.DarkColors
 import com.wikg.aidaily.ui.theme.LightColors
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.Dispatchers
+import com.wikg.aidaily.crash.CrashLog
+import com.wikg.aidaily.crash.CrashLogActivity
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 import androidx.activity.SystemBarStyle
@@ -50,14 +54,24 @@ class MainActivity : ComponentActivity() {
     private val deepLinks = MutableStateFlow<DeepLink?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        // 启动画面是锦上添花：任何异常都退回普通主题，绝不因此崩溃
+        runCatching { installSplashScreen() }.onFailure { setTheme(R.style.Theme_AiDaily) }
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) deepLinks.value = DeepLink.parse(intent)
+        // 上次在启动阶段崩溃过：先展示崩溃日志（纯 View 页面），用户可复制后「继续打开」
+        if (savedInstanceState == null && CrashLog.shouldShowOnLaunch(this)) {
+            startActivity(Intent(this, CrashLogActivity::class.java).putExtra(CrashLogActivity.EXTRA_FROM_LAUNCH, true))
+            finish()
+            return
+        }
+        if (savedInstanceState == null) deepLinks.value = runCatching { DeepLink.parse(intent) }.getOrNull()
         val prefs = (application as AiDailyApp).container.prefs
-        // 首帧就用用户选的主题（DataStore 很小，读一次只要几毫秒），避免「浅色一闪再变深色」
-        val initial = runBlocking { runCatching { withTimeoutOrNull(300) { prefs.settings.first() } }.getOrNull() } ?: Settings()
+        // 首帧就用用户选的主题，避免「浅色一闪再变深色」。只在后台线程读、最多等 300ms，任何异常都用默认值。
+        val initial = runCatching {
+            runBlocking(Dispatchers.IO) { withTimeoutOrNull(300) { prefs.settings.first() } }
+        }.getOrNull() ?: Settings()
+        val safeSettings = prefs.settings.catch { emit(initial) }
         setContent {
-            val settings by prefs.settings.collectAsStateWithLifecycle(initialValue = initial)
+            val settings by safeSettings.collectAsStateWithLifecycle(initialValue = initial)
             val dark = when (settings.themeMode) {
                 ThemeMode.SYSTEM -> isSystemInDarkTheme()
                 ThemeMode.LIGHT -> false
@@ -66,9 +80,11 @@ class MainActivity : ComponentActivity() {
             DisposableEffect(dark) {
                 val style = if (dark) SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
                 else SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT)
-                enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
-                // 窗口底色跟随 app 内主题（「深色」不跟随系统时，资源里的窗口色仍是浅色）
-                window.setBackgroundDrawable(ColorDrawable(if (dark) DarkColors.background.toArgb() else LightColors.background.toArgb()))
+                runCatching {
+                    enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
+                    // 窗口底色跟随 app 内主题（「深色」不跟随系统时，资源里的窗口色仍是浅色）
+                    window.setBackgroundDrawable(ColorDrawable(if (dark) DarkColors.background.toArgb() else LightColors.background.toArgb()))
+                }
                 onDispose { }
             }
             AiDailyTheme(settings.themeMode) {
@@ -79,6 +95,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        DeepLink.parse(intent)?.let { deepLinks.value = it }
+        runCatching { DeepLink.parse(intent) }.getOrNull()?.let { deepLinks.value = it }
     }
 }

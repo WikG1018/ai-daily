@@ -49,6 +49,13 @@
             </intent-filter>
         </activity>
 
+        <!-- 崩溃日志（纯 View，不依赖 Compose）；设置 → 关于 → 崩溃日志 -->
+        <activity
+            android:name=".crash.CrashLogActivity"
+            android:exported="false"
+            android:label="崩溃日志"
+            android:theme="@style/Theme.AiDaily" />
+
         <!-- WorkManager 按需初始化（Application 实现 Configuration.Provider） -->
         <provider
             android:name="androidx.startup.InitializationProvider"

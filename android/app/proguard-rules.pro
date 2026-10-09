@@ -12,3 +12,28 @@
 -dontwarn org.conscrypt.**
 -dontwarn org.bouncycastle.**
 -dontwarn org.openjsse.**
+
+# —— v1.1.1：R8 全量模式（AGP 9 默认）下的稳妥规则 ——
+# kotlinx.serialization 官方推荐规则（@Serializable 类的 Companion / serializer() / $$serializer）
+-if @kotlinx.serialization.Serializable class **
+-keepclassmembers class <1> {
+    static <1>$Companion Companion;
+}
+-if @kotlinx.serialization.Serializable class ** {
+    static **$* *;
+}
+-keepclassmembers class <2>$<3> {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+-if @kotlinx.serialization.Serializable class ** {
+    public static ** INSTANCE;
+}
+-keepclassmembers class <1> {
+    public static <1> INSTANCE;
+    kotlinx.serialization.KSerializer serializer(...);
+}
+-keep class com.wikg.aidaily.data.model.** { *; }
+# 入口与 WorkManager 反射实例化的 Worker
+-keep class com.wikg.aidaily.AiDailyApp { <init>(); }
+-keep class com.wikg.aidaily.crash.** { *; }
+-keep class * extends androidx.work.ListenableWorker { <init>(android.content.Context, androidx.work.WorkerParameters); }

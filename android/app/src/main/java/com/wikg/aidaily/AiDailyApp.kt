@@ -3,6 +3,7 @@ package com.wikg.aidaily
 import android.app.Application
 import android.util.Log
 import androidx.work.Configuration
+import com.wikg.aidaily.crash.CrashLog
 import com.wikg.aidaily.data.DailyRepository
 import com.wikg.aidaily.data.local.CacheStore
 import com.wikg.aidaily.data.local.Prefs
@@ -28,18 +29,30 @@ class AppContainer(app: Application) {
 class AiDailyApp : Application(), Configuration.Provider {
     lateinit var container: AppContainer
         private set
-    val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    val appScope = CoroutineScope(
+        SupervisorJob() + Dispatchers.Default +
+            kotlinx.coroutines.CoroutineExceptionHandler { _, t -> Log.w("AiDailyApp", "background task failed", t) },
+    )
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).build()
 
     override fun onCreate() {
         super.onCreate()
+        // 最先装崩溃记录器：之后任何未捕获异常都会写进 filesDir/crash/，下次启动可查看/复制。
+        runCatching { CrashLog.install(this) }
         container = AppContainer(this)
-        container.notifier.ensureChannel()
+        // 启动路径上的一切非必要工作都不允许把 app 带崩（坏缓存 / 网络 / 系统服务异常）。
+        runCatching { container.notifier.ensureChannel() }.onFailure { Log.w(TAG, "ensureChannel failed", it) }
         appScope.launch {
-            val idx = container.repository.loadCachedIndex()
-            WorkScheduler.ensureScheduled(this@AiDailyApp, idx?.latest, idx?.issues?.firstOrNull()?.publishedAt)
+            try {
+                val idx = runCatching { container.repository.loadCachedIndex() }.getOrNull()
+                WorkScheduler.ensureScheduled(this@AiDailyApp, idx?.latest, idx?.issues?.firstOrNull()?.publishedAt)
+            } catch (t: Throwable) {
+                Log.w(TAG, "schedule failed", t)
+            }
         }
     }
+
+    companion object { private const val TAG = "AiDailyApp" }
 }

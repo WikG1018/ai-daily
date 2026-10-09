@@ -137,6 +137,7 @@ fun SettingsScreen(
             notificationSettings = { BackgroundGuide.openNotificationSettings(context) },
             setTheme = { m -> scope.launch { c.prefs.setTheme(m) } },
             openUrl = { url -> openUrl(context, url) },
+            openCrashLog = { context.startActivity(android.content.Intent(context, com.wikg.aidaily.crash.CrashLogActivity::class.java)) },
         ),
     )
 }
@@ -154,6 +155,7 @@ class SettingsActions(
     val notificationSettings: () -> Unit = {},
     val setTheme: (ThemeMode) -> Unit = {},
     val openUrl: (String) -> Unit = {},
+    val openCrashLog: () -> Unit = {},
 )
 
 enum class SettingsPage(val route: String, val title: String) {
@@ -429,6 +431,8 @@ private fun AboutSettings(miSans: Boolean, actions: SettingsActions) {
             "界面字体",
             if (miSans) "本应用使用 MiSans 字体（© 小米科技），查看许可协议" else "系统默认字体（本次构建未打包 MiSans）",
         ) { actions.openUrl("https://hyperos.mi.com/font/zh/download") }
+        Divider()
+        LinkRow("崩溃日志", "查看并复制最近一次崩溃信息，发给我们帮助排查") { actions.openCrashLog() }
     }
 }
 

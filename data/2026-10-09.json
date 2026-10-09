@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-09",
+  "window": {
+    "start": "10-08 23:45",
+    "end": "10-09 11:10",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-09 11:20",
+  "highlights": "OpenAI 凌晨为 GPT-6.1 Sol 推出 **Ultrafast** 模式，最高比标准版快 8 倍，Codex 同时把中途纠偏改成即时生效。Anthropic 发布 **Anthropic Cyber Mission**，联合 CrowdStrike、Palo Alto Networks 等帮关键基础设施做防护，并免费给开源项目做漏洞扫描；Claude Code 2.1.295 让钩子失败时直接拦截操作。国内主要厂商这段时间没有新发布。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "id": "2026-10-09-001",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "GPT-6.1 Sol 推出 **Ultrafast** 模式",
+          "summary": "官方称智能接近 GPT-6 Astra，速度最高是 Sol 标准档的 8 倍，同步上线 API、Codex 和 ChatGPT Work。API 价格为每百万 token 输入 $12、输出 $60，约为 Astra 的 1.2 倍。",
+          "time": "10-09 02:26",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAIDevs/status/2108262812489531498"
+            },
+            {
+              "label": "开发者社区公告",
+              "url": "https://community.openai.com/t/ultrafast-is-rolling-out-today-for-gpt-6-1-sol-in-the-api-codex-and-chatgpt-work/1404475"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-09-002",
+          "vendor": "Codex",
+          "region": "us",
+          "title": "Codex 中途纠偏改为即时生效",
+          "summary": "Codex 负责人 Tibo 发布“Day 4”更新：任务运行中给出的调整会被模型立刻响应，不用等它在旧方向上做完；他说这和同时上线的 GPT-6.1 Sol Ultrafast 搭配效果很好。",
+          "time": "10-09 03:15",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2108275041276420573"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-09-003",
+              "vendor": "Codex",
+              "region": "us",
+              "title": "Codex CLI 0.162.0 发布",
+              "summary": "新增托管 Git worktree 工具（需开启 worktrees 功能），可在 agent 指挥中心按 p 置顶任务，界面里的链接都能直接点开；还修了 Linux 沙箱启动和 Windows 文件访问等问题。",
+              "time": "10-09 02:55",
+              "links": [
+                {
+                  "label": "Release",
+                  "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2026-10-09-004",
+          "vendor": "Claude Code",
+          "region": "us",
+          "title": "Claude Code 2.1.295：钩子失败可直接拦截操作",
+          "summary": "命令钩子和 HTTP 钩子新增 onFailure: \"block\"，钩子起不来、超时或异常退出时会拦下这次操作，而不是放行。支持 OSC 7501 协议的终端可以显示 Claude Code 是在工作、等你还是已完成。",
+          "time": "10-09 03:48",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.295"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-09-005",
+              "vendor": "Claude",
+              "region": "us",
+              "title": "官方教程：用 Claude Managed Agents 搭定时自动化",
+              "summary": "演示部署一个按计划读取 Slack/GitHub、带凭据和记忆并自动发更新的 agent，可以用一条 Claude Code 命令完成设置，并消耗 Max/Team 新附送的 API 额度。",
+              "time": "10-09 06:15",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/ClaudeDevs/status/2108320296323477683"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "🌐",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-09-006",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 发布 **Cyber Mission** 网络防御计划",
+          "summary": "先做两件事：一是“关键基础设施防御计划”，给电网、水务、交通等运营技术领域提供前沿模型、驻场工程师和威胁研究，首批伙伴包括 Accenture、CrowdStrike、Palo Alto Networks、Rockwell Automation 等；二是 OSS Scanner，开源项目报名后可免费获得定期漏洞扫描报告，官方预计真阳性率在 90% 以上。",
+          "time": "10-09 05:04",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AnthropicAI/status/2108302539498414208"
+            },
+            {
+              "label": "官方博客",
+              "url": "https://www.anthropic.com/news/anthropic-cyber-mission"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-09-007",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 向美国 Genesis Mission 投入 1.5 亿美元",
+          "summary": "同时向超过 15 个美国联邦机构提供 Claude 和技术支持，用于科研与技术发现。",
+          "time": "10-09 00:01",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AnthropicAI/status/2108226292235809081"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-09-008",
+          "vendor": "Claude",
+          "region": "us",
+          "title": "Claude Dashboards 和 Claude Motion 开启测试",
+          "summary": "可以让 Claude 把数据做成实时仪表盘，或把想法做成动画讲解。",
+          "time": "10-09 03:01",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/claudeai/status/2108271552991252810"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-09-009",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Google 医疗问诊系统 AMIE 首次真实门诊研究登上《柳叶刀》",
+          "summary": "与 BIDMC 合作，在 100 次患者对话中没有触发安全叫停，诊断与医生一致率 90%。患者在面诊前先和 AMIE 交流病史。",
+          "time": "10-09 06:31",
+          "links": [
+            {
+              "label": "Google",
+              "url": "https://x.com/Google/status/2108324514442461225"
+            },
+            {
+              "label": "Google Research",
+              "url": "https://x.com/GoogleResearch/status/2108326125676192100"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-09-010",
+          "vendor": "Artificial Analysis",
+          "region": "us",
+          "title": "Artificial Analysis 智能指数 v5 将于 10 月下旬推出",
+          "summary": "新版会加入 Terminal-Bench Science 和一个使用私有数据集的新编码基准，届时各模型排名可能有较大变化。",
+          "time": "10-09 02:11",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ArtificialAnlys/status/2108258926680813846"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-09-011",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 封禁与俄罗斯、伊朗影响力行动有关的账号",
+          "summary": "据 NPR 等报道，OpenAI 披露一起冒充拉美研究机构散布反乌克兰内容的俄罗斯行动，以及一起用虚构西方记者身份投稿的伊朗行动，相关 ChatGPT 账号已被封禁。时间为 NPR 报道发布时间。",
+          "time": "10-09 08:25",
+          "links": [
+            {
+              "label": "NPR",
+              "url": "https://www.npr.org/2026/10/08/nx-s1-5995576/openai-russia-iran-influence-operations-chatgpt"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "国内的 DeepSeek、通义/Qoder、豆包/TRAE、Kimi、智谱、MiniMax、阶跃、腾讯和百度，这段时间官方都没有发布新模型或新产品。阶跃 Step 5 Preview 在 Cline 免费一周属于上期已报活动的延续。",
+    "待跟进：Qoder IDE 的 Quest 窗口仍按公告在 **10-15 23:59** 下线，没有变化；阶跃 Step 5 预计 10-15 开源权重，目前没有新的官方消息，stepfun-ai 的 Hugging Face 主页也还没有新模型。",
+    "本期是今早定时任务失败后的补发，覆盖时间窗延长到上午 11:10。"
+  ],
+  "source_note": "信息来源：X（原帖）、GitHub Release、官方博客及文中注明的媒体报道。时间均为北京时间（UTC+8），仅收录覆盖时间窗内的消息；已报过的事件仅在有实质新进展时以“更新”标出。",
+  "published_at": "2026-10-09T11:07:12+08:00"
+}

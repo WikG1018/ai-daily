@@ -24,6 +24,8 @@ class AppContainer(app: Application) {
     val repository = DailyRepository(api, cache, prefs)
     val notifier = Notifier(app)
     val checker = DailyChecker(repository, prefs, notifier)
+    /** v1.3 应用内更新：懒加载，启动路径上不构造。 */
+    val updates by lazy { com.wikg.aidaily.update.UpdateManager(app, prefs) }
 }
 
 class AiDailyApp : Application(), Configuration.Provider {

@@ -31,6 +31,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 sealed interface DeepLink {
     data class Issue(val date: String) : DeepLink
     data class Item(val id: String) : DeepLink
+    /** aidaily://update：更新下载通知 → 打开更新面板 */
+    data object Update : DeepLink
 
     companion object {
         private val DATE = Regex("""^\d{4}-\d{2}-\d{2}$""")
@@ -40,6 +42,7 @@ sealed interface DeepLink {
         fun parse(intent: Intent?): DeepLink? {
             val uri = intent?.data ?: return null
             if (uri.scheme != "aidaily") return null
+            if (uri.host == "update") return Update
             val arg = uri.pathSegments.firstOrNull() ?: return null
             return when (uri.host) {
                 "issue" -> arg.takeIf { DATE.matches(it) }?.let { Issue(it) }

@@ -38,6 +38,11 @@ data class Settings(
     val followPeople: List<String> = emptyList(),
     val releasesFilter: FollowFilter? = null,
     val peopleFilter: FollowFilter? = null,
+    /** v1.3：打开 app 时自动检查更新（每天最多一次）。 */
+    val autoUpdateCheck: Boolean = true,
+    val lastUpdateCheckAt: Long = 0,
+    /** 用户选择「忽略此版本」的 versionName。 */
+    val ignoredUpdateVersion: String? = null,
 ) {
     val follows: Follows get() = Follows.of(followProducts, followPeople)
 }
@@ -62,6 +67,11 @@ class Prefs(private val context: Context) {
         val followPeople = stringPreferencesKey("follow_people")
         val releasesFilter = stringPreferencesKey("filter_releases")
         val peopleFilter = stringPreferencesKey("filter_people")
+        val autoUpdate = booleanPreferencesKey("auto_update_check")
+        val lastUpdateCheckAt = longPreferencesKey("last_update_check_at")
+        val ignoredUpdate = stringPreferencesKey("ignored_update_version")
+        /** 最近一次检查到的可用更新（UpdateInfo JSON），用于跨启动显示首页横幅。 */
+        val cachedUpdate = stringPreferencesKey("cached_update_info")
     }
 
     private val store get() = context.dataStore
@@ -84,6 +94,9 @@ class Prefs(private val context: Context) {
             followPeople = splitIds(p[K.followPeople]),
             releasesFilter = p[K.releasesFilter]?.let { runCatching { FollowFilter.valueOf(it) }.getOrNull() },
             peopleFilter = p[K.peopleFilter]?.let { runCatching { FollowFilter.valueOf(it) }.getOrNull() },
+            autoUpdateCheck = p[K.autoUpdate] ?: true,
+            lastUpdateCheckAt = p[K.lastUpdateCheckAt] ?: 0,
+            ignoredUpdateVersion = p[K.ignoredUpdate],
         )
     }
 
@@ -128,6 +141,14 @@ class Prefs(private val context: Context) {
 
     /** 恢复「全部 / 只看关注」为自动（按有没有关注决定）。 */
     suspend fun resetFollowFilters() = store.edit { it.remove(K.releasesFilter); it.remove(K.peopleFilter) }
+
+    suspend fun setAutoUpdateCheck(on: Boolean) = store.edit { it[K.autoUpdate] = on }
+    suspend fun setIgnoredUpdate(version: String?) = store.edit { if (version == null) it.remove(K.ignoredUpdate) else it[K.ignoredUpdate] = version }
+    suspend fun recordUpdateCheck(cachedInfoJson: String?) = store.edit {
+        it[K.lastUpdateCheckAt] = System.currentTimeMillis()
+        if (cachedInfoJson == null) it.remove(K.cachedUpdate) else it[K.cachedUpdate] = cachedInfoJson
+    }
+    suspend fun cachedUpdate(): String? = store.data.first()[K.cachedUpdate]
 
     suspend fun setNotifAsked() = store.edit { it[K.notifAsked] = true }
     suspend fun setTheme(mode: ThemeMode) = store.edit { it[K.theme] = mode.name }

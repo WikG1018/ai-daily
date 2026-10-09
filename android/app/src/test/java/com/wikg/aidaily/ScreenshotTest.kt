@@ -3,6 +3,8 @@ package com.wikg.aidaily
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -250,4 +252,112 @@ class ScreenshotTest {
         compose.waitForIdle()
         compose.onRoot().captureRoboImage(File(outDir, "icon.png").path)
     }
+
+    // —— v1.3：应用内更新 ——
+    private val updInfo = com.wikg.aidaily.data.model.UpdateInfo(
+        versionName = "1.3.0", versionCode = 5, size = 22_912_118, publishedAt = "2026-10-09T06:10:00Z",
+        notes = "## 新增\n- **应用内更新**：设置 → 关于 → 检查更新，下载完成后直接调起系统安装\n" +
+            "- 每天打开时自动检查（可关闭），首页提示「发现新版本」，可忽略此版本\n" +
+            "- 国内网络：update.json 走 GitHub Raw / jsDelivr，安装包支持镜像加速\n## 安全\n" +
+            "- 安装前校验 SHA-256 与签名，只接受本仓库发布的安装包",
+        apkUrls = listOf("https://github.com/WikG1018/ai-daily/releases/download/v1.3.0/ai-daily-1.3.0.apk"),
+    )
+
+    /** 静态还原底部弹层（ModalBottomSheet 是独立窗口，截图里用同样的外观画在页面上）。 */
+    @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+    private fun sheet(mode: ThemeMode, phase: com.wikg.aidaily.update.UpdatePhase, name: String) {
+        compose.setContent {
+            AiDailyTheme(mode) {
+                androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.fillMaxSize()) {
+                    HomeContent(
+                        state = homeState(), snackbar = remember { SnackbarHostState() },
+                        showGuide = false, notifGranted = true,
+                        onRefresh = {}, onSelectDate = {}, onBackToLatest = {}, onMarkAllRead = {}, onShowPicker = {},
+                        onOpenItem = {}, onOpenSettings = {}, onGuideAction = {}, onGuideDismiss = {},
+                        updateBanner = "1.3.0",
+                    )
+                    androidx.compose.foundation.layout.Box(
+                        androidx.compose.ui.Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.32f)),
+                    )
+                    androidx.compose.foundation.layout.Column(
+                        androidx.compose.ui.Modifier.align(androidx.compose.ui.Alignment.BottomCenter).fillMaxWidth()
+                            .clip(androidx.compose.foundation.shape.RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp))
+                            .background(com.wikg.aidaily.ui.theme.AppTheme.extra.card),
+                        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+                    ) {
+                        androidx.compose.material3.BottomSheetDefaults.DragHandle()
+                        com.wikg.aidaily.ui.update.UpdateSheetContent(
+                            com.wikg.aidaily.update.UpdateUiState(phase = phase, info = updInfo), updInfo, "1.2.0",
+                            com.wikg.aidaily.ui.update.UpdateSheetActions(),
+                        )
+                    }
+                }
+            }
+        }
+        compose.mainClock.advanceTimeBy(1000)
+        compose.waitForIdle()
+        compose.onRoot().captureRoboImage(File(outDir, "$name.png").path)
+    }
+
+    @Test fun updateSheetLight() = sheet(ThemeMode.LIGHT, com.wikg.aidaily.update.UpdatePhase.Available, "update_sheet_light")
+    @Test fun updateSheetDark() = sheet(ThemeMode.DARK, com.wikg.aidaily.update.UpdatePhase.Available, "update_sheet_dark")
+    @Test fun updateDownloadingLight() = sheet(
+        ThemeMode.LIGHT, com.wikg.aidaily.update.UpdatePhase.Downloading(14_230_000, 22_912_118, "ghfast.top"), "update_downloading_light",
+    )
+    @Test fun updateDownloadingDark() = sheet(
+        ThemeMode.DARK, com.wikg.aidaily.update.UpdatePhase.Downloading(14_230_000, 22_912_118, "GitHub"), "update_downloading_dark",
+    )
+    @Test fun updatePermissionLight() = sheet(
+        ThemeMode.LIGHT, com.wikg.aidaily.update.UpdatePhase.NeedsPermission(File("x.apk")), "update_permission_light",
+    )
+
+    @Test fun homeUpdateBannerLight() {
+        compose.setContent {
+            AiDailyTheme(ThemeMode.LIGHT) {
+                HomeContent(
+                    state = homeState(), snackbar = remember { SnackbarHostState() },
+                    showGuide = false, notifGranted = true,
+                    onRefresh = {}, onSelectDate = {}, onBackToLatest = {}, onMarkAllRead = {}, onShowPicker = {},
+                    onOpenItem = {}, onOpenSettings = {}, onGuideAction = {}, onGuideDismiss = {},
+                    updateBanner = "1.3.0",
+                )
+            }
+        }
+        compose.waitForIdle()
+        compose.onRoot().captureRoboImage(File(outDir, "home_update_banner_light.png").path)
+    }
+
+    @Test fun homeUpdateBannerDark() {
+        compose.setContent {
+            AiDailyTheme(ThemeMode.DARK) {
+                HomeContent(
+                    state = homeState(), snackbar = remember { SnackbarHostState() },
+                    showGuide = false, notifGranted = true,
+                    onRefresh = {}, onSelectDate = {}, onBackToLatest = {}, onMarkAllRead = {}, onShowPicker = {},
+                    onOpenItem = {}, onOpenSettings = {}, onGuideAction = {}, onGuideDismiss = {},
+                    updateBanner = "1.3.0",
+                )
+            }
+        }
+        compose.waitForIdle()
+        compose.onRoot().captureRoboImage(File(outDir, "home_update_banner_dark.png").path)
+    }
+
+    private fun about(mode: ThemeMode, row: com.wikg.aidaily.ui.settings.UpdateRowState, name: String) {
+        compose.setContent {
+            AiDailyTheme(mode) {
+                SettingsContent(
+                    page = SettingsPage.ABOUT, settings = Settings(), notifGranted = true, batteryOk = true, isXiaomi = true, miSans = true,
+                    actions = SettingsActions(), update = row,
+                )
+            }
+        }
+        compose.waitForIdle()
+        compose.onRoot().captureRoboImage(File(outDir, "$name.png").path)
+    }
+
+    @Test fun aboutUpdateLight() = about(ThemeMode.LIGHT, com.wikg.aidaily.ui.settings.UpdateRowState(available = "1.3.0"), "settings_about_update_light")
+    @Test fun aboutUpToDateDark() = about(
+        ThemeMode.DARK, com.wikg.aidaily.ui.settings.UpdateRowState(status = "已是最新版本"), "settings_about_dark",
+    )
 }

@@ -153,4 +153,29 @@ class AppSmokeTest {
         }
         kotlinx.coroutines.runBlocking { app.container.prefs.setTheme(com.wikg.aidaily.data.local.ThemeMode.SYSTEM) }
     }
+
+    /** v1.3：上次检查发现的新版本跨启动保留 → 首页横幅 → 点开更新面板；全程离线、不阻塞启动。 */
+    @Test fun cachedUpdateShowsBannerAndSheet() {
+        val app = ApplicationProvider.getApplicationContext<AiDailyApp>()
+        val info = com.wikg.aidaily.data.model.UpdateInfo(
+            versionName = "99.0.0", versionCode = 999, notes = "## 新增\n- 测试更新",
+            apkUrls = listOf("https://github.com/WikG1018/ai-daily/releases/download/v99.0.0/ai-daily-99.0.0.apk"), size = 1234567,
+        )
+        kotlinx.coroutines.runBlocking {
+            app.container.prefs.recordUpdateCheck(
+                com.wikg.aidaily.data.remote.AppJson.encodeToString(com.wikg.aidaily.data.model.UpdateInfo.serializer(), info),
+            )
+        }
+        ActivityScenario.launch(MainActivity::class.java).use {
+            waitText("今日要点")
+            compose.mainClock.advanceTimeBy(2000)
+            waitTag("update_banner")
+            compose.onNodeWithTag("update_banner").performClick()
+            waitTag("update_sheet")
+            compose.onNodeWithText("v99.0.0").assertExists()
+            compose.onNodeWithText("稍后").performClick()
+            compose.waitUntil(10_000) { compose.onAllNodesWithTag("update_sheet").fetchSemanticsNodes().isEmpty() }
+        }
+        kotlinx.coroutines.runBlocking { app.container.prefs.recordUpdateCheck(null) }
+    }
 }

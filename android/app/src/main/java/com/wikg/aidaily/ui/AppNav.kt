@@ -24,6 +24,8 @@ import com.wikg.aidaily.AiDailyApp
 import com.wikg.aidaily.DeepLink
 import com.wikg.aidaily.ui.detail.DetailScreen
 import com.wikg.aidaily.ui.home.HomeScreen
+import com.wikg.aidaily.ui.update.UpdateSheetHost
+import androidx.compose.runtime.remember
 import com.wikg.aidaily.ui.home.HomeViewModel
 import com.wikg.aidaily.ui.settings.FeaturedScreen
 import com.wikg.aidaily.ui.settings.FollowKind
@@ -53,9 +55,28 @@ fun AppNav(deepLinks: StateFlow<DeepLink?>, consumeDeepLink: () -> Unit) {
                 nav.navigate("item/${l.id}") { launchSingleTop = true }
                 consumeDeepLink()
             }
+            DeepLink.Update -> {
+                runCatching { app.container.updates.openSheet() }
+                consumeDeepLink()
+            }
             null -> Unit
         }
     }
+
+    // v1.3 应用内更新：首帧之后再在后台检查（每天最多一次），任何异常都被吞掉，绝不影响启动。
+    LaunchedEffect(Unit) {
+        try {
+            androidx.compose.runtime.withFrameNanos { }
+            kotlinx.coroutines.delay(1500)
+            app.container.updates.autoCheckIfDue()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (t: Throwable) {
+            android.util.Log.w("AppNav", "update auto-check failed", t)
+        }
+    }
+    val updates = remember { runCatching { app.container.updates }.getOrNull() }
+    if (updates != null) UpdateSheetHost(updates)
 
     // 转场：新页从右侧滑入（不透明），旧页轻微视差左移；底下垫一层主题背景色，
     // 任何时刻都不会露出窗口底色（深色模式下进设置不再闪白）。

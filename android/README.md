@@ -12,7 +12,13 @@
 |---|---|---|---|---|---|
 | ![](screenshots/home_releases_light.png) | ![](screenshots/home_people_light.png) | ![](screenshots/home_follow_light.png) | ![](screenshots/follow_products_light.png) | ![](screenshots/follow_people_light.png) | ![](screenshots/detail_release_light.png) |
 
-更多：[版本更新深色](screenshots/home_releases_dark.png) · [只看关注](screenshots/home_releases_followed_light.png) · [人物动态深色](screenshots/home_people_dark.png) · [关注人物深色](screenshots/follow_people_dark.png) · [详情（人物）](screenshots/detail_person_light.png) · [今日深色](screenshots/home_dark.png) · [小米空专栏](screenshots/home_featured_empty_light.png) · [编码 Agent 页](screenshots/home_sections_light.png) · [设置深色](screenshots/settings_dark.png) · [通知与后台](screenshots/settings_notify_light.png) · [启动图标](screenshots/icon.png)
+**v1.3：应用内更新**
+
+| 更新面板 | 更新面板（深色） | 下载中 | 安装权限引导 | 首页横幅 | 关于 · 检查更新 |
+|---|---|---|---|---|---|
+| ![](screenshots/update_sheet_light.png) | ![](screenshots/update_sheet_dark.png) | ![](screenshots/update_downloading_light.png) | ![](screenshots/update_permission_light.png) | ![](screenshots/home_update_banner_light.png) | ![](screenshots/settings_about_update_light.png) |
+
+更多：[下载中（深色）](screenshots/update_downloading_dark.png) · [首页横幅（深色）](screenshots/home_update_banner_dark.png) · [关于（深色）](screenshots/settings_about_dark.png) · [版本更新深色](screenshots/home_releases_dark.png) · [只看关注](screenshots/home_releases_followed_light.png) · [人物动态深色](screenshots/home_people_dark.png) · [关注人物深色](screenshots/follow_people_dark.png) · [详情（人物）](screenshots/detail_person_light.png) · [今日深色](screenshots/home_dark.png) · [小米空专栏](screenshots/home_featured_empty_light.png) · [编码 Agent 页](screenshots/home_sections_light.png) · [设置深色](screenshots/settings_dark.png) · [通知与后台](screenshots/settings_notify_light.png) · [启动图标](screenshots/icon.png)
 
 > 截图由 Robolectric 原生图形渲染真实的 Compose 界面生成（真实主题、MiSans 字体、`data/2026-10-08.json` 样例数据；v1.2 的几张用 `app/src/test/resources/fixtures/` 里的合成一期 + 仓库的 `data/watchlist.json`），见下文「截图」。
 
@@ -37,6 +43,25 @@
 - **深色模式**：跟随系统 / 浅色 / 深色。窗口底色、系统栏随 app 内主题切换，页面转场全程不透明（深色下进设置不闪白）。
 - **设置**：一级是目录（关注厂商 / 通知与后台 / 外观 / 关于），各项是独立二级页。
 - 只认 `**粗体**`（非贪婪 `\*\*(.+?)\*\*`），**从不按 HTML 解析**；忽略未知 JSON 字段，未知 `region` 按 `intl` 处理。
+
+## 应用内更新（v1.3）
+
+v1.2.0 及更早版本没有这个功能，需要手动安装一次 v1.3.0。
+
+- **入口**：「设置 → 关于 → 检查更新」（显示当前版本）；有新版本时弹出底部面板：版本号、大小、发布时间、更新内容（轻 Markdown：标题 / 列表 / `**粗体**`），「立即更新 / 稍后 / 忽略此版本」。
+- **自动检查**：首帧之后延迟约 1.5 秒在后台检查，**每 20 小时最多一次**，可在「关于」里关闭「自动检查更新」。发现新版本时首页顶部出现一条细横幅「发现新版本 vX」，设置图标带红点；「忽略此版本」后该版本不再提示（手动检查仍会显示）。检查逻辑全部包在 try 里，绝不影响启动。
+- **元数据来源（按顺序，每个 8 秒超时，绕开 HTTP 缓存）**：
+  1. `https://raw.githubusercontent.com/WikG1018/ai-daily/main/android/update.json`
+  2. `https://cdn.jsdelivr.net/gh/WikG1018/ai-daily@main/android/update.json`
+  3. `https://api.github.com/repos/WikG1018/ai-daily/releases/latest`（未鉴权，每 IP 每小时 60 次；403/429 视为限流，给出友好提示）
+
+  update.json 不依赖 api.github.com，国内更稳；内容不合法会继续尝试下一个来源。注意 jsDelivr 对 `@main` 有缓存，发版后要 purge（脚本会做）。
+- **`android/update.json` 格式**：`versionCode`、`versionName`、`tag`、`apkUrl`（GitHub Release 资源）、`apkMirrors[]`（加速镜像完整地址）、`sha256`、`size`、`minSdk`、`publishedAt`、`releaseUrl`、`notes`。由 `scripts/release.sh` 生成，**不要手改 sha256 / size**。镜像列表可以随时改（`AIDAILY_APK_MIRRORS="https://a/ https://b/" scripts/release.sh --manifest-only notes.md`），不需要发新版。
+- **下载**：OkHttp 写到 `cacheDir/updates/ai-daily-<版本>.apk.part`，边下边算 SHA-256。先试 GitHub 原始地址，再按顺序试镜像：HTTP 错误、10 秒连不上、20 秒没数据、大小不符、**SHA-256 不符**，或者 12 秒后平均速度低于 48 KB/s（还有备选时），都会换下一个来源。全部失败则报错，可「重试」或「浏览器下载」。来自 GitHub API 时没有镜像列表，使用内置的 `ghfast.top`、`gh-proxy.com` 前缀，并用资源的 `digest` 校验。下载在 app 自己的协程里进行，离开面板也会继续，并以低优先级通知显示进度（不用前台服务）；完成后通知「点按安装」。
+- **只接受本仓库**：所有安装包地址必须是 `https://github.com/WikG1018/ai-daily/releases/download/…`，或者 `https://<代理>/https://github.com/WikG1018/ai-daily/releases/download/…` 这种代理形式；必须 https，不能带 userinfo、query 或 `..`。重定向不允许降级到 http。
+- **校验后才安装**：SHA-256 必须一致（update.json 或 GitHub 资源 digest）。然后用 `PackageManager.getPackageArchiveInfo(GET_SIGNING_CERTIFICATES)` 读安装包：包名必须是 `com.wikg.aidaily`，versionCode 必须更大，签名证书必须与当前已安装的一致，否则删除文件并中止。个别 ROM 读不到签名时，只有 SHA-256 已校验通过才继续，系统安装器本身也会拒绝签名不同的覆盖安装。
+- **安装**：`FileProvider`（`${applicationId}.updates`，只暴露 `cacheDir/updates/`）+ `ACTION_VIEW`（`application/vnd.android.package-archive`），声明 `REQUEST_INSTALL_PACKAGES`。没有选 PackageInstaller Session，因为在 MIUI / HyperOS 上 `ACTION_VIEW` 会交给小米安装器（带安全扫描），兼容性最好。`canRequestPackageInstalls()` 为 false 时，面板会说明原因，并跳到 `Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES`（本应用）；从设置返回后如果已允许，就自动继续安装。**从不静默安装、从不后台自动安装。**
+- **清理**：每次启动时删除半截文件，以及不比当前版本新的旧安装包（升级完成后下次启动就会清掉）。
 
 ## 数据获取
 
@@ -98,6 +123,21 @@ export AIDAILY_KEY_PASSWORD=...
 # 产物：app/build/outputs/apk/release/app-release.apk（R8 混淆 + 资源压缩，v2/v3 签名）
 ```
 
+### 发版流程（含 update.json）
+
+1. 在 `app/build.gradle.kts` 里递增 `versionCode`、修改 `versionName`；在 `release-notes/vX.Y.Z.md` 写更新内容（会同时用作 GitHub Release 说明和 app 内更新面板的内容，保持简短，用标题 / 列表 / `**粗体**`）。
+2. 提交并推送代码到 `main`。
+3. 运行发版脚本：
+
+   ```bash
+   export AIDAILY_SIGNING_PROPERTIES=/path/to/ai-daily-signing.properties
+   android/scripts/release.sh android/release-notes/vX.Y.Z.md
+   ```
+
+   脚本会依次：跑单元测试，构建签名 release 包（`-Pmisans.required`），用 `apksigner` 核对发布证书，`gh release create vX.Y.Z` 上传 `ai-daily-X.Y.Z.apk`，与 Release 资源的 digest 核对 SHA-256，生成 `android/update.json` 并提交推送，purge jsDelivr，最后检查 Raw / jsDelivr 上的 update.json 和各个镜像能不能访问。
+4. **update.json 一定要在 Release 资源上传之后再推送**，否则老版本会检查到一个还下载不了的版本。脚本已经保证了这个顺序。
+5. 只想改镜像或者重写 update.json：`android/scripts/release.sh --manifest-only android/release-notes/vX.Y.Z.md`。
+
 没有提供签名信息时 `assembleRelease` 仍能成功，但产出未签名的 APK。
 
 生成新密钥（只需一次，务必备份，丢了就无法覆盖升级）：
@@ -139,8 +179,9 @@ app/src/main/java/com/wikg/aidaily/
 │   ├── remote/DailyApi.kt # OkHttp：Raw → jsDelivr 回退、绕开缓存
 │   ├── local/             # 离线缓存（文件）+ DataStore（已读、最新期、设置）
 │   └── DailyRepository.kt
+├── update/                # v1.3 应用内更新：UpdateSource（元数据回退）、ApkDownloader（镜像 + SHA-256）、ApkInstaller（签名校验 + FileProvider 安装）、UpdateManager（状态机）
 ├── work/                  # WorkManager 调度、检查逻辑、本地通知
-├── ui/                    # Compose：theme / components / home / detail / settings / 导航
+├── ui/                    # Compose：theme / components / home / detail / settings / update（更新面板）/ 导航
 └── util/                  # 粗体解析、北京时间格式化、Custom Tabs、小米后台设置跳转
 ```
 

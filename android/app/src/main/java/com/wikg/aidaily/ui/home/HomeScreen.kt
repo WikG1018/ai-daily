@@ -1,5 +1,14 @@
 package com.wikg.aidaily.ui.home
 
+import androidx.compose.material.icons.rounded.ArrowUpward
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -147,7 +156,12 @@ fun HomeScreen(
     val showGuide = needsGuide && !state.settings.guideDismissed
 
     val effectiveDate = state.selectedDate ?: state.latest
+    val updates = remember { runCatching { (context.applicationContext as AiDailyApp).container.updates }.getOrNull() }
+    val updateState = updates?.state?.collectAsStateWithLifecycle()?.value
     HomeContent(
+        updateBanner = updateState?.bannerVersion,
+        onOpenUpdate = { updates?.openSheet() },
+        onDismissUpdate = { updates?.dismissBanner() },
         state = state,
         snackbar = snackbar,
         showGuide = showGuide,
@@ -207,6 +221,10 @@ fun HomeContent(
     initialPage: Int = 0,
     onSetFilter: (String, com.wikg.aidaily.data.local.FollowFilter) -> Unit = { _, _ -> },
     onManageFollows: (String) -> Unit = {},
+    /** v1.3：有新版本时的首页横幅（null 不显示）。 */
+    updateBanner: String? = null,
+    onOpenUpdate: () -> Unit = {},
+    onDismissUpdate: () -> Unit = {},
 ) {
     val scope = rememberCoroutineScope()
     val effectiveDate = state.selectedDate ?: state.latest
@@ -273,7 +291,17 @@ fun HomeContent(
                         IconButton(onClick = onShowPicker, enabled = state.index != null) {
                             Icon(Icons.Outlined.CalendarMonth, "往期")
                         }
-                        IconButton(onClick = onOpenSettings) { Icon(Icons.Outlined.Settings, "设置") }
+                        IconButton(onClick = onOpenSettings) {
+                            Box {
+                                Icon(Icons.Outlined.Settings, "设置")
+                                if (updateBanner != null) {
+                                    Box(
+                                        Modifier.align(Alignment.TopEnd).size(8.dp).clip(CircleShape)
+                                            .background(MaterialTheme.colorScheme.error),
+                                    )
+                                }
+                            }
+                        }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
                 )
@@ -281,6 +309,12 @@ fun HomeContent(
                     HomeTabs(pages, pager) { i -> scope.launch { pager.animateScrollToPage(i) } }
                 }
                 AnimatedVisibility(state.offline && issue != null) { OfflineNotice() }
+                // 保留最后一个版本号，保证收起动画期间内容不跳
+                var lastBanner by remember { mutableStateOf(updateBanner) }
+                if (updateBanner != null) lastBanner = updateBanner
+                AnimatedVisibility(updateBanner != null) {
+                    UpdateBanner(lastBanner.orEmpty(), onClick = onOpenUpdate, onDismiss = onDismissUpdate)
+                }
             }
         },
         floatingActionButton = {
@@ -450,6 +484,44 @@ internal fun GuideCard(notifGranted: Boolean, onAction: () -> Unit, onDismiss: (
             TextButton(onClick = onDismiss) { Text("以后再说") }
             Spacer(Modifier.width(4.dp))
             FilledTonalButton(onClick = onAction) { Text(if (!notifGranted) "开启通知" else "去设置") }
+        }
+    }
+}
+
+/** 发现新版本：低调的细横幅，点按打开更新面板，可关掉（本次启动不再显示）。 */
+@Composable
+internal fun UpdateBanner(version: String, onClick: () -> Unit, onDismiss: () -> Unit) {
+    Row(
+        Modifier
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(MaterialTheme.colorScheme.primary.copy(alpha = if (AppTheme.extra.isDark) 0.16f else 0.07f))
+            .clickable(onClick = onClick)
+            .testTag("update_banner")
+            .padding(start = 10.dp, end = 4.dp, top = 6.dp, bottom = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            Modifier.size(26.dp).clip(RoundedCornerShape(9.dp))
+                .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(AppTheme.extra.heroStart, AppTheme.extra.heroEnd))),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Icons.Rounded.ArrowUpward, null, Modifier.size(16.dp), tint = androidx.compose.ui.graphics.Color.White)
+        }
+        Spacer(Modifier.width(10.dp))
+        Text(
+            buildAnnotatedString {
+                withStyle(SpanStyle(fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)) { append("发现新版本 v$version") }
+                withStyle(SpanStyle(color = MaterialTheme.colorScheme.onSurfaceVariant)) { append("  ·  查看更新内容") }
+            },
+            style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier.weight(1f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        IconButton(onClick = onDismiss, modifier = Modifier.size(32.dp)) {
+            Icon(Icons.Rounded.Close, "关闭", Modifier.size(16.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

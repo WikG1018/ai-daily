@@ -117,7 +117,22 @@ fun SettingsScreen(
         } else BackgroundGuide.openNotificationSettings(context)
     }
 
+    val updates = remember { runCatching { c.updates }.getOrNull() }
+    val upd = updates?.state?.collectAsStateWithLifecycle()?.value
+    val updateRow = UpdateRowState(
+        checking = upd?.phase is com.wikg.aidaily.update.UpdatePhase.Checking,
+        available = upd?.info?.versionName,
+        status = when (val ph = upd?.phase) {
+            is com.wikg.aidaily.update.UpdatePhase.UpToDate -> "已是最新版本"
+            is com.wikg.aidaily.update.UpdatePhase.Failed -> if (ph.duringCheck) "检查失败：${ph.message}" else null
+            is com.wikg.aidaily.update.UpdatePhase.Downloading -> "正在下载…"
+            else -> null
+        },
+        autoCheck = settings.autoUpdateCheck,
+        lastCheckAt = maxOf(settings.lastUpdateCheckAt, upd?.lastCheckAt ?: 0),
+    )
     SettingsContent(
+        update = updateRow,
         page = page,
         settings = settings,
         notifGranted = notifGranted,
@@ -146,6 +161,8 @@ fun SettingsScreen(
             setTheme = { m -> scope.launch { c.prefs.setTheme(m) } },
             openUrl = { url -> openUrl(context, url) },
             openCrashLog = { context.startActivity(android.content.Intent(context, com.wikg.aidaily.crash.CrashLogActivity::class.java)) },
+            checkUpdate = { if (upd?.info != null) updates?.openSheet() else updates?.checkNow() },
+            setAutoUpdate = { on -> scope.launch { c.prefs.setAutoUpdateCheck(on) } },
         ),
     )
 }
@@ -165,6 +182,18 @@ class SettingsActions(
     val setTheme: (ThemeMode) -> Unit = {},
     val openUrl: (String) -> Unit = {},
     val openCrashLog: () -> Unit = {},
+    val checkUpdate: () -> Unit = {},
+    val setAutoUpdate: (Boolean) -> Unit = {},
+)
+
+/** 「关于 → 检查更新」行的展示状态。 */
+data class UpdateRowState(
+    val checking: Boolean = false,
+    /** 有可用新版本时的版本号。 */
+    val available: String? = null,
+    val status: String? = null,
+    val autoCheck: Boolean = true,
+    val lastCheckAt: Long = 0,
 )
 
 enum class SettingsPage(val route: String, val title: String) {
@@ -186,6 +215,7 @@ fun SettingsContent(
     miSans: Boolean,
     actions: SettingsActions,
     watchlist: Watchlist? = null,
+    update: UpdateRowState = UpdateRowState(),
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -205,10 +235,10 @@ fun SettingsContent(
                 .padding(horizontal = 16.dp),
         ) {
             when (page) {
-                SettingsPage.HUB -> SettingsHub(settings, notifGranted, batteryOk, isXiaomi, actions, watchlist)
+                SettingsPage.HUB -> SettingsHub(settings, notifGranted, batteryOk, isXiaomi, actions, watchlist, update)
                 SettingsPage.NOTIFY -> NotifySettings(settings, notifGranted, batteryOk, isXiaomi, actions)
                 SettingsPage.APPEARANCE -> AppearanceSettings(settings, actions)
-                SettingsPage.ABOUT -> AboutSettings(miSans, actions)
+                SettingsPage.ABOUT -> AboutSettings(miSans, actions, update)
             }
             Spacer(Modifier.height(24.dp))
             Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
@@ -217,7 +247,7 @@ fun SettingsContent(
 }
 
 @Composable
-private fun SettingsHub(settings: Settings, notifGranted: Boolean, batteryOk: Boolean, isXiaomi: Boolean, actions: SettingsActions, watchlist: Watchlist?) {
+private fun SettingsHub(settings: Settings, notifGranted: Boolean, batteryOk: Boolean, isXiaomi: Boolean, actions: SettingsActions, watchlist: Watchlist?, update: UpdateRowState = UpdateRowState()) {
     // 顶部品牌卡
     Row(
         Modifier
@@ -283,7 +313,9 @@ private fun SettingsHub(settings: Settings, notifGranted: Boolean, batteryOk: Bo
         Divider()
         HubRow(
             icon = Icons.Rounded.Info, tint = Color(0xFF7C8594), title = "关于",
-            subtitle = "版本 ${BuildConfig.VERSION_NAME} · MIT 开源 · 字体与数据源",
+            subtitle = if (update.available != null) "发现新版本 v${update.available} · 点按查看"
+            else "版本 ${BuildConfig.VERSION_NAME} · 检查更新 · MIT 开源",
+            warn = update.available != null,
             tag = "hub-about", onClick = { actions.navigate(SettingsPage.ABOUT) },
         )
     }
@@ -433,7 +465,7 @@ private fun AppearanceSettings(settings: Settings, actions: SettingsActions) {
 }
 
 @Composable
-private fun AboutSettings(miSans: Boolean, actions: SettingsActions) {
+private fun AboutSettings(miSans: Boolean, actions: SettingsActions, update: UpdateRowState = UpdateRowState()) {
     // —— 关于 ——
     GroupTitle("关于")
     Card {
@@ -445,6 +477,10 @@ private fun AboutSettings(miSans: Boolean, actions: SettingsActions) {
                 Text("版本 ${BuildConfig.VERSION_NAME}（${BuildConfig.VERSION_CODE}）· MIT 开源", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
+        Divider()
+        UpdateCheckRow(update, actions.checkUpdate)
+        Divider()
+        SwitchRow("自动检查更新", "打开 app 时每天最多检查一次，只提示、不会自动安装", update.autoCheck) { actions.setAutoUpdate(it) }
         Divider()
         LinkRow("源代码与数据", "github.com/WikG1018/ai-daily") {
             actions.openUrl("https://github.com/WikG1018/ai-daily")
@@ -458,6 +494,41 @@ private fun AboutSettings(miSans: Boolean, actions: SettingsActions) {
         ) { actions.openUrl("https://hyperos.mi.com/font/zh/download") }
         Divider()
         LinkRow("崩溃日志", "查看并复制最近一次崩溃信息，发给我们帮助排查") { actions.openCrashLog() }
+    }
+}
+
+@Composable
+private fun UpdateCheckRow(update: UpdateRowState, onClick: () -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().clickable(enabled = !update.checking, onClick = onClick).testTag("check_update").padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text("检查更新", style = MaterialTheme.typography.titleSmall)
+            val sub = buildString {
+                append("当前版本 v${BuildConfig.VERSION_NAME}")
+                when {
+                    update.checking -> append(" · 正在检查…")
+                    update.status != null -> append(" · ").append(update.status)
+                    update.available == null && update.lastCheckAt > 0 -> append(" · 上次检查 ").append(epochToBeijingLabel(update.lastCheckAt))
+                }
+            }
+            Text(
+                sub,
+                style = MaterialTheme.typography.bodySmall,
+                color = if (update.status?.startsWith("检查失败") == true) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+        Spacer(Modifier.width(12.dp))
+        when {
+            update.checking -> androidx.compose.material3.CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+            update.available != null -> com.wikg.aidaily.ui.components.Pill(
+                "v${update.available} 可更新", bg = AppTheme.extra.updateContainer, fg = AppTheme.extra.update,
+            )
+            else -> Icon(Icons.Rounded.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
+        }
     }
 }
 

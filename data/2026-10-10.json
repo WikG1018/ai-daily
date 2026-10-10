@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-10",
+  "window": {
+    "start": "10-09 18:45",
+    "end": "10-10 08:28",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-10 08:28",
+  "highlights": "OpenAI 为 Codex 桌面端上线 **composer predictions**（Pro 用户 beta，按对话习惯预测下一句，不耗用量），并更新 ChatGPT **dots**：可在手机端创建，还能把活交给 Codex。Anthropic 把 **Claude Code Projects** 候补池里的 Pro/Max 用户全部放行，同时 **Managed Agents dynamic workflows** 进入公测。国内方面，通义开源 **Qwen-Image-2.1-Turbo**（8 步出图）；DeepSeek Harness 与 Step Code 也有新版本。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "id": "2026-10-10-001",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "通义开源 **Qwen-Image-2.1-Turbo**，8 步完成生图与改图",
+          "summary": "基于同系列 7B 视觉生成架构的加速蒸馏权重，去噪步数从约 40 步压到 8 步；仍支持文生图与图像编辑，推荐采样日程写在权重里，可用 Diffusers 的 QwenImage21Pipeline 直接加载。权重已上 Hugging Face，Pro/Turbo API 同步在阿里云 Model Studio 上线。",
+          "time": "10-09 21:24",
+          "person": "alibaba_qwen",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/Alibaba_Qwen/status/2108549075218120949"
+            },
+            {
+              "label": "Hugging Face",
+              "url": "https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-002",
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline 免费接入 Upstage **Solar Mini 4**",
+          "summary": "韩国实验室 Upstage 的新模型：524K 上下文、约 208 tokens/秒，35B MoE 仅激活 3B；官方称 AAII 得分 24，是 3B 激活参数档最高，接近激活 55B 的 Nemotron 3 Ultra。可在 Cline CLI 与 Desktop 使用。",
+          "time": "10-10 02:46",
+          "person": "cline",
+          "products": [
+            "cline",
+            "cline-cli"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cline/status/2108630302381994318"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-10-003",
+          "vendor": "Codex",
+          "region": "us",
+          "title": "Codex 桌面端上线 **composer predictions**（Pro beta）",
+          "summary": "根据对话内容和你的说话习惯，在输入框预测下一条消息；按 Tab 采纳并可再编辑，不会自动发送。官方称是内部最受欢迎的新功能之一，计入 Pro 套餐且不消耗用量；目前仅本地任务、对应地区 18 岁以上个人 Pro 用户。",
+          "time": "10-10 02:22",
+          "product": "codex-cli",
+          "person": "openaidevs",
+          "people": [
+            "thsottiaux"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAIDevs/status/2108624138369929725"
+            },
+            {
+              "label": "Tibo Day 5",
+              "url": "https://x.com/thsottiaux/status/2108645667451318747"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-004",
+          "vendor": "Codex",
+          "region": "us",
+          "title": "Windows 上 Codex 新沙箱：基于微软 MXC",
+          "summary": "OpenAI 为 Windows 构建者推出基于 Microsoft Execution Containers（MXC）的新沙箱模式，宣称启动更快、网络隔离更严、文件访问可更细粒度控制；需兼容的 Windows 11 设备。",
+          "time": "10-09 22:59",
+          "product": "codex-cli",
+          "person": "openaidevs",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAIDevs/status/2108573188703781190"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-005",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "ChatGPT **dots** 可在手机创建，并能把活交给 Codex",
+          "summary": "iOS/Android 的 ChatGPT App 可直接创建并个性化 dot；dot 还能在 Codex 里开新任务或跟进已有线程，综合 ChatGPT 对话、Codex 线程与自动化上下文，并改进何时续写、何时新开。另外可在 ChatGPT Work 里查看和编辑 Scheduled Tasks。",
+          "time": "10-10 03:12",
+          "products": [
+            "codex-cli"
+          ],
+          "people": [
+            "thsottiaux",
+            "romainhuet"
+          ],
+          "links": [
+            {
+              "label": "ChatGPT",
+              "url": "https://x.com/ChatGPT/status/2108636745915052037"
+            },
+            {
+              "label": "Codex 委派",
+              "url": "https://x.com/ChatGPT/status/2108636748217770180"
+            },
+            {
+              "label": "Romain Huet",
+              "url": "https://x.com/romainhuet/status/2108685167284134036"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-006",
+          "vendor": "Claude",
+          "region": "us",
+          "title": "**Claude Code Projects** 候补池 Pro/Max 用户全部放行",
+          "summary": "官方称候补名单里的每位 Pro 和 Max 用户都已获得 Projects 权限；Projects 是持续对话，由 Claude 协调多条并行云端线程处理相关工作。新用户仍需候补，按容量逐步放行。",
+          "time": "10-10 02:11",
+          "products": [
+            "claude-code"
+          ],
+          "person": "claudedevs",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2108621476538781878"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-007",
+          "vendor": "Claude",
+          "region": "us",
+          "title": "Claude Managed Agents **dynamic workflows** 进入公测",
+          "summary": "新型多智能体编排：主 agent 写计划，分阶段调度最多约 1000 个 agent 并汇总结果。官方演示在约 11.6 万行代码里埋 70 个 bug，单 agent 三次分别找到 14/15/27 个，workflow 三次均找到 66 个。配置 multiagent 类型后可用 `/claude-api managed-agents-onboard` 起步。",
+          "time": "10-10 00:12",
+          "products": [
+            "claude-code"
+          ],
+          "person": "claudedevs",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2108591328732856655"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-008",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：OpenCode iOS TestFlight 再开放名额",
+          "summary": "在昨日报过首次开放后，他又扩了一批 TestFlight 名额，邀请链接仍指向同一测试页。",
+          "time": "10-10 02:25",
+          "update": true,
+          "update_note": "昨日报过首次开放；本期是追加名额。",
+          "person": "thdxr",
+          "product": "opencode",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2108624901108375854"
+            },
+            {
+              "label": "TestFlight",
+              "url": "https://testflight.apple.com/join/EnFsKYQ1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "id": "2026-10-10-009",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Codex CLI **0.162.1**",
+          "summary": "修复异步多行提问时 TUI 崩溃（保留换行与完整超链接）；兼容检查改为只对命令行显式覆盖的 feature 生效，避免后台服务与 CLI 默认 feature 不一致导致启动失败。",
+          "time": "10-10 03:44",
+          "product": "codex-cli",
+          "version": "0.162.1",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.1"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-010",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **2.1.296**",
+          "summary": "Claude apps gateway 的 managed.policies 增加 `code` 键（设置同 `cli`，也作用于 Desktop 的 Code 标签）；子 agent 可设 `autoCompactWindow`；新增环境变量让 workflow agent 共用模型、并拉长 529 overloaded 重试上限；`/plugin` 会提示因重名被跳过的 hooks。",
+          "time": "10-10 03:28",
+          "product": "claude-code",
+          "version": "2.1.296",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.296"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-011",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub Copilot CLI **1.0.95**",
+          "summary": "macOS 优先用原生 Microsoft Entra broker 登录（可回退浏览器）；`copilot config` 支持 sandbox 的 credential injectHosts，并补全 Bash/Zsh/Fish；`--context` 对新建与恢复的 ACP 会话生效；托管插件安装改为按小时或策略变更后重试。",
+          "time": "10-10 00:04",
+          "product": "copilot-cli",
+          "version": "1.0.95",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/github/copilot-cli/releases/tag/v1.0.95"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-012",
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek Harness **dsh-v0.2.1-alpha.2**",
+          "summary": "实验性思考过程机翻插件（Bing/Google/DeepSeek Flash）、Git Worktrees 插件、插件 Session 状态接口；全局指令可读共享 agents 目录中的 AGENTS.md（可用 DSH_AGENTS_HOME 指定）。",
+          "time": "10-09 19:09",
+          "product": "deepseek-harness",
+          "version": "dsh-v0.2.1-alpha.2",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-alpha.2"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-013",
+          "vendor": "阶跃星辰",
+          "region": "cn",
+          "title": "Step Code **0.1.3**",
+          "summary": "新增 Step Plan 远程登录（`step login --no-browser` 返回授权链接）；`edit_file`/`write_file` 支持 `then_run` 改完即跑验证；`--completion-check git-committed` 检查是否已提交；可用 `STEP_CODING_AGENT_PLAN_DIR` 把计划文件放到工作区外。源页面只标日期 10-09。",
+          "time": "10-09 18:45",
+          "product": "step-code",
+          "version": "0.1.3",
+          "links": [
+            {
+              "label": "更新说明",
+              "url": "https://platform.stepfun.com/docs/zh/step-code/release-notes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-10-014",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 5：composer predictions 与手机端 dots",
+          "summary": "Codex 负责人连发两更：桌面端 composer predictions「经常准到让人愣一下」，含在 Pro、不耗用量；并强调现在可以从 ChatGPT 手机 App 完整创建和对话自己的 dot，此前多数人是在桌面/网页建的。",
+          "time": "10-10 03:47",
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "links": [
+            {
+              "label": "composer predictions",
+              "url": "https://x.com/thsottiaux/status/2108645667451318747"
+            },
+            {
+              "label": "dots 手机版",
+              "url": "https://x.com/thsottiaux/status/2108646052178092403"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-015",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Romain Huet：手机建 dot，且可启动 Codex 任务",
+          "summary": "开发者体验负责人补充：可在 ChatGPT 手机 App 创建并个性化 dot；dot 还能在 Codex 里开活、跟进已有线程。",
+          "time": "10-10 06:24",
+          "person": "romainhuet",
+          "products": [
+            "codex-cli"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/romainhuet/status/2108685167284134036"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-10-016",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：再放一批 OpenCode iOS TestFlight 名额",
+          "summary": "附上 TestFlight 链接催大家去冲；相对昨日报过的首次开放，这是追加名额。",
+          "time": "10-10 02:25",
+          "update": true,
+          "update_note": "昨日报过首次开放；本期追加名额。",
+          "person": "thdxr",
+          "products": [
+            "opencode"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2108624901108375854"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "🌐",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-10-017",
+          "vendor": "Prime Intellect",
+          "region": "intl",
+          "title": "Prime Agent 用 2000+ agent 把自己从 TypeScript 重写成 **Rust**",
+          "summary": "官方称两周内调度逾 2000 个 agent、1 万多个 sandbox、逾 2000 亿 GLM-5.3 token 与 1.6 万条 agent 间消息；重写后到达可用输入约快 13 倍，启动内存少约 83%。可用 `prime-agent update` 升级。",
+          "time": "10-10 05:34",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/PrimeIntellect/status/2108672479007047952"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：已检索 @XiaomiMiMo、@XiaomiMiMoDevs、@_LuoFuli，时间窗内无新帖。官方文档页标注 10-09 更新了 MiMo V2.5 系列下线计划（10-14 18:00 自动转发至 V2.6，10-21 10:00 旧名失效），社区转载时间约在昨早 11:20，不在本期时间窗，故未收入正文。",
+    "版本检查另发现 CodeBuddy Code 2.164.0（10-09 23:42，无更新说明，属日常发版），未收录。阶跃 Step 5 Preview 在 Kilo Code / Nous Portal 继续免费一周，属此前已报活动的渠道延续，未再单列。",
+    "待跟进：Qoder IDE 的 Quest 窗口仍按公告在 **10-15 23:59** 下线；阶跃 Step 5 预计 10-15 开源权重。"
+  ],
+  "source_note": "信息来源：X（原帖）、GitHub Release、官方文档及文中注明的页面。时间均为北京时间（UTC+8），仅收录覆盖时间窗内的消息；已报过的事件仅在有实质新进展时以“更新”标出。",
+  "published_at": "2026-10-10T08:29:03+08:00"
+}

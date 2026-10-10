@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-09",
-  "updated_at": "2026-10-09T18:47:52+08:00",
+  "latest": "2026-10-10",
+  "updated_at": "2026-10-10T08:29:03+08:00",
   "issues": [
+    {
+      "date": "2026-10-10",
+      "title": "AI 日报",
+      "highlights": "OpenAI 为 Codex 桌面端上线 composer predictions（Pro 用户 beta，按对话习惯预测下一句，不耗用量），并更新 ChatGPT dots：可…",
+      "item_count": 17,
+      "path": "data/2026-10-10.json",
+      "published_at": "2026-10-10T08:29:03+08:00"
+    },
     {
       "date": "2026-10-09",
       "title": "AI 日报",

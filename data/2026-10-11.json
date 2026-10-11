@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-11",
+  "window": {
+    "start": "10-10 08:28",
+    "end": "10-11 08:24",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-11 08:24",
+  "highlights": "阿里 **Qoder** 桌面端把 Performance 升级为 **Fast**（约 3 秒首响、Credits 约 0.8x）；字节 **TRAE** 宣布 TraeCode 与 TraeWork 合并为统一平台。OpenAI Codex 负责人 Tibo 宣布 **Day 6 全球额度重置**，并转发 Cognition：个人 ChatGPT 套餐可接 Devin。小米时间窗内无新动态。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "id": "2026-10-11-001",
+          "vendor": "MiniMax",
+          "region": "cn",
+          "title": "MiniMax **M3** 跑上 NVIDIA Vera Rubin NVL72（vLLM）",
+          "summary": "官方称已与 vLLM、Inferact、NVIDIA AI、Red Hat AI 合作，把 MiniMax M3 部署到 Vera Rubin NVL72 上。属推理侧进展，不是新模型发布。",
+          "time": "10-10 13:34",
+          "person": "minimax_ai",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/MiniMax_AI/status/2108793182968504771"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-11-002",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qoder 桌面端上线 **Fast** 模式（原 Performance）",
+          "summary": "官方称同质量下首响约从 8 秒到 3 秒，Credits 从约 1.1x 降到 0.8x；模型路由、Agent 链路与网络三层优化。需 Desktop ≥0.4.4；IDE / CLI / Cloud Agents 等后续跟上。Performance 会自动换成 Fast。",
+          "time": "10-10 14:28",
+          "product": "qoder-ide",
+          "products": [
+            "qoder-cli"
+          ],
+          "person": "qoder_ai_ide",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2108806953141162235"
+            },
+            {
+              "label": "公告",
+              "url": "https://docs.qoder.com/product-overview/fast-mode-announcement"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-11-003",
+          "vendor": "字节跳动",
+          "region": "cn",
+          "title": "TRAE：TraeCode 与 TraeWork **合并**为统一平台",
+          "summary": "官方发帖称两者合二为一，面向端到端 AI 开发；并给出数据迁移文档链接。具体能力边界以官方文档为准。",
+          "time": "10-10 15:32",
+          "product": "trae",
+          "person": "trae_ai",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/Trae_ai/status/2108822915550699747"
+            },
+            {
+              "label": "迁移说明",
+              "url": "https://docs.trae.ai/ide/traework-to-traecode-data-migration?_lang=en"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [],
+      "empty_text": "本期无值得单列的 harness 版本更新（MiniMax Code CLI 0.6.6–0.6.8 有发版，但公开 changelog 未写明新功能，按日更规则未收）"
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-11-004",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 6：Codex **全球额度重置**",
+          "summary": "Codex 负责人发帖「Day 6/ Reset」，并称「Global reset by EOD」；社区按惯例理解为约 6–7 天一轮的用量刷新信号。",
+          "time": "10-11 06:15",
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "links": [
+            {
+              "label": "Day 6/ Reset",
+              "url": "https://x.com/thsottiaux/status/2109045220411351517"
+            },
+            {
+              "label": "Global reset",
+              "url": "https://x.com/thsottiaux/status/2109045392684032299"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-11-005",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo：ChatGPT 个人套餐也可当 **Devin** 额度用",
+          "summary": "转发 Cognition：Go / Plus / Pro 个人计划可接到 Devin，GPT 用量从该套餐配额扣。Tibo 概括为「Your ChatGPT subscription is now also a Devin subscription」。",
+          "time": "10-10 12:33",
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2108777962053292398"
+            },
+            {
+              "label": "Cognition",
+              "url": "https://x.com/cognition/status/2108692010056188048"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-11-006",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo：Codex 默认 **300k** 上下文是算过账的",
+          "summary": "回应为何不默认 1M：跑过数字后 300k 更合适；也能开到 1M，但会更吃用量，「好的默认很重要」。",
+          "time": "10-10 12:37",
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2108778939057664357"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-11-007",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Boris：Claude Code 子代理默认 **5 分钟** prompt cache 的原因",
+          "summary": "称 API/Agent SDK 负载若默认 1 小时 TTL，平均成本更高，所以子代理默认 5 分钟；交互订阅端主会话默认 1 小时。可用配置拉长。",
+          "time": "10-10 11:55",
+          "person": "bcherny",
+          "products": [
+            "claude-code"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/bcherny/status/2108768259516281038"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-11-008",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：用 OpenCode 把 OpenTunnel 后端重写成 **Rust** 并迁离 Cloudflare",
+          "summary": "称从 iOS App 发单次 prompt 完成服务端与 TUI 重写，并迁到全球约 10 个 Fly 区域；迁移时隧道自动重连。",
+          "time": "10-10 12:59",
+          "person": "thdxr",
+          "products": [
+            "opencode"
+          ],
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2108784465514496436"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "🌐",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-11-009",
+          "vendor": "阶跃星辰",
+          "region": "cn",
+          "title": "Step 5 Preview 旧金山发布夜定在 **10-22**",
+          "summary": "官方邀请与 Together AI 合办的 Launch Night，地点旧金山，展示 Step 5 Preview。",
+          "time": "10-10 08:36",
+          "person": "stepfun_ai",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/StepFun_ai/status/2108718161671696522"
+            },
+            {
+              "label": "报名",
+              "url": "https://luma.com/12t5e4lc"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：已检索 @XiaomiMiMo、@XiaomiMiMoDevs、@_LuoFuli，时间窗内无新帖。",
+    "版本检查：时间窗内仅 MiniMax Code CLI（mcode）0.6.6 / 0.6.7 / 0.6.8；公开 changelog 未列出对应新功能，按日更规则未收入 releases。Codex CLI 0.162.1、Claude Code 2.1.296 已在昨期报过且发布时间在窗外。",
+    "窗外未收：Microsoft-Decision-1（纳德拉官宣约 10-10 02:37）、Anthropic《Investigating unintended model actions…》报告（约 10-10 00:09）及费城假线索一事。",
+    "待跟进：Qoder IDE Quest 窗口仍按公告在 10-15 23:59 下线；阶跃 Step 5 预计开源与 10-22 旧金山活动。"
+  ],
+  "source_note": "信息来源：X（原帖）、官方文档及文中注明的页面。时间均为北京时间（UTC+8），仅收录覆盖时间窗内的消息；已报过的事件仅在有实质新进展时以“更新”标出。",
+  "published_at": "2026-10-11T08:25:24+08:00"
+}

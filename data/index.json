@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-10",
-  "updated_at": "2026-10-10T08:29:03+08:00",
+  "latest": "2026-10-11",
+  "updated_at": "2026-10-11T08:25:24+08:00",
   "issues": [
+    {
+      "date": "2026-10-11",
+      "title": "AI 日报",
+      "highlights": "阿里 Qoder 桌面端把 Performance 升级为 Fast（约 3 秒首响、Credits 约 0.8x）；字节 TRAE 宣布 TraeCode 与 TraeWork…",
+      "item_count": 9,
+      "path": "data/2026-10-11.json",
+      "published_at": "2026-10-11T08:25:24+08:00"
+    },
     {
       "date": "2026-10-10",
       "title": "AI 日报",

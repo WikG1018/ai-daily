@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-12",
+  "window": {
+    "start": "10-11 08:24",
+    "end": "10-12 08:23",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-12 08:23",
+  "highlights": "OpenAI Codex 负责人 Tibo **Day 7**：GPT-6.1 Sol 在 Codex / Work 默认上下文提到 **500k**（约 +80%），订阅用量不再收长上下文费。另有 **OpenCode v1.19.0**、阿里 **Qwen Code 0.25.1**。小米时间窗内无新动态。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [],
+      "empty_text": "本期无新的模型发布"
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [],
+      "empty_text": "本期无单独成条的 harness 产品进展（见版本更新与人物动态）"
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "id": "2026-10-12-001",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode **v1.19.0**",
+          "summary": "提示可用 `opencode upgrade --major` 升到 OpenCode 2；TUI 改为 `/update` 手动更新（不再自动装更新）；修复支持 OpenAI `ultrafast` 服务档，并校验 PTY 连接来源与票据。",
+          "time": "10-11 09:39",
+          "product": "opencode",
+          "version": "1.19.0",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anomalyco/opencode/releases/tag/v1.19.0"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-12-002",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qwen Code **0.25.1**",
+          "summary": "Managed Agent 侧加强：后台 Shell/Monitor、工具结果持久化、Hosted Harness G3，以及 Web Shell `/btw` 旁路子会话；另有实验性 K8s CSI 运行时、Agent/Goal 工具按需发现，以及一批远程主机绑定、MCP、并发与移动端修复。无已知破坏性变更。",
+          "time": "10-11 18:29",
+          "product": "qwen-code",
+          "version": "0.25.1",
+          "links": [
+            {
+              "label": "npm",
+              "url": "https://www.npmjs.com/package/@qwen-code/qwen-code/v/0.25.1"
+            },
+            {
+              "label": "GitHub Release",
+              "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.25.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-12-003",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 7：GPT-6.1 Sol 默认上下文 **500k**，订阅免长上下文费",
+          "summary": "Codex 负责人称：经 Codex 与 Work 使用时，GPT-6.1 Sol 默认上下文从约 272k 提到 500k（约 +80%），减少 compaction、更好撑住长任务；仍可自行调高/调低，上限 1M。同线程说明：从订阅扣用量时，不再对 GPT-6.1 Sol 收长上下文附加费。",
+          "time": "10-12 07:45",
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "links": [
+            {
+              "label": "Day 7 / 500k",
+              "url": "https://x.com/thsottiaux/status/2109430343346581527"
+            },
+            {
+              "label": "免长上下文费",
+              "url": "https://x.com/thsottiaux/status/2109430894604026039"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "📰",
+      "title": "其他动态",
+      "items": [],
+      "empty_text": "本期无其他需要单列的动态"
+    }
+  ],
+  "notes": [
+    "小米：已检索 @XiaomiMiMo、@XiaomiMiMoDevs、@_LuoFuli，时间窗内无新帖。",
+    "版本检查：时间窗内 OpenCode v1.19.0、Qwen Code 0.25.1；其余 harness 无符合条件的新正式版。",
+    "人物：Tibo Day 7 已收；Boris / dax / Logan 等时间窗内多为排障回复或观点闲聊，未收。",
+    "窗外未收（昨期已注明）：Microsoft-Decision-1（官方博文标注 2026.10.09）。",
+    "发布时 X 共享接口一度 429，小米官方与部分厂商账号在限流前已确认无帖；其余动态辅以 GitHub releases / npm / 网页核实。"
+  ],
+  "source_note": "信息来源：X（原帖）、GitHub Releases、npm 及文中注明的页面。时间均为北京时间（UTC+8），仅收录覆盖时间窗内的消息；已报过的事件仅在有实质新进展时以“更新”标出。",
+  "published_at": "2026-10-12T08:23:20+08:00"
+}

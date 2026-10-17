@@ -1,0 +1,575 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-17",
+  "window": {
+    "start": "10-16 08:26",
+    "end": "10-17 08:25",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-17 08:29",
+  "highlights": "OpenAI 给 ChatGPT 里的 **GPT-6 Pro / GPT-6 Astra Pro** 提速，并支持多个 agent 并行分工；Reflection AI 发布首个开放权重模型 **Beam 1.0**（501B 总参数，Apache 2.0）。商务部、科技部拟把大模型、智能体等 **23 项 AI 技术**列入出口禁限目录，征求意见到 11-15。编码工具方面，Cursor 云端 agent 能做交互式画布，Cline 桌面版上云，Claude Code 压缩请求提速。小米：MiMo V2.6 Pro 登上 Agent Arena **开源模型第一**。",
+  "xiaomi": {
+    "items": [
+      {
+        "id": "2026-10-17-001",
+        "vendor": "小米",
+        "region": "cn",
+        "title": "MiMo V2.6 Pro 登上 Agent Arena **开源模型第一**",
+        "summary": "Arena 更新 Agent Arena 评分后，MiMo V2.6 Pro 以 +3.8% 净提升排开源模型第一，领先 DeepSeek V4.1 Flash（Max）和腾讯 Hy4 preview；Pro 每个任务约 0.11 美元，Flash 约 0.05 美元，是榜上仅有的两个处在性能和成本最优前沿的开源模型。Arena 的周报里写的是开源第一、总榜第 13。",
+        "time": "10-16 12:01",
+        "links": [
+          {
+            "label": "原帖",
+            "url": "https://x.com/XiaomiMiMo/status/2110944071875485925"
+          },
+          {
+            "label": "Arena 周报",
+            "url": "https://x.com/arena/status/2111184655726891462"
+          }
+        ],
+        "person": "xiaomimimo"
+      }
+    ],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "id": "2026-10-17-002",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "ChatGPT 里的 **GPT-6 Pro** 和 **GPT-6 Astra Pro** 升级：更快，并支持多 agent 并行",
+          "summary": "两款 Pro 模型响应更快、插件和工具用得更好；新增多个 agent 同时处理任务的不同部分，可以分别查看每个 agent 的进度和结果。目前面向 Pro 用户，在 Chat 标签页里用。",
+          "time": "10-17 04:00",
+          "links": [
+            {
+              "label": "GPT-6 Pro",
+              "url": "https://x.com/OpenAI/status/2111185504746213705"
+            },
+            {
+              "label": "GPT-6 Astra Pro",
+              "url": "https://x.com/OpenAI/status/2111192259073094035"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-17-003",
+          "vendor": "Reflection AI",
+          "region": "us",
+          "title": "Reflection AI 发布首个开放权重模型 **Beam 1.0**",
+          "summary": "501B 总参数、23B 激活的 MoE 模型，Apache 2.0 许可，放出 BF16/FP8/NVFP4 权重、推理草稿模型，以及训练时用的开源 harness Mirror CLI，40 多家平台同步上线。它是这家由前 DeepMind 研究员创办的公司的首个模型。",
+          "time": "10-16 21:01",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/reflection_ai/status/2111079965529968798"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-17-004",
+              "vendor": "Artificial Analysis",
+              "region": "us",
+              "title": "第三方评测：智能指数 30 分，美国开放权重模型第二",
+              "summary": "Artificial Analysis 给 Beam 打 30 分，排在 Meta Muse Spark Open（39 分）之后；Arena 方面，Beam 在 Agent Arena 开源模型里排第 12。",
+              "time": "10-16 21:31",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/ArtificialAnlys/status/2111087606759030831"
+                },
+                {
+                  "label": "Arena",
+                  "url": "https://x.com/arena/status/2111084024336884097"
+                }
+              ]
+            },
+            {
+              "id": "2026-10-17-005",
+              "vendor": "OpenCode",
+              "region": "us",
+              "title": "OpenCode 限时免费上架 Beam",
+              "summary": "OpenCode 官方称 Beam 已可用，支持 100 万上下文，限时免费。",
+              "time": "10-17 05:32",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/opencode/status/2111208605860892696"
+                }
+              ],
+              "product": "opencode"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-17-006",
+          "vendor": "腾讯",
+          "region": "cn",
+          "title": "腾讯混元开源 **Hy Memory 2.0** 记忆模型与框架",
+          "summary": "开源内容包括 Hy-Memory-30B-A3B 模型、记忆框架和 MemHub（命令行加 Mac 应用，可在 10 多个 AI 工具之间同步记忆），覆盖聊天、工作和代码三类记忆。官方称它在 4 个记忆基准上排开源第一，在主流框架里超过 Opus 5。",
+          "time": "10-16 17:31",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/TencentHunyuan/status/2111027329816465435"
+            },
+            {
+              "label": "GitHub",
+              "url": "https://github.com/Tencent-Hunyuan/Hy-Memory"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-17-007",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Gemini 4 Argon 后续：AI Studio 向 AI Pro 开放，Perplexity 接入",
+          "summary": "AI Studio 的 Build 和 Playground 现在对 Google AI Pro 订阅用户开放 Argon；Perplexity 把 Argon 加给 Pro 和 Max 用户，称它刷新了 WANDR 深度研究基准。DeepMind 还展示了 4 个 Argon agent 只靠代码和文字、27 小时从零通关 Minecraft。",
+          "time": "10-17 07:39",
+          "links": [
+            {
+              "label": "AI Studio",
+              "url": "https://x.com/GoogleAIStudio/status/2111240722426802258"
+            },
+            {
+              "label": "Perplexity",
+              "url": "https://x.com/perplexity_ai/status/2111110772747321460"
+            },
+            {
+              "label": "Minecraft 实验",
+              "url": "https://x.com/GoogleDeepMind/status/2111127991401247033"
+            }
+          ],
+          "update": true,
+          "update_note": "上期报了 Argon 全球上线，这次是新增的开放渠道和接入方。"
+        },
+        {
+          "id": "2026-10-17-008",
+          "vendor": "Perplexity",
+          "region": "us",
+          "title": "Perplexity 开源 **pplx-decider v1.2** 决策模型",
+          "summary": "一对专门输出判断和概率的模型：4B 的 flash 版每百万 token 1 美分，27B 版 2 美分，Aravind 称后者在 Hugging Face 决策榜排第二。适合 agent 流程里的分类、打分这类判断步骤。",
+          "time": "10-17 03:46",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AravSrinivas/status/2111181956444827695"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-17-009",
+          "vendor": "Cursor",
+          "region": "us",
+          "title": "Cursor 云端 agent 能生成**交互式画布**",
+          "summary": "让云端 agent 边干活边做仪表盘或报告，完成后可以把画布以链接形式分享给团队。",
+          "time": "10-17 04:33",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cursor_ai/status/2111193957527146711"
+            }
+          ],
+          "product": "cursor",
+          "person": "cursor_ai"
+        },
+        {
+          "id": "2026-10-17-010",
+          "vendor": "Cline",
+          "region": "us",
+          "title": "**Cline 桌面版上云**：多任务并行，关电脑也继续跑",
+          "summary": "每个任务跑在独立的云端沙箱里，可以并行开多个。对应的 Cline v4.1.25 里叫 Cline Cloud sessions，逐步放量，需在设置里打开，选定 GitHub 仓库和分支即可。",
+          "time": "10-17 03:03",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cline/status/2111171077187707033"
+            },
+            {
+              "label": "v4.1.25",
+              "url": "https://github.com/cline/cline/releases/tag/v4.1.25"
+            }
+          ],
+          "product": "cline",
+          "person": "cline"
+        },
+        {
+          "id": "2026-10-17-011",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code 每轮请求改用 **gzip 压缩**，云端会话打字即启动",
+          "summary": "官方说压缩后对话能更快送到模型，所以响应开始得更早；云端会话也改成一开始输入就启动。",
+          "time": "10-17 05:34",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2111209208012210409"
+            }
+          ],
+          "product": "claude-code",
+          "person": "claudedevs"
+        },
+        {
+          "id": "2026-10-17-012",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic：Claude 写了 Claude Code 约 **90%** 的代码",
+          "summary": "官方博客说 6 月到 9 月合并的 PR 翻了一倍多，被回滚的比例降了 40% 以上，并介绍了他们怎么改代码审查流程以及别的团队怎么照做。",
+          "time": "10-17 02:54",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2111168901723906176"
+            }
+          ],
+          "product": "claude-code",
+          "person": "claudedevs"
+        },
+        {
+          "id": "2026-10-17-013",
+          "vendor": "Factory",
+          "region": "us",
+          "title": "Factory **Delegations** 正式可用",
+          "summary": "团队可以直接在日常用的工具里把任务交给 Droid（Factory 的编码 agent）。",
+          "time": "10-17 00:25",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/FactoryAI/status/2111131400057602525"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-17-014",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode 免费开放 **GLM 5.3 Flash**",
+          "summary": "这条在中文推上转得很广；加上之前的 DeepSeek V4.1 Flash 等，OpenCode 的免费模型栏现在挂着十几个限时免费模型。",
+          "time": "10-16 14:49",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/opencode/status/2110986357539754114"
+            }
+          ],
+          "product": "opencode"
+        },
+        {
+          "id": "2026-10-17-015",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qoder Cloud Agents 成为 HarnessRouter 上首个云端 agent 运行时",
+          "summary": "Qoder 替调用方跑 agent 循环、沙箱和交付，对方产品只需调用一个 API 就能拿回完成的工作。",
+          "time": "10-16 11:58",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2110943383971860931"
+            }
+          ],
+          "product": "qoder-ide"
+        },
+        {
+          "id": "2026-10-17-016",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 分享内部用 Codex 清理维护积压的做法",
+          "summary": "工程师让 Codex 从 Slack 里找出可疑的死代码，对照生产遥测核实，再起草清理 PR；另一个例子是用 dot 半夜排查值班故障，再在手机上接管 Codex 线程。",
+          "time": "10-17 05:50",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAIDevs/status/2111213093577691337"
+            },
+            {
+              "label": "dot 值班例子",
+              "url": "https://x.com/OpenAIDevs/status/2111211411766399288"
+            }
+          ],
+          "product": "codex-cli",
+          "person": "openaidevs"
+        },
+        {
+          "id": "2026-10-17-017",
+          "vendor": "JetBrains",
+          "region": "intl",
+          "title": "JetBrains Junie Local 支持在本地 RTX 显卡上跑",
+          "summary": "本地版编码 agent 可读代码、改文件、跑测试，不耗 token、代码不出本机，需要 24GB 显存的 Nvidia RTX 显卡；JetBrains 同日还开源了 12B MoE 的 Mellum2.1 用于本地 PyCharm。",
+          "time": "10-17 00:05",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/jetbrains/status/2111126301377478935"
+            },
+            {
+              "label": "Mellum2.1",
+              "url": "https://x.com/jetbrains/status/2111050966615113999"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "id": "2026-10-17-018",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **2.1.302**",
+          "summary": "新增 CLAUDE_CODE_AUTO_MODE_MODEL，可指定客户端自动模式分类器用的模型；/config 里能关掉空闲压缩；/design-sync 提示独立版 Claude Design 将于 12 月 14 日关闭。",
+          "time": "10-17 04:53",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.302"
+            }
+          ],
+          "product": "claude-code",
+          "version": "2.1.302"
+        },
+        {
+          "id": "2026-10-17-019",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode **v1.19.3**",
+          "summary": "1.19.2 让 1.x 用户的自动更新只停留在 1.x，升级到 OpenCode 2 需手动选择；1.19.3 可按配置生成模型推理档位。",
+          "time": "10-16 20:31",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anomalyco/opencode/releases/tag/v1.19.3"
+            }
+          ],
+          "product": "opencode",
+          "version": "1.19.3"
+        },
+        {
+          "id": "2026-10-17-020",
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek Harness **dsh-v0.2.1-alpha.5**",
+          "summary": "修复启停插件后 / 菜单不刷新技能列表等问题，减少多终端新建和恢复时的重复查询，统一 SDK、Web 和 headless 的模型身份说明。",
+          "time": "10-16 20:23",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-alpha.5"
+            }
+          ],
+          "product": "deepseek-harness",
+          "version": "dsh-v0.2.1-alpha.5"
+        },
+        {
+          "id": "2026-10-17-021",
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline **v4.1.25** / Cline CLI **3.0.72**",
+          "summary": "扩展加入 Cline Cloud 云端会话，默认模型改为 Gemini 4 Argon；CLI 的插件改在独立 worker 里运行，流式中断时最多自动重试 3 次。",
+          "time": "10-16 14:39",
+          "links": [
+            {
+              "label": "v4.1.25",
+              "url": "https://github.com/cline/cline/releases/tag/v4.1.25"
+            },
+            {
+              "label": "CLI 3.0.72",
+              "url": "https://github.com/cline/cline/releases/tag/cli-v3.0.72"
+            }
+          ],
+          "product": "cline",
+          "products": [
+            "cline-cli"
+          ],
+          "version": "4.1.25"
+        },
+        {
+          "id": "2026-10-17-022",
+          "vendor": "阶跃星辰",
+          "region": "cn",
+          "title": "Step Code **0.1.5**",
+          "summary": "新增 /usage 用量面板和 /status 状态面板；非交互模式加 --completion-review，让 agent 收尾前对照原任务自查一遍。",
+          "links": [
+            {
+              "label": "更新日志",
+              "url": "https://platform.stepfun.com/docs/zh/step-code/release-notes"
+            }
+          ],
+          "product": "step-code",
+          "version": "0.1.5"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-17-023",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 12：Codex 和 Work 的**实际可用量变多**",
+          "summary": "办法是子 agent 之间复用上下文、上下文缓存保留更久、请求路由优化提高缓存命中。",
+          "time": "10-17 07:55",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2111244596131111253"
+            }
+          ],
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "children": [
+            {
+              "id": "2026-10-17-024",
+              "vendor": "OpenAI",
+              "region": "us",
+              "title": "ChatGPT Space 加入幻灯片支持",
+              "summary": "Tibo 说幻灯片功能昨天刚加，目前给 Pro、Business 和 Enterprise 用户。",
+              "time": "10-17 08:15",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/thsottiaux/status/2111249810502353152"
+                }
+              ],
+              "person": "thsottiaux"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-17-025",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Varun Mohan：Antigravity 给所有人重置 Argon 和 Gemini 额度",
+          "summary": "因为这周用 Argon 的人很多，Antigravity 给所有用户重置了模型额度。",
+          "time": "10-17 06:18",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/_mohansolo/status/2111220356178751860"
+            }
+          ],
+          "person": "_mohansolo"
+        },
+        {
+          "id": "2026-10-17-026",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Boris：推荐 Claude Slides，称 Code Review 几乎抓住所有 bug",
+          "summary": "Claude Code 负责人说自己现在用 Claude Slides 做幻灯片；Code Review 跑在他所有 PR 上，是团队又快又稳的关键之一。",
+          "time": "10-17 02:13",
+          "links": [
+            {
+              "label": "Claude Slides",
+              "url": "https://x.com/bcherny/status/2111158659971699136"
+            },
+            {
+              "label": "Code Review",
+              "url": "https://x.com/bcherny/status/2111158313463525518"
+            }
+          ],
+          "person": "bcherny"
+        },
+        {
+          "id": "2026-10-17-027",
+          "vendor": "Cursor（SpaceX 旗下）",
+          "region": "us",
+          "title": "Michael Truell：Grok Bot 更快了",
+          "summary": "转发 Grok Bot 官方的质量和速度更新（聊天卡片也改版了），说离“真的好用”的 bot 还有很长的路，后面还有更多。",
+          "time": "10-17 06:13",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/mntruell/status/2111218918362861958"
+            },
+            {
+              "label": "Grok Bot 官方",
+              "url": "https://x.com/bot/status/2111184270819803351"
+            }
+          ],
+          "person": "mntruell"
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "📰",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-17-028",
+          "vendor": "中国商务部 / 科技部",
+          "region": "cn",
+          "title": "中国拟把大模型、智能体等 **23 项 AI 技术**列入出口禁限目录",
+          "summary": "第 48 号公告拟新增 40 项技术，其中 AI 23 项，涉及大模型、智能体、算力集群和信息处理，同时先实行出口前登记；已开源或已发论文的技术不纳入。发言人说用限制类大模型对外提供 API、App、SaaS 或端侧部署不算技术出口。征求意见到 11-15。",
+          "time": "10-16 16:00",
+          "links": [
+            {
+              "label": "商务部公告",
+              "url": "https://www.mofcom.gov.cn/zcfb/dwmygl/art/2026/art_61446ab4beee4f63973d4d0ab3097648.html"
+            },
+            {
+              "label": "答记者问",
+              "url": "https://www.mofcom.gov.cn/syxwfb/art/2026/art_a4acff07e134447fbe7bbeb486df3ea6.html"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-17-029",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Mythos 5 设计出更高效的量子电路",
+          "summary": "Anthropic STEM Fellows 项目的成果：给出自然语言指令后，Mythos 5 设计的量子电路优于已发表的最佳结果，有时好一个数量级以上。",
+          "time": "10-17 01:47",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AnthropicAI/status/2111152183240511640"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-17-030",
+          "vendor": "阶跃星辰",
+          "region": "cn",
+          "title": "Step 5 Preview 上线一周冲到 OpenRouter 周榜第二",
+          "summary": "一周用了 19.5T token，10-10 以来日榜也一直第二。",
+          "time": "10-16 22:00",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/StepFun_ai/status/2111094816327254192"
+            }
+          ],
+          "update": true,
+          "update_note": "上期报了开放权重发布，这次是上线一周的使用量。"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：已检索 @XiaomiMiMo、@XiaomiMiMoDevs、@_LuoFuli 和 MiMo、超级小爱等关键词。时间窗内官方只有 Agent Arena 这一条，罗福莉没发新帖。另外补一句：小米 10-15 晚开源了空间音频理解模型 **MiDashengLM-Spatial**（7B 基座，Apache 2.0），发布时间在上期窗口里但上期漏了，按时效规则不单列。",
+    "版本检查：CodeBuddy Code 2.168.2 没有公开的更新说明，没收；Cursor 更新日志这次又没拉取成功（SSL 错误）；Step Code 0.1.5 只标了日期（10-16）。",
+    "没收：DeepSeek、Kimi、通义、豆包、智谱这 24 小时没有发新模型，推上流传的 Qwen 4、GLM 5.5 等月内发布名单没有官方确认。英伟达 Nemotron 3.5 Super VL 和库克确认国行苹果智能接入千问都发生在 10-15，不在本期时间窗内。"
+  ],
+  "source_note": "信息来源：X（原帖）、GitHub Releases、npm、官方更新日志、商务部官网及文中注明的页面。时间均为北京时间（UTC+8），只收时间窗内的消息；之前报过的事件只在有实质新进展时标为“更新”。",
+  "published_at": "2026-10-17T08:29:16+08:00"
+}

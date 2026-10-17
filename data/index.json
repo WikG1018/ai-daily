@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-16",
-  "updated_at": "2026-10-16T08:27:12+08:00",
+  "latest": "2026-10-17",
+  "updated_at": "2026-10-17T08:29:16+08:00",
   "issues": [
+    {
+      "date": "2026-10-17",
+      "title": "AI 日报",
+      "highlights": "OpenAI 给 ChatGPT 里的 GPT-6 Pro / GPT-6 Astra Pro 提速，并支持多个 agent 并行分工；Reflection AI 发布首个开放权…",
+      "item_count": 30,
+      "path": "data/2026-10-17.json",
+      "published_at": "2026-10-17T08:29:16+08:00"
+    },
     {
       "date": "2026-10-16",
       "title": "AI 日报",

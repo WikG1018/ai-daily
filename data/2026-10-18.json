@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-18",
+  "window": {
+    "start": "10-17 08:25",
+    "end": "10-18 08:25",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-18 08:25",
+  "highlights": "DeepSeek 发布并开源 **DeepSeek-V4.1-Flash-1017**（MIT 协议），官方表里 Terminal-Bench 4.0 从 31.2 提到 **42.3**，超过 GPT-5.6 Sol 的 39.9，同时开放 **Search & Fetch API**（每千次 0.75 美元）。OpenCode 披露一起与大规模蒸馏攻击有关的**安全事件**，约 1.4% 的 Console 用户受影响。Codex 负责人 Tibo 第 13 天又给全体用户**重置了用量**。小米今天无新动态。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "id": "2026-10-18-001",
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek 发布并开源 **DeepSeek-V4.1-Flash-1017**",
+          "summary": "这是 V4.1-Flash 的小版本更新，已上官网、App 和 API，权重以 MIT 协议放到 Hugging Face 和魔搭（模型页标 763B 参数、1M 上下文）。官方表里 Terminal-Bench 4.0 从 31.2 提到 42.3（GPT-5.6 Sol 39.9、Opus 5 51.8），DeepSWE v1.1 77.0，且输出更短、完成更快；官方说针对 DeepSeek Harness、腾讯 CodeBuddy、WorkBuddy 做了优化，建议把 dsh 升到 v0.2.1-rc.1 以上。",
+          "time": "10-17 16:35",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/deepseek_ai/status/2111375640717033777"
+            },
+            {
+              "label": "Hugging Face",
+              "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017"
+            }
+          ],
+          "person": "deepseek_ai",
+          "products": [
+            "deepseek-harness",
+            "codebuddy-code"
+          ],
+          "children": [
+            {
+              "id": "2026-10-18-002",
+              "vendor": "DeepSeek",
+              "region": "cn",
+              "title": "DeepSeek **Search & Fetch API** 全面开放",
+              "summary": "基于 DeepSeek 自家搜索引擎，两个接口各按每千次调用 0.75 美元计费；DeepSeek API 用户在 DeepSeek Harness、Claude Code、Codex 里通过服务端工具调用搜索和抓取暂时免费，北京时间 11-01 00:00（UTC 10-31 16:00）开始收费。",
+              "time": "10-17 16:35",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/deepseek_ai/status/2111375650414309859"
+                },
+                {
+                  "label": "文档",
+                  "url": "https://api-docs.deepseek.com/guides/search"
+                }
+              ],
+              "person": "deepseek_ai",
+              "products": [
+                "deepseek-harness",
+                "claude-code",
+                "codex-cli"
+              ]
+            },
+            {
+              "id": "2026-10-18-003",
+              "vendor": "阿里 Qoder",
+              "region": "cn",
+              "title": "Qoder 全系产品当天支持 V4.1-Flash-1017",
+              "time": "10-17 17:52",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/qoder_ai_ide/status/2111394881994416243"
+                }
+              ],
+              "product": "qoder-ide",
+              "person": "qoder_ai_ide"
+            },
+            {
+              "id": "2026-10-18-004",
+              "vendor": "Cline",
+              "region": "us",
+              "title": "Cline 接入新版 DeepSeek，称其 Terminal-Bench 超过 GPT-5.6 Sol、便宜约 17 倍",
+              "summary": "Cline 说这次比上一版提升约 35%，靠的不是算法创新，而是在多个编码 agent 框架上做强化学习训练；CLI 和桌面版都能直接用。",
+              "time": "10-17 20:30",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/cline/status/2111434657732640792"
+                }
+              ],
+              "product": "cline",
+              "person": "cline"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-18-005",
+          "vendor": "Meta",
+          "region": "us",
+          "title": "Muse Wonder Full 的 VulcanBench 成绩出炉",
+          "summary": "Alexandr Wang 说 Muse Wonder Full 在 VulcanBench 上整体和 GPT-6 Astra、Opus 5.5、GPT-6.1 Sol 有竞争力，但明显更慢，团队正在提速。",
+          "time": "10-18 03:28",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/alexandr_wang/status/2111539749022503334"
+            }
+          ],
+          "update": true,
+          "update_note": "Muse Wonder 已在 10-16 期报过，这次是 Meta 给出的新评测成绩和速度短板。"
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-18-006",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode 披露**安全事件**：约 1.4% Console 用户受影响",
+          "summary": "官方说前一晚遭遇一起与大规模蒸馏攻击有关的入侵，受影响的是绑定了外部模型服务的部分 Console 用户，已逐一邮件通知，没收到邮件就不受影响；事件仍在处理中，正和 Anthropic、OpenAI、Google 一起补救。用了 OpenCode Console 托管密钥的话，建议去各家后台轮换 API key。",
+          "time": "10-18 02:08",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/opencode/status/2111519637049319818"
+            }
+          ],
+          "product": "opencode",
+          "children": [
+            {
+              "id": "2026-10-18-007",
+              "vendor": "OpenCode",
+              "region": "us",
+              "title": "dax：个人账号也开始被攻击",
+              "summary": "OpenCode 核心开发 dax 随后发帖说自己的个人账号也遭到攻击，称这是“AI 驱动黑客攻击的新世界”。",
+              "time": "10-18 02:41",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/thdxr/status/2111528031072461114"
+                }
+              ],
+              "product": "opencode",
+              "person": "thdxr"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-18-008",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "罗技 **MX Keypad** 直接接入 GitHub Copilot 应用",
+          "summary": "可以用实体按键控制 agent 工作流，比如把常用提示词映射到按键、一键开始或恢复会话；GitHub 把这归到“环境智能”的新开发者交互方式。",
+          "time": "10-18 01:50",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/github/status/2111515160766550057"
+            },
+            {
+              "label": "GitHub 博客",
+              "url": "https://github.blog/news-insights/company-news/the-next-developer-interface-is-ambient-intelligence/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "id": "2026-10-18-009",
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek Harness **dsh-v0.2.1-rc.2**",
+          "summary": "rc.2 适配 DeepSeek-V4.1-Flash-1017，并能在网页搜索设置里开启 DeepSeek Search 与 Fetch API。同日的 rc.1 是 0.2.1 系列首个候选版：支持从自定义插件索引源发现和安装插件，插件管理页加了“让 Agent 创建插件”，插件启停、卸载和更新支持热重载。",
+          "time": "10-17 16:16",
+          "links": [
+            {
+              "label": "rc.2",
+              "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-rc.2"
+            },
+            {
+              "label": "rc.1",
+              "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-rc.1"
+            }
+          ],
+          "product": "deepseek-harness",
+          "version": "dsh-v0.2.1-rc.2"
+        },
+        {
+          "id": "2026-10-18-010",
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline CLI **3.0.73**",
+          "summary": "修好了 GPT-6 系列（如 gpt-6-sol、gpt-6.1-sol）在 OpenAI 和 Azure 兼容端点上请求全被拒的问题；不选模型时 Cline 默认重新用 Claude Sonnet 5.5；模型目录新增 CommandCode 和 Reflection 两个服务商。",
+          "time": "10-17 11:59",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/cline/cline/releases/tag/cli-v3.0.73"
+            }
+          ],
+          "product": "cline-cli",
+          "version": "3.0.73"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-18-011",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 13：Codex **再次重置用量**",
+          "summary": "Codex 负责人 Tibo 宣布第 13 天的内容是用量重置，说会在太平洋时间当天结束前上线，北京时间 10-18 05:12 发帖说已完成。",
+          "time": "10-18 00:20",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2111492673890824348"
+            },
+            {
+              "label": "已完成",
+              "url": "https://x.com/thsottiaux/status/2111566005684289735"
+            }
+          ],
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "children": [
+            {
+              "id": "2026-10-18-012",
+              "vendor": "OpenAI",
+              "region": "us",
+              "title": "Tibo 回应网友心愿单：“其中两项在做”",
+              "summary": "网友列的五项是：Plus 取消 5 小时限制、dot 开放给 Plus、ultrafast 提速到 15 倍、Pro 20x 用量翻倍、GPT-6.1 Sol 输出速度提到每秒 50 token 以上；Tibo 没说是哪两项。",
+              "time": "10-17 14:14",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/thsottiaux/status/2111339932614861298"
+                }
+              ],
+              "person": "thsottiaux"
+            },
+            {
+              "id": "2026-10-18-013",
+              "vendor": "OpenAI",
+              "region": "us",
+              "title": "Tibo：工作 dot 和个人 dot 通过邮件协作，20 分钟办完报税材料",
+              "summary": "他说自己的工作 dot 应个人 dot 的请求通过邮件协调取文件，再和会计师对接完成报税相关事务，总共 20 分钟。",
+              "time": "10-18 00:31",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/thsottiaux/status/2111495392559067199"
+                }
+              ],
+              "person": "thsottiaux"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "📰",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-18-014",
+          "vendor": "Replit",
+          "region": "us",
+          "title": "Replit CEO 澄清：OpenAI 成为 Agent 的**首选合作方**，但仍可选 Anthropic",
+          "summary": "Amjad Masad 说他在 TechCrunch Disrupt 上的意思是，基于性能、成本和合作关系，OpenAI 现在是驱动 Replit Agent 的首选伙伴；平台仍不绑定模型，用户可以选 Anthropic 等其他模型。他还在回复里说 OpenAI 模型总体更便宜。",
+          "time": "10-18 00:29",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/amasad/status/2111494912562888939"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：已检索 @XiaomiMiMo、@XiaomiMiMoDevs、@_LuoFuli 的时间线和 MiMo、MiMo Code、超级小爱、罗福莉等关键词，时间窗内官方和罗福莉都没有发新帖，只有第三方平台的 MiMo V2.6 折扣推广和用户讨论，没收。",
+    "没收：推上流传有开发者在 Kimi 官网前端代码里看到 **k3d1-agent** 标识，被解读为 Kimi K3.1 预热，月之暗面没有官方确认。OpenAI、Anthropic、Google、Cursor、通义、智谱、MiniMax 等官方号这 24 小时（周六）基本没发新功能。",
+    "版本检查：Claude Code、Codex CLI 等这 24 小时没有新版本；Cursor 更新日志这次又没拉取成功（SSL 错误）。"
+  ],
+  "source_note": "信息来源：X（原帖）、Hugging Face、GitHub Releases、官方文档及文中注明的页面。时间均为北京时间（UTC+8），只收时间窗内的消息；之前报过的事件只在有实质新进展时标为“更新”。",
+  "published_at": "2026-10-18T08:25:59+08:00"
+}

@@ -44,6 +44,12 @@
      "type": "rss",
      "url": "https://cursor.com/changelog/rss.xml",
      "date_only": true
+    },
+    {
+     "type": "html_changelog",
+     "url": "https://cursor.com/changelog",
+     "base_url": "https://cursor.com",
+     "date_only": true
     }
    ]
   },

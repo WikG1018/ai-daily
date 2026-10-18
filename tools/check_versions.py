@@ -15,12 +15,18 @@
 """
 import argparse
 import html
+import http.client
+import ipaddress
 import json
 import os
 import re
 import shutil
+import socket
+import ssl
 import subprocess
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -38,10 +44,128 @@ NOTE_LINES = 6
 
 # ---------- 通用 ----------
 
-def http_get(url, accept=None, timeout=20):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, **({"Accept": accept} if accept else {})})
+# Clash 等透明代理常用的 fake-ip 段；解析到这里时 TLS 容易间歇 EOF。
+_FAKE_IP_NETS = (ipaddress.ip_network("198.18.0.0/15"),)
+# DoH 走 1.1.1.1 字面地址，避免 DoH 域名本身也被 fake-ip。
+_DOH_IP = "1.1.1.1"
+_DOH_HOST = "cloudflare-dns.com"
+
+
+def _is_fake_ip(ip):
+    try:
+        addr = ipaddress.ip_address(ip)
+    except ValueError:
+        return False
+    return any(addr in net for net in _FAKE_IP_NETS)
+
+
+def _system_ips(host):
+    ips = []
+    try:
+        for *_, sockaddr in socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM):
+            ip = sockaddr[0]
+            if ip not in ips:
+                ips.append(ip)
+    except socket.gaierror:
+        pass
+    return ips
+
+
+def _doh_ips(host, timeout=10):
+    """Cloudflare DoH（连 1.1.1.1 + SNI），返回 A 记录。"""
+    path = "/dns-query?name=" + urllib.parse.quote(host) + "&type=A"
+    status, body, _ = _https_via_ip(_DOH_HOST, path, _DOH_IP, {
+        "User-Agent": UA, "Accept": "application/dns-json",
+    }, timeout=timeout)
+    if status != 200:
+        raise RuntimeError(f"DoH HTTP {status} for {host}")
+    data = json.loads(body.decode("utf-8", "replace"))
+    ips = [a["data"] for a in (data.get("Answer") or []) if a.get("type") == 1]
+    if not ips:
+        raise RuntimeError(f"DoH 无 A 记录: {host}")
+    return ips
+
+
+def _resolve_ips(host):
+    """系统 DNS 若落在 fake-ip 段，改走 DoH；否则用系统解析。"""
+    ips = _system_ips(host)
+    if ips and not all(_is_fake_ip(ip) for ip in ips):
+        return [ip for ip in ips if not _is_fake_ip(ip)] or ips
+    return _doh_ips(host)
+
+
+def _https_via_ip(host, path, ip, headers, timeout=20):
+    """连真实 IP，SNI/证书校验仍用域名（不关闭 SSL 校验）。"""
+    ctx = ssl.create_default_context()
+    sock = socket.create_connection((ip, 443), timeout=timeout)
+    try:
+        ssock = ctx.wrap_socket(sock, server_hostname=host)
+    except Exception:
+        sock.close()
+        raise
+    conn = http.client.HTTPSConnection(host, timeout=timeout, context=ctx)
+    conn.sock = ssock
+    try:
+        hdrs = {"Host": host, "Connection": "close", **headers}
+        conn.request("GET", path, headers=hdrs)
+        resp = conn.getresponse()
+        return resp.status, resp.read(), resp.getheader("Location")
+    finally:
+        conn.close()
+
+
+def _http_get_urllib(url, headers, timeout):
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read().decode("utf-8", "replace")
+
+
+def _http_get_direct(url, headers, timeout):
+    """绕过 fake-ip：DoH 解析后 IP+SNI 直连，跟随同域重定向。"""
+    current = url
+    for _ in range(5):
+        u = urllib.parse.urlparse(current)
+        if u.scheme != "https" or not u.hostname:
+            raise RuntimeError(f"直连仅支持 https: {current}")
+        path = u.path or "/"
+        if u.query:
+            path += "?" + u.query
+        last_err = None
+        for ip in _resolve_ips(u.hostname):
+            try:
+                status, body, loc = _https_via_ip(u.hostname, path, ip, headers, timeout=timeout)
+            except Exception as e:
+                last_err = e
+                continue
+            if status in (301, 302, 303, 307, 308) and loc:
+                current = urllib.parse.urljoin(current, loc)
+                break
+            if status >= 400:
+                raise RuntimeError(f"HTTP {status} for {current}")
+            return body.decode("utf-8", "replace")
+        else:
+            raise last_err or RuntimeError(f"无法连接 {u.hostname}")
+    raise RuntimeError(f"重定向过多: {url}")
+
+
+def http_get(url, accept=None, timeout=20):
+    """拉取 URL。cursor.com 等被 fake-ip 时 urllib 会间歇 SSL EOF，自动改 DoH+SNI 直连并重试。"""
+    headers = {"User-Agent": UA, **({"Accept": accept} if accept else {})}
+    host = urllib.parse.urlparse(url).hostname or ""
+    prefer_direct = any(_is_fake_ip(ip) for ip in _system_ips(host)) if host else False
+    last_err = None
+    for attempt in range(4):
+        try:
+            if prefer_direct or attempt >= 2:
+                return _http_get_direct(url, headers, timeout)
+            return _http_get_urllib(url, headers, timeout)
+        except (ssl.SSLError, socket.timeout, TimeoutError, ConnectionError,
+                urllib.error.URLError, OSError, RuntimeError) as e:
+            last_err = e
+            # 一旦出现 SSL/连接错误，后续轮次优先直连
+            prefer_direct = True
+            time.sleep(0.4 * (attempt + 1))
+    raise last_err
 
 
 def bjt(dt):
@@ -149,6 +273,38 @@ def src_rss(s, pre):
     return out
 
 
+def src_html_changelog(s, pre):
+    """解析 Cursor 等 changelog HTML 列表页（RSS 不可用时的备用源）。
+
+    匹配 time[datetime] + 邻近的 /changelog/<slug> 链接与标题。
+    """
+    page = http_get(s["url"])
+    base = s.get("base_url") or urllib.parse.urljoin(s["url"], "/")
+    pat = re.compile(
+        r'datetime="(?P<dt>\d{4}-\d{2}-\d{2}T[^"]+)".{0,1200}?'
+        r'href="(?P<path>/changelog/[a-z0-9][a-z0-9-]*)"[^>]*>'
+        r'(?P<title>[^<]{3,240})</a>',
+        re.I | re.S,
+    )
+    out, seen = [], set()
+    for m in pat.finditer(page):
+        path = m.group("path")
+        if path in seen:
+            continue
+        seen.add(path)
+        dt = parse_iso(m.group("dt"))
+        title = html.unescape(m.group("title")).strip()
+        # 标题后到下一条目之间的纯文本作摘要
+        tail = page[m.end(): m.end() + 1200]
+        notes = note_head(re.sub(r"<[^>]+>", "\n", tail))
+        out.append({"version": title, "published": dt, "prerelease": False,
+                    "url": urllib.parse.urljoin(base, path), "notes": notes,
+                    "date_only": bool(s.get("date_only", True))})
+    if not out:
+        raise LookupError("HTML changelog 未解析到条目")
+    return out
+
+
 def _entries_from_text(text, s, url):
     rx = re.compile(s["entry_regex"])
     ms = list(rx.finditer(text))
@@ -176,6 +332,7 @@ def src_trae_ssr(s, pre):
 
 
 SOURCES = {"github": src_github, "npm": src_npm, "rss": src_rss,
+           "html_changelog": src_html_changelog,
            "md_changelog": src_md_changelog, "trae_ssr": src_trae_ssr}
 
 

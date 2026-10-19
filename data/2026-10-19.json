@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-19",
+  "window": {
+    "start": "10-18 08:25",
+    "end": "10-19 08:25",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-19 08:40",
+  "highlights": "Anthropic 宣布成立 **Anthropic Public Benefit Fund**，先拿出 5% 股份，公司估值每比基线涨 50% 还可再加最多 2%；算上创始人和员工的捐赠承诺，约 **20% 的股份**将用于公益。OpenCode 核心开发 dax 说攻击已经**持续 48 小时**，并在试跑自建的 DeepSeek 推理机柜。周日各家基本没有新模型和新功能发布，小米今天无新动态。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [],
+      "empty_text": "这 24 小时（周日）没有主要厂商发布新模型；推上流传的 Kimi K3.1、GLM 5.5 等都还只是传闻，没收。"
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-19-001",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode 安全事件后续：攻击**持续 48 小时**，受影响用户可申请报销",
+          "summary": "dax 说对方过去 48 小时一直在不停攻击 OpenCode 的系统，副作用是所有东西都在被加固，但防守方基本也需要 24 小时运转的 agent。有用户晒出 API 账户被刷掉约 1700 美元，dax 回复说受影响者应已收到邮件，可以发邮件给他提供信息来报销。",
+          "time": "10-18 20:04",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2111790511409258796"
+            },
+            {
+              "label": "报销回复",
+              "url": "https://x.com/thdxr/status/2111826335387578435"
+            }
+          ],
+          "product": "opencode",
+          "person": "thdxr",
+          "update": true,
+          "update_note": "安全事件已在 10-18 期报过，新进展是攻击仍在持续，以及对被盗刷用户的报销安排。"
+        },
+        {
+          "id": "2026-10-19-002",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub Security Lab 用开源 AI 安全 agent 找出 **24 个安卓漏洞**",
+          "summary": "其中包括一款下载量千万级的导航 App 的位置泄露。博客介绍了背后的针对性 AI taskflow、发现的漏洞类型，以及怎样在自己的项目上运行同一个开源 agent。",
+          "time": "10-19 02:00",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/github/status/2111880011485516083"
+            },
+            {
+              "label": "GitHub 博客",
+              "url": "https://github.blog/security/how-we-found-24-android-vulnerabilities-using-our-open-source-ai-security-agent/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "id": "2026-10-19-003",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **v2.1.303**",
+          "summary": "发布说明只写了错误修复和稳定性改进，没有新功能。",
+          "time": "10-19 06:26",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.303"
+            }
+          ],
+          "product": "claude-code",
+          "version": "v2.1.303"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-19-004",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：首次试跑自建 GPU 机柜上的 **DeepSeek 推理**，性价比超过所有已知供应商",
+          "summary": "他说这是新 GPU 机柜配新 DeepSeek 推理方案的第一次测试，性价比比他们找到的每一家供应商都好，而且还有优化空间。他另在回复里说，OpenCode 提供的模型都和原厂官方部署完全一样，最多为了扛量降低每秒 token 数，改动过的模型会换名字发布。",
+          "time": "10-18 23:58",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2111849415204065611"
+            },
+            {
+              "label": "部署说明",
+              "url": "https://x.com/thdxr/status/2111853153826021686"
+            }
+          ],
+          "person": "thdxr",
+          "products": [
+            "opencode"
+          ]
+        },
+        {
+          "id": "2026-10-19-005",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo：dots 暂不支持欧盟，但**之后会上**",
+          "summary": "有用户说自己的 dot 在 Codex 桌面端消失了，Tibo 回复这是欧盟地区的限制：在别处创建的 dot 人到欧盟后会继续可用，dots 未来也会开放给欧盟；被追问时他说“我们确实在意当地监管”。",
+          "time": "10-18 22:53",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2111832959842161136"
+            },
+            {
+              "label": "监管回复",
+              "url": "https://x.com/thsottiaux/status/2111941223187710114"
+            }
+          ],
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "📰",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-19-006",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 成立 **Public Benefit Fund**，约 20% 股份将用于公益",
+          "summary": "经股东批准后先投入 5% 股份，公司估值每比基线增长 50%，董事会可再追加最多 2%。基金是全资 LLC 而非 501(c)(3)，所持股权不会用于游说或政治捐款，可能用于大额捐赠或直接向特定人群分配，比如应对 AI 对就业的冲击（Anthropic 已为此承诺 2 亿美元）。加上联合创始人捐出 80% 股权的承诺和员工捐赠配捐计划，合计约 20% 股份用于公益。",
+          "time": "10-19 02:07",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AnthropicAI/status/2111881963657412903"
+            },
+            {
+              "label": "官方博客",
+              "url": "https://www.anthropic.com/news/public-benefit-fund"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-19-007",
+          "vendor": "vLLM",
+          "region": "us",
+          "title": "vLLM 与 NVIDIA 优化 **Kimi K3** 解码：GB300 NVL72 上单请求 842 token/秒",
+          "summary": "用 CuTe DSL 写的统一解码路径把注意力、MoE 和通信融合在一起，batch 1 配合 DSpark 达到每秒 842 token，多个测试配置下解码吞吐提升 1.5 到 2 倍，SemiAnalysis AgentX 负载上 P90 交互性最高提升 1.8 倍。",
+          "time": "10-18 09:55",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/vllm_project/status/2111637219647840611"
+            },
+            {
+              "label": "vLLM 博客",
+              "url": "http://vllm.ai/blog/2026-10-16-kimi-k3-megakernel"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-19-008",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Dean W. Ball：加入 OpenAI 后认为蒸馏对中国模型追赶的贡献**约占一半**",
+          "summary": "他说蒸馏一直是中国模型基准成绩紧追美国的原因之一，加入 OpenAI 后看到内部情况，把这个估计从约 30% 上调到约 50%；他还说实践中的蒸馏很大部分是窃取思维链，而不只是用模型的正常输出训练，这也是业界把它称为“攻击”的原因。",
+          "time": "10-18 20:51",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/deanwball/status/2111802397148471496"
+            },
+            {
+              "label": "比例回复",
+              "url": "https://x.com/deanwball/status/2111807534940185051"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：已检索 @XiaomiMiMo、@XiaomiMiMoDevs、@_LuoFuli 的时间线和 MiMo、MiMo Code、MiMo Desktop、超级小爱、罗福莉等关键词，时间窗内官方和罗福莉都没发新帖；Oracle 云支持导入 MiMo-V2.6-Pro-RL 的说明日期是 10-15，在窗口外，没收。提醒：mimo-v2.5-pro 和 mimo-v2.5 的旧模型 ID 将于 10-21 10:00 失效。",
+    "没收：推上流传 **Kimi K3.1**（k3d1-agent，Low/High/Max 三档推理）、GLM 5.5 等新模型即将发布，均无官方确认；OpenAI aurora-*-alpha 图像模型短暂出现在 API 列表的说法，官方未回应。Anthropic 第三季度营收 168 亿美元的报道和其内部就业研究都在窗口前，没收。阶跃 Step 5 Preview 开放权重已在 10-16 期报过。",
+    "版本检查：Claude Code 只有修复版；CodeBuddy Code 2.168.3 / 2.169.0 没有公开的新功能说明，没收；其他 harness 这 24 小时没有新版本。"
+  ],
+  "source_note": "信息来源：X（原帖）、Anthropic 官方博客、GitHub 博客、vLLM 博客、GitHub Releases。时间均为北京时间（UTC+8），只收时间窗内的消息；之前报过的事件只在有实质新进展时标为“更新”。",
+  "published_at": "2026-10-19T08:32:02+08:00"
+}

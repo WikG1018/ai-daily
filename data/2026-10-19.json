@@ -7,7 +7,7 @@
     "end": "10-19 08:25",
     "tz": "北京时间"
   },
-  "generated_at": "2026-10-19 08:40",
+  "generated_at": "2026-10-19 08:30",
   "highlights": "Anthropic 宣布成立 **Anthropic Public Benefit Fund**，先拿出 5% 股份，公司估值每比基线涨 50% 还可再加最多 2%；算上创始人和员工的捐赠承诺，约 **20% 的股份**将用于公益。OpenCode 核心开发 dax 说攻击已经**持续 48 小时**，并在试跑自建的 DeepSeek 推理机柜。周日各家基本没有新模型和新功能发布，小米今天无新动态。",
   "xiaomi": {
     "items": [],
@@ -210,5 +210,5 @@
     "版本检查：Claude Code 只有修复版；CodeBuddy Code 2.168.3 / 2.169.0 没有公开的新功能说明，没收；其他 harness 这 24 小时没有新版本。"
   ],
   "source_note": "信息来源：X（原帖）、Anthropic 官方博客、GitHub 博客、vLLM 博客、GitHub Releases。时间均为北京时间（UTC+8），只收时间窗内的消息；之前报过的事件只在有实质新进展时标为“更新”。",
-  "published_at": "2026-10-19T08:32:02+08:00"
+  "published_at": "2026-10-19T08:32:20+08:00"
 }

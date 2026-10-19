@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "latest": "2026-10-19",
-  "updated_at": "2026-10-19T08:32:02+08:00",
+  "updated_at": "2026-10-19T08:32:20+08:00",
   "issues": [
     {
       "date": "2026-10-19",
@@ -9,7 +9,7 @@
       "highlights": "Anthropic 宣布成立 Anthropic Public Benefit Fund，先拿出 5% 股份，公司估值每比基线涨 50% 还可再加最多 2%；算上创始人和员工的捐…",
       "item_count": 8,
       "path": "data/2026-10-19.json",
-      "published_at": "2026-10-19T08:32:02+08:00"
+      "published_at": "2026-10-19T08:32:20+08:00"
     },
     {
       "date": "2026-10-18",

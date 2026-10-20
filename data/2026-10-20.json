@@ -1,0 +1,435 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-20",
+  "window": {
+    "start": "10-19 08:25",
+    "end": "10-20 08:26",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-20 08:33",
+  "highlights": "MiniMax 正式发布 **M3.1 Flash**，并揭晓霸榜多日的匿名模型“太空兔”（Space Bunny）就是它的早期版本：API 每百万 token 输入 $0.15、输出 $0.60，成本约为 M3 的三分之一、速度 3 倍，权重 10-23 开放，OpenCode、Cline、Qoder 当天接入并限时免费。OpenAI 公布 COBOL 等低资源语言的编码进展，Meta 发布 30B 开放权重端侧 agent 模型 **Muse Glimmer** 的技术报告。小米汽车 HyperOS 1.18 正式推送，超级小爱上线**专家模式**；小米 SeerRay 实验室还开源了 4B 视觉分割模型 Xiaomi-Lens-0。",
+  "xiaomi": {
+    "items": [
+      {
+        "id": "2026-10-20-001",
+        "vendor": "小米",
+        "region": "cn",
+        "title": "小米汽车 HyperOS 1.18 正式推送，超级小爱上线**专家模式**",
+        "summary": "小米汽车官方微博 10-19 宣布 SU7、YU7 正式推送 HyperOS 1.18。座舱里超级小爱新增专家模式，模糊指令理解更强、被打断后能接着说；智驾方面“端到端辅助驾驶”更名为“全域领航辅助”，车位级领航可直达电梯口和充电桩车位，加减速和变道也更平顺。YU7 在 10-12 已先行推送 1.18.0。",
+        "time": "10-19 10:30",
+        "links": [
+          {
+            "label": "小米汽车微博",
+            "url": "https://www.sina.cn/media/7871239944"
+          },
+          {
+            "label": "快科技报道",
+            "url": "https://news.mydrivers.com/1/1158/1158617.htm"
+          }
+        ]
+      },
+      {
+        "id": "2026-10-20-002",
+        "vendor": "小米",
+        "region": "cn",
+        "title": "小米 SeerRay 实验室开源 **Xiaomi-Lens-0**：4B 模型直接输出分割掩码",
+        "summary": "模型基于 Qwen3.5-4B，加了一个轻量像素掩码解码器，生成的 <|mask|> token 会被解码成图像区域掩码，可在回答或推理过程中直接给出分割结果，Apache 2.0 协议。同时发布 LensBench（1200 组、4800 条人工复核样本，覆盖通用、航拍、驾驶、全景图）；技术报告里它在航拍、驾驶、全景图上 cIoU 领先，但隐式指令只排第五。",
+        "time": "10-19 11:09",
+        "links": [
+          {
+            "label": "Hugging Face 模型",
+            "url": "https://huggingface.co/SeerRay-Lab/Xiaomi-Lens-0"
+          },
+          {
+            "label": "LensBench",
+            "url": "https://huggingface.co/datasets/SeerRay-Lab/LensBench"
+          },
+          {
+            "label": "技术报告",
+            "url": "https://huggingface.co/papers/2610.23279"
+          }
+        ]
+      }
+    ],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "id": "2026-10-20-003",
+          "vendor": "MiniMax",
+          "region": "cn",
+          "title": "MiniMax 发布 **M3.1 Flash**：匿名模型“太空兔”揭晓，$0.15/$0.60，权重 10-23 开放",
+          "summary": "官方说在各大用量榜霸榜、累计处理 200T+ token 的匿名模型 Space Bunny 就是 M3.1 Flash 的早期版本。官方数据 Automation-Bench 62%、DeepSWE 74%、BabyVision 91%，成本约为 M3 的三分之一、速度 3 倍；API 统一价每百万 token 输入 $0.15、输出 $0.60，缓存读取 $0.015。Artificial Analysis 智能指数给 42 分，比 M3 高 13 分，与 GLM-5.3-Flash 持平，低于 DeepSeek V4.1 Flash 1017。",
+          "time": "10-19 19:56",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/MiniMax_AI/status/2112150867868541221"
+            },
+            {
+              "label": "AA 评测",
+              "url": "https://x.com/ArtificialAnlys/status/2112211865128608002"
+            }
+          ],
+          "product": "minimax-code",
+          "person": "minimax_ai",
+          "children": [
+            {
+              "id": "2026-10-20-004",
+              "vendor": "MiniMax",
+              "region": "cn",
+              "title": "MiniMax Code：10-25 前订阅用户**无限量**用 M3.1 Flash",
+              "summary": "10-25 23:59（北京时间）前所有 MiniMax Code 订阅用户使用 M3.1 Flash 不设用量上限；10-31 前新订阅或升级 M Plan 首月五折。",
+              "time": "10-19 20:19",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/MiniMaxAgent/status/2112156691492131012"
+                }
+              ],
+              "product": "minimax-code",
+              "person": "minimaxagent"
+            },
+            {
+              "id": "2026-10-20-005",
+              "vendor": "OpenCode / Cline / Qoder",
+              "region": "intl",
+              "title": "OpenCode、Cline、Qoder 当天接入，多家限时免费",
+              "summary": "OpenCode 说太空兔在它那里连续 12 天排第一、跑了 106T token，正式版免费 3 天；Cline 免费提供，称编码能力接近 Opus 和 GPT、成本约低 25 倍；Qoder 全系 Day 0 上线。Ollama（美国托管、零数据保留）和 OpenRouter（免费 72 小时）也同步支持。",
+              "time": "10-19 20:17",
+              "links": [
+                {
+                  "label": "OpenCode",
+                  "url": "https://x.com/opencode/status/2112156205938626954"
+                },
+                {
+                  "label": "Cline",
+                  "url": "https://x.com/cline/status/2112220504258224605"
+                },
+                {
+                  "label": "Qoder",
+                  "url": "https://x.com/qoder_ai_ide/status/2112188948202344646"
+                },
+                {
+                  "label": "OpenRouter",
+                  "url": "https://x.com/MiniMax_AI/status/2112287025361801272"
+                }
+              ],
+              "product": "opencode",
+              "products": [
+                "cline",
+                "qoder-ide"
+              ],
+              "people": [
+                "cline",
+                "qoder_ai_ide"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2026-10-20-006",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 公布低资源编程语言进展：COBOL 迁移准确率最高 **97.9%**",
+          "summary": "新评测 MultiLangBench 让模型用 20 种语言从零写 SQLite 兼容的数据库引擎，GPT-6 Astra 平均通过率 87.4%（GPT-5.6 Sol 只有 26.8%），COBOL 从 10.9% 提到 72.1%；COBOL 迁移评测上 GPT-6.1 Sol 低推理强度就到 86.6%（GPT-5.6 Sol 为 5.4%，成本还低 39%），高推理强度 97.9%。MultiLangBench 测试集已在 GitHub 开源。银行、政府的老系统大量跑在这些语言上，这是 OpenAI 在企业迁移场景上的明确发力。",
+          "time": "10-20 06:30",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAI/status/2112310345863930168"
+            },
+            {
+              "label": "官方博客",
+              "url": "https://openai.com/index/low-resource-programming-languages/"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-20-007",
+          "vendor": "Meta",
+          "region": "us",
+          "title": "Meta 发布 **Muse Glimmer** 技术报告：30B 开放权重端侧 agent 模型",
+          "summary": "30B 参数、带视觉编码器，专为消费级硬件上的自主 agent 任务设计，约 4-bit 量化后在单张消费级 GPU 的 Mac 或 PC 上就能以实用速度运行。官方称在工具调用、多步规划和 agent 任务完成上领先同尺寸的 Gemma4-31B 和 Qwen3.6-27B，训练数据覆盖一百多种语言，Apache 2.0 协议。",
+          "time": "10-20 03:33",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AIatMeta/status/2112265822274302066"
+            },
+            {
+              "label": "Meta 研究页",
+              "url": "https://go.meta.me/4Bcvxol"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-20-008",
+          "vendor": "蚂蚁 inclusionAI",
+          "region": "cn",
+          "title": "蚂蚁百灵开源 **Ming-3.0** 五款语音模型",
+          "summary": "覆盖三个语音家族：TTS（0.5B 声音设计与副语言控制、Tiny 7.9B/激活 1.3B 长篇语音）、音频理解（Flash 126B/激活 6.5B 支持工具调用，Tiny 9.3B/激活 2.7B 用于高效对话）和 ASR。vLLM-Omni 当天支持。",
+          "time": "10-19 23:54",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AntLingAGI/status/2112210811997540475"
+            },
+            {
+              "label": "vLLM 支持",
+              "url": "https://x.com/vllm_project/status/2112220256941085002"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-20-009",
+          "vendor": "Inception",
+          "region": "us",
+          "title": "Inception 发布扩散语言模型 **Mercury 3**，每秒 1000+ token",
+          "summary": "官方称它是目前能力最强的扩散式 LLM，多项基准超过 GPT-6 Luna 和 Claude Haiku 5.5，规模是 Mercury 1 的 40 多倍、标准基准上聪明约 3 倍，速度超过每秒 1000 token。",
+          "time": "10-20 01:37",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/_inception_ai/status/2112236719068369299"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-20-010",
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek V4.1 Flash 1017 后续：AA 智能指数 **45 分**，Qoder 免费到 10-24",
+          "summary": "Artificial Analysis 给 1017 版 45 分，比原 V4.1 Flash 高 6 分，开放权重模型里并列第二；Qoder 宣布 10-24 前免费和付费用户都按 0 倍 Credits 使用；OpenCode Go 和 Free 里的 V4.1 Flash 已自动升级到 1017。",
+          "time": "10-19 23:56",
+          "links": [
+            {
+              "label": "Qoder 原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2112211366954344459"
+            },
+            {
+              "label": "AA 评测",
+              "url": "https://x.com/ArtificialAnlys/status/2112218661432000694"
+            },
+            {
+              "label": "OpenCode",
+              "url": "https://x.com/opencode/status/2112220734768779441"
+            }
+          ],
+          "products": [
+            "qoder-ide",
+            "opencode"
+          ],
+          "update": true,
+          "update_note": "模型发布已在 10-18 期报过，新进展是第三方 AA 评分出炉、Qoder 限时免费和 OpenCode 升级。"
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "id": "2026-10-20-011",
+          "vendor": "Cognition",
+          "region": "us",
+          "title": "Devin Fusion 登顶 AA 编码 agent 指数（**68 分**），单任务成本比 Claude Code 低 31%",
+          "summary": "Devin Fusion 用 Opus 5.5 做主导、GPT-6 Luna 做副手，在 Artificial Analysis Coding Agent Index 拿到 68 分，官方称表现和价格都优于用 Opus 5.5 的 Claude Code。说明多模型编排开始在编码 agent 上体现出实际优势。",
+          "time": "10-20 05:09",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cognition/status/2112290148205436979"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-20-012",
+              "vendor": "Cognition",
+              "region": "us",
+              "title": "Devin 推出按效率分配 AI 预算：效率评分自动审批 + Devin Coach",
+              "summary": "Cognition 认为一刀切的用量上限等于变相冻结招聘，新功能按工程师的使用效率自动批准额度，并用 Devin Coach 帮其他人提高效率。",
+              "time": "10-20 00:46",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/cognition/status/2112223929414607228"
+                },
+                {
+                  "label": "Devin 博客",
+                  "url": "https://devin.ai/blog/efficiency-based-cost-controls"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2026-10-20-013",
+          "vendor": "腾讯",
+          "region": "cn",
+          "title": "腾讯开源 AI 工作区 **Octop 1.0.2**：团队模式与跨机器协作",
+          "summary": "Octop 是自托管的开源 AI 工作区，每人有独立的 agent、记忆和工作空间。新版团队模式只需描述一次目标，多个 agent 自行分工后返回一个答案；跨机器协作让笔记本直接调用另一台机器上的专家、文件和环境，数据和对话都不迁移；还支持用 Jev、Laya 等决策模型预先筛选相关工具、技能和队友，减少 token 消耗。",
+          "time": "10-19 17:37",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/TencentAI_News/status/2112115861301649834"
+            },
+            {
+              "label": "GitHub",
+              "url": "https://github.com/TencentCloud/Octop"
+            }
+          ],
+          "person": "tencentai_news"
+        },
+        {
+          "id": "2026-10-20-014",
+          "vendor": "Factory",
+          "region": "us",
+          "title": "Factory 与 Databricks 合作，Droids 直接在 Databricks 上写代码",
+          "summary": "Factory 的 Droids 可以直接在 Databricks 上构建、迁移和加固软件，沿用企业已有的数据、模型和治理体系，面向企业数据与 AI 场景。",
+          "time": "10-20 00:25",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/FactoryAI/status/2112218604146217186"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "id": "2026-10-20-015",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **v2.1.304**",
+          "summary": "新增 /auto-mode-setup 引导式配置，会读取项目和近期会话来教 auto mode 了解你的环境（Bedrock、Vertex 等也能用）；新增 /claude-api managed-agents-secure，对照官方安全指南检查 Managed Agents 设置；Pro/Max 恢复长时间未活动的对话前会提示可能占用较多 5 小时额度。还修了 claude --worktree 退出时可能不询问就删掉 worktree 和分支、导致丢提交的问题。",
+          "time": "10-20 05:34",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.304"
+            }
+          ],
+          "product": "claude-code",
+          "version": "v2.1.304"
+        },
+        {
+          "id": "2026-10-20-016",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub Copilot CLI **v1.0.100**",
+          "summary": "新增 --disable-client-telemetry 关闭客户端遥测、-p 单次模式可用 --trust-folder；可以通过 GitHub 安装链接直接装经过验证的 Skills 和插件；/share 不带参数会打开全屏分享菜单。MCP 服务器加载工具卡住时，会话不会再停滞好几分钟。",
+          "time": "10-20 02:43",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/github/copilot-cli/releases/tag/v1.0.100"
+            }
+          ],
+          "product": "copilot-cli",
+          "version": "v1.0.100"
+        },
+        {
+          "id": "2026-10-20-017",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qwen Code **0.25.3**",
+          "summary": "由已发布的 AgentDefinition 创建的托管会话可以加载静态 Skills，并把固定的 MCP 服务器和 Hook 选择传给 Hosted Runtime；Web Shell 轨迹面板新增“最近执行”区，实时显示请求和工具耗时；Test Failure Explorer 可选模型生成的布局。",
+          "time": "10-19 14:14",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.25.3"
+            }
+          ],
+          "product": "qwen-code",
+          "version": "0.25.3"
+        },
+        {
+          "id": "2026-10-20-018",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qoder CLI **1.1.74**",
+          "summary": "会话 fork 和 /branch 执行更快；检查点备份失败时不再导致文件编辑失败，回退时尽量恢复所有文件并列出无法恢复的；ImageGen 工具支持图生图。",
+          "time": "10-19 20:53",
+          "links": [
+            {
+              "label": "版本记录",
+              "url": "https://docs.qoder.com/release-notes/qoder-cli"
+            }
+          ],
+          "product": "qoder-cli",
+          "version": "1.1.74"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "id": "2026-10-20-019",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：同类产品这几天也遭到攻击，正与各家实验室商量更好的防护协议",
+          "summary": "回应用户时 dax 说 OpenCode 需要更主动，过去几天已经做了大量改进；其他类似产品最近几天也被攻击了，他们正在和模型实验室讨论适用于所有人的更好协议。",
+          "time": "10-20 00:50",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2112224772910125343"
+            }
+          ],
+          "person": "thdxr",
+          "products": [
+            "opencode"
+          ],
+          "update": true,
+          "update_note": "OpenCode 安全事件已在 10-18、10-19 期报过，新进展是攻击波及同类产品，以及与实验室商议行业防护协议。"
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "📰",
+      "title": "其他动态",
+      "items": [
+        {
+          "id": "2026-10-20-020",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Gemini API 推出 agentic 视频理解，长视频分析最多便宜 **66%**",
+          "summary": "模型通过工具调用只拉取 prompt 需要的那几段视频，分析长视频更准确，成本最高降低 66%，Google 同时发布了开发者指南。",
+          "time": "10-20 01:45",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/googledevs/status/2112238816149058000"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：已检索 @XiaomiMiMo、@XiaomiMiMoDevs、@_LuoFuli 的时间线和 MiMo、MiMo Code、超级小爱、罗福莉等关键词，时间窗内官方号和罗福莉都没发新帖；本期两条小米动态来自小米汽车官方微博和 SeerRay 实验室的 Hugging Face 发布。提醒：mimo-v2.5-pro 和 mimo-v2.5 的旧模型 ID 将于 10-21 10:00 失效。",
+    "没收：ClaudeDevs 再次宣传 **OSS Scanner**，但它 10-08 就已上线、10-09 期报过；Google Research 的 Harness² 在 10 月上旬开源，不在窗口内；高盛关于 MiMo-V2.6 RL 直播的研报、Seedance 2.5 的社区作品没有新的官方发布，没收。",
+    "版本检查：CodeBuddy Code 2.170.0 没有公开的新功能说明，没收；Codex CLI、Cursor、Gemini CLI、OpenCode 等这 24 小时没有新正式版。"
+  ],
+  "source_note": "信息来源：X（原帖）、OpenAI 官方博客、Meta AI 研究页、Hugging Face、小米汽车官方微博与快科技、GitHub Releases、Qoder 官方版本记录。时间均为北京时间（UTC+8），只收时间窗内的消息；之前报过的事件只在有实质新进展时标为“更新”。",
+  "published_at": "2026-10-20T08:33:17+08:00"
+}

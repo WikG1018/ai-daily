@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报",
+  "date": "2026-10-21",
+  "window": {
+    "start": "10-20 08:26",
+    "end": "10-21 08:20",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-21 08:35",
+  "highlights": "DeepSeek 开源自家线上推理框架 **DeepInfer**（含与官方 API 对齐的编解码组件 deepseek-recipe），把生产推理栈也公开了。小米 **MiMo-V2.6-Pro** 正式上线腾讯 WorkBuddy；Perplexity Computer 可在 Mac 上完全本地运行，Qoder 推出 $10/月的 Lite 套餐。OpenAI 的 Tibo 承认约 4 万个账户用量限额算错，已修正并补额度。",
+  "xiaomi": {
+    "items": [
+      {
+        "vendor": "小米",
+        "region": "cn",
+        "title": "**MiMo-V2.6-Pro** 正式上线腾讯 WorkBuddy",
+        "summary": "小米技术官微宣布 MiMo-V2.6-Pro 上线腾讯的 AI 办公工作台 WorkBuddy，主打长任务托管、深度研究、设计出稿、文档办公和小工具开发等长程工作流，官方强调 1M 上下文、多智能体分工和全模态理解（AA 智能指数 46 分，开源第一）。模型本身 9 月已发布开源，这次是第一次以完整形态落到第三方办公 agent 平台，WorkBuddy 同批还接入了 MiniMax M3.1 Flash。",
+        "time": "10-20 19:35",
+        "links": [
+          {
+            "label": "小米技术微博",
+            "url": "https://www.sina.cn/media/6486870325"
+          },
+          {
+            "label": "IT之家",
+            "url": "https://www.ithome.com/1/015/533.htm"
+          },
+          {
+            "label": "WorkBuddy 上新公告转载",
+            "url": "https://news.mysteel.com/a/26102014/40DD3F8A22E58E7F.html"
+          }
+        ],
+        "id": "2026-10-21-001"
+      }
+    ],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "icon": "🧠",
+      "title": "模型",
+      "items": [
+        {
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek 开源线上推理框架 **DeepInfer** 和 deepseek-recipe",
+          "summary": "DeepInfer 是支撑 V4.1-Flash 线上服务的自研推理栈，含高性能 kernel、分布式推理、投机解码、SWA Bounded Replay 和结构化输出，官方说未来 DeepSeek 新模型的推理代码也会放在这里；同时开源与官方 API 处理逻辑一致的 token 编解码组件 deepseek-recipe。开源从权重扩到生产推理栈，自部署 DeepSeek 的成本和与官方 API 的一致性都会明显改善。",
+          "time": "10-20 17:30",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/deepseek_ai/status/2112476496283775135"
+            },
+            {
+              "label": "GitHub",
+              "url": "https://github.com/deepseek-ai/DeepInfer"
+            },
+            {
+              "label": "deepseek-recipe",
+              "url": "https://github.com/deepseek-ai/deepseek-recipe"
+            }
+          ],
+          "person": "deepseek_ai",
+          "id": "2026-10-21-002"
+        },
+        {
+          "vendor": "Mistral",
+          "region": "intl",
+          "title": "Mistral 发布语音模型 **Voxtral 3** 和语音 agent API",
+          "summary": "包括 Voxtral 3 TTS 和三款语音识别模型（Small/Mini Transcribe 3、Mini Transcribe Realtime 3）。Artificial Analysis 评测里 Small Transcribe 3 以 2.1% 词错率排语音识别第 3，领先 ElevenLabs Scribe v2；TTS 定价每百万字符 $13。",
+          "time": "10-21 00:00",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/MistralAI/status/2112574615318876178"
+            },
+            {
+              "label": "AA 评测",
+              "url": "https://x.com/ArtificialAnlys/status/2112587905222709432"
+            }
+          ],
+          "id": "2026-10-21-003"
+        },
+        {
+          "vendor": "humans&",
+          "region": "us",
+          "title": "humans& 发布首个模型 **Ampersand v0.1**：给群体长期协作用的 AI",
+          "summary": "这家由前 Google DeepMind、OpenAI、Anthropic 等研究员创办的公司推出“协作者”模型，用多月期的模拟人群训练，目标是帮一群人推进各自和共同的目标，而不是一问一答；已通过 Agents API 向开发者开放。",
+          "time": "10-21 06:57",
+          "links": [
+            {
+              "label": "联合创始人 Georges Harik",
+              "url": "https://x.com/gharik/status/2112679528376291380"
+            },
+            {
+              "label": "X 新闻汇总",
+              "url": "https://x.com/i/trending/2112681478547255563"
+            }
+          ],
+          "id": "2026-10-21-004"
+        },
+        {
+          "vendor": "MiniMax",
+          "region": "cn",
+          "update": true,
+          "update_note": "新增第三方搜索评测和 App Store 回归",
+          "title": "MiniMax M3.1 Flash 后续：Parallel 搜索效率榜第一，MiniMax Code 重回 App Store",
+          "summary": "Parallel Web Systems 的搜索能力榜上 M3.1 Flash 效率排第一，网页调研表现接近 DeepSeek V4.1 Flash（1017），成本约低 3 倍；MiniMax Code 应用重新上架 App Store。",
+          "time": "10-20 21:59",
+          "links": [
+            {
+              "label": "Parallel 评测",
+              "url": "https://x.com/p0/status/2112544138662981825"
+            },
+            {
+              "label": "App Store 回归",
+              "url": "https://x.com/MiniMaxAgent/status/2112483625933664721"
+            }
+          ],
+          "product": "minimax-code",
+          "people": [
+            "minimax_ai",
+            "minimaxagent"
+          ],
+          "id": "2026-10-21-005"
+        },
+        {
+          "vendor": "腾讯",
+          "region": "cn",
+          "update": true,
+          "update_note": "新增本地量化版",
+          "title": "腾讯 Hy Memory 推出本地量化版：60 GB 降到 18 GB，单个 llama.cpp 即可跑",
+          "summary": "部署从 vLLM 换成一个 llama.cpp 程序，自测 LoCoMo 上 Q6_K 58.8%、Q4_K_M 56.5%，记忆数据留在本地磁盘。",
+          "time": "10-20 16:28",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/TencentAI_News/status/2112461029791940712"
+            }
+          ],
+          "person": "tencentai_news",
+          "id": "2026-10-21-006"
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "icon": "🛠️",
+      "title": "编码 / Agent 框架",
+      "items": [
+        {
+          "vendor": "Perplexity",
+          "region": "us",
+          "title": "**Perplexity Computer** 可在 Mac 上完全本地运行",
+          "summary": "模型和 agent 都跑在 Mac 上，能操作原生应用和本地文件，敏感数据不出机器，断网也能用；已在 Perplexity Mac 应用上线（据 TestingCatalog，面向 Pro、Max 和企业订阅）。本地 agent 对处理敏感资料的用户是实际门槛的降低。",
+          "time": "10-20 23:48",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/perplexity_ai/status/2112571597798461920"
+            },
+            {
+              "label": "Aravind Srinivas",
+              "url": "https://x.com/AravSrinivas/status/2112583333825950207"
+            }
+          ],
+          "id": "2026-10-21-007"
+        },
+        {
+          "vendor": "阿里 Qoder",
+          "region": "cn",
+          "title": "Qoder 推出 **Qoder Lite** 套餐：$10/月 1000 积分",
+          "summary": "日常任务走 Flash 模型（按 0.1 倍计费），难活交给 Qwen3.8-Max、DeepSeek-V4-Pro 或 Kimi-K3；首次订阅再送 1000 积分。国产编码工具开始用低价档和模型路由抢个人开发者。",
+          "time": "10-20 21:25",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2112535568794198260"
+            }
+          ],
+          "product": "qoder-ide",
+          "person": "qoder_ai_ide",
+          "id": "2026-10-21-008"
+        },
+        {
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI API 支持 **12 小时提示缓存**；ChatGPT 推出团队定时任务",
+          "summary": "开发者可选 12 小时的 prompt 缓存，像 dots 这样整天复用上下文的常驻 agent，隔几小时的请求也能按缓存价计费。ChatGPT 另上线 team tasks，可自动跑每周“发布了什么、卡在哪”这类例行工程汇总，队友可审阅并调整下一期内容。",
+          "time": "10-21 01:56",
+          "links": [
+            {
+              "label": "12 小时缓存",
+              "url": "https://x.com/OpenAIDevs/status/2112603916076781778"
+            },
+            {
+              "label": "team tasks",
+              "url": "https://x.com/OpenAIDevs/status/2112565702552940794"
+            }
+          ],
+          "person": "openaidevs",
+          "products": [
+            "codex-cli"
+          ],
+          "id": "2026-10-21-009"
+        },
+        {
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline Desktop 上线 **Goal** 插件：任务验证完成前不停手",
+          "summary": "在插件市场安装后用 /goal 启动；Cline 的插件是 TypeScript 文件，可加斜杠命令、自定义工具和生命周期钩子。",
+          "time": "10-21 04:38",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cline/status/2112644617141371061"
+            }
+          ],
+          "product": "cline",
+          "person": "cline",
+          "id": "2026-10-21-010"
+        },
+        {
+          "vendor": "Microsoft",
+          "region": "us",
+          "title": "VS Code 预览版介绍 **Canvases**：人和编码 agent 共享的工作板",
+          "summary": "可在画布上整理发布、排待办优先级，把卡片转成带上下文、agent 能直接执行的计划。",
+          "time": "10-21 04:05",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/code/status/2112636251782201602"
+            }
+          ],
+          "product": "vscode",
+          "person": "code",
+          "id": "2026-10-21-011"
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "icon": "📦",
+      "title": "版本更新",
+      "items": [
+        {
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **v2.1.305**",
+          "product": "claude-code",
+          "version": "v2.1.305",
+          "time": "10-21 04:46",
+          "summary": "修复 2.1.304 引入的回归：Vertex、Bedrock 或网关拒绝工具搜索时所有请求失败，现在会自动去掉后重试；新增 sandbox.allowNestedUserNamespaces（Linux 沙箱内可跑 Chromium、rootless podman），无人值守重试模式也能更早发现用量限制已解除。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.305"
+            }
+          ],
+          "id": "2026-10-21-012"
+        },
+        {
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub Copilot CLI **v1.0.101**",
+          "product": "copilot-cli",
+          "version": "v1.0.101",
+          "time": "10-21 02:49",
+          "summary": "动态工作流子 agent 支持原生结构化输出；新增 assistedApprovalInstructions 设置来指导辅助审批；macOS 沙箱命令在开启本地访问时可直连 localhost。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/github/copilot-cli/releases/tag/v1.0.101"
+            }
+          ],
+          "id": "2026-10-21-013"
+        },
+        {
+          "vendor": "Google",
+          "region": "us",
+          "title": "Gemini CLI **v0.65.0**",
+          "product": "gemini-cli",
+          "version": "v0.65.0",
+          "time": "10-21 05:17",
+          "summary": "以修复为主：不受信任的文件夹强制只读工作区设置，恢复会话时不再重复工具响应，快速退出也不会删掉恢复的会话历史。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.65.0"
+            }
+          ],
+          "id": "2026-10-21-014"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "icon": "🗣️",
+      "title": "人物动态",
+      "items": [
+        {
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo：约 **4 万个账户**用量限额算错，已修正并补额度",
+          "summary": "周末有用户反映额度掉得太快，排查发现约 4 万个账户实际执行的限额和所选套餐不一致；已修复，会逐一联系受影响用户并补发额度。",
+          "time": "10-21 01:10",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2112592264686149749"
+            }
+          ],
+          "person": "thsottiaux",
+          "products": [
+            "codex-cli"
+          ],
+          "children": [
+            {
+              "vendor": "OpenAI",
+              "region": "us",
+              "title": "Day 15：Codex 用量再次重置",
+              "summary": "几小时前他刚发“We're cooked”，随后改口说还在做，并再次重置了用量。",
+              "time": "10-20 14:33",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/thsottiaux/status/2112432076767289678"
+                }
+              ],
+              "person": "thsottiaux",
+              "product": "codex-cli",
+              "id": "2026-10-21-016"
+            }
+          ],
+          "id": "2026-10-21-015"
+        },
+        {
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：外部 PR 往往不如团队自己把提示词丢给内部 agent",
+          "summary": "他说现在开源 PR 不知道用的什么模型，而团队内部给 agent 的工具更好，所以外部 PR 主要价值在于覆盖他们复现不了的环境；另说 OpenCode 2.0 发布后团队正集中清理积压 issue。",
+          "time": "10-20 21:35",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thdxr/status/2112538272601616551"
+            },
+            {
+              "label": "清 issue",
+              "url": "https://x.com/thdxr/status/2112544276647231836"
+            }
+          ],
+          "person": "thdxr",
+          "product": "opencode",
+          "id": "2026-10-21-017"
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "icon": "🌐",
+      "title": "其他动态",
+      "items": [
+        {
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 收购药物研发协作平台 **Orchestra Bio**",
+          "summary": "将并入其生命科学模型和工具 Rosalind，用来理顺药物开发流程，让新疗法更快到达患者。",
+          "time": "10-21 02:10",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAI/status/2112607347688583586"
+            },
+            {
+              "label": "官方博客",
+              "url": "https://openai.com/index/openai-to-acquire-orchestra-bio/"
+            }
+          ],
+          "id": "2026-10-21-018"
+        },
+        {
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Aleksander Madry 回归 OpenAI，负责超级智能的安全与安保",
+          "summary": "Madry 说几个月前的离开更像休假，现在 AI 进入新阶段，安全问题必须成为中心，他将加入 @merettm 的团队；Sam Altman 发帖表示感谢。",
+          "time": "10-21 05:10",
+          "links": [
+            {
+              "label": "Sam Altman",
+              "url": "https://x.com/sama/status/2112652656602923366"
+            },
+            {
+              "label": "Madry 原帖",
+              "url": "https://x.com/aleks_madry/status/2112231448103239998"
+            }
+          ],
+          "id": "2026-10-21-019"
+        },
+        {
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 科学博客：用 Claude 设计对抗蝎毒神经毒素的蛋白结合物",
+          "summary": "每年约 120 万人被蝎子蜇伤，抗蛇毒血清贵且常短缺；Anthropic 称这是找到新疗法的早期一步。",
+          "time": "10-21 00:18",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AnthropicAI/status/2112579251555721573"
+            }
+          ],
+          "id": "2026-10-21-020"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Anthropic、Google、xAI、Meta 这 24 小时没有发布新模型；社区盛传的 Claude Fable 5.5 当天没有出现，未收录传闻。阿里通义、Kimi、智谱、字节、百度也未见新模型发布。"
+  ],
+  "source_note": "信息来源：X 原帖、各项目 GitHub Releases 及文中注明的媒体报道；时间均为北京时间。",
+  "published_at": "2026-10-21T08:20:50+08:00"
+}

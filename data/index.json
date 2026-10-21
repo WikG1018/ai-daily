@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-20",
-  "updated_at": "2026-10-20T08:33:17+08:00",
+  "latest": "2026-10-21",
+  "updated_at": "2026-10-21T08:20:50+08:00",
   "issues": [
+    {
+      "date": "2026-10-21",
+      "title": "AI 日报",
+      "highlights": "DeepSeek 开源自家线上推理框架 DeepInfer（含与官方 API 对齐的编解码组件 deepseek-recipe），把生产推理栈也公开了。",
+      "item_count": 20,
+      "path": "data/2026-10-21.json",
+      "published_at": "2026-10-21T08:20:50+08:00"
+    },
     {
       "date": "2026-10-20",
       "title": "AI 日报",

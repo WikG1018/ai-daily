@@ -7,7 +7,7 @@
     "end": "10-21 08:20",
     "tz": "北京时间"
   },
-  "generated_at": "2026-10-21 08:35",
+  "generated_at": "2026-10-21 08:20",
   "highlights": "DeepSeek 开源自家线上推理框架 **DeepInfer**（含与官方 API 对齐的编解码组件 deepseek-recipe），把生产推理栈也公开了。小米 **MiMo-V2.6-Pro** 正式上线腾讯 WorkBuddy；Perplexity Computer 可在 Mac 上完全本地运行，Qoder 推出 $10/月的 Lite 套餐。OpenAI 的 Tibo 承认约 4 万个账户用量限额算错，已修正并补额度。",
   "xiaomi": {
     "items": [
@@ -420,5 +420,5 @@
     "Anthropic、Google、xAI、Meta 这 24 小时没有发布新模型；社区盛传的 Claude Fable 5.5 当天没有出现，未收录传闻。阿里通义、Kimi、智谱、字节、百度也未见新模型发布。"
   ],
   "source_note": "信息来源：X 原帖、各项目 GitHub Releases 及文中注明的媒体报道；时间均为北京时间。",
-  "published_at": "2026-10-21T08:20:50+08:00"
+  "published_at": "2026-10-21T08:21:00+08:00"
 }

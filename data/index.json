@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-21",
-  "updated_at": "2026-10-21T08:21:00+08:00",
+  "latest": "2026-10-23",
+  "updated_at": "2026-10-23T08:31:54+08:00",
   "issues": [
+    {
+      "date": "2026-10-23",
+      "title": "AI 日报 · 2026-10-23",
+      "highlights": "Anthropic 连发：主动式 agent 应用 Claude Duet 开放研究预览，Claude 应用下周起默认 auto mode，Agent Skills 捐给 Age…",
+      "item_count": 33,
+      "path": "data/2026-10-23.json",
+      "published_at": "2026-10-23T08:31:54+08:00"
+    },
     {
       "date": "2026-10-21",
       "title": "AI 日报",

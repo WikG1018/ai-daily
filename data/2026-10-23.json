@@ -1,0 +1,603 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报 · 2026-10-23",
+  "date": "2026-10-23",
+  "window": {
+    "start": "2026-10-21 08:20",
+    "end": "2026-10-23 08:30",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-23 08:30",
+  "highlights": "Anthropic 连发：主动式 agent 应用 **Claude Duet** 开放研究预览，Claude 应用下周起默认 auto mode，**Agent Skills** 捐给 Agentic AI Foundation。DeepSeek 据报完成约 **1000 亿元**融资，宁德时代、腾讯领投。OpenAI Decisions API 正式 GA，并披露 AI 协助发现的 PHP 严重漏洞；Google 推出给 agent 用的 Gemini API CLI。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "title": "模型",
+      "icon": "🧠",
+      "items": [
+        {
+          "id": "2026-10-23-001",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI **Decisions API** 正式 GA",
+          "summary": "专做分类、路由、打分这类“只要结论”的调用：输入文本、图片或 JSON，直接返回结构化的判断和概率，不生成完整回复。官方称比通过 Responses API 调 GPT-6 Luna 快约 10 倍；按输入计费（未命中缓存每百万 token $0.10），输出不收费。10 月 6 日开放公测，这次转正式版。",
+          "time": "10-23 03:07",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAIDevs/status/2113346642787086538"
+            }
+          ],
+          "person": "openaidevs"
+        },
+        {
+          "id": "2026-10-23-002",
+          "vendor": "蚂蚁",
+          "region": "cn",
+          "title": "蚂蚁百灵发布 **Ling-3.1-flash-1019**，并开源医疗模型 Ling-3.0-flash-Sante",
+          "summary": "Ling-3.1-flash-1019 在 Artificial Analysis 智能指数拿到 44 分（上一版 41），agent 任务提升明显（AA-Briefcase 约 1400→1524 Elo，AutomationBench-AA 62%→68%）；API 和开放权重“即将上线”。",
+          "time": "10-22 19:10",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AntLingAGI/status/2113226531522891851"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-23-003",
+              "vendor": "蚂蚁",
+              "region": "cn",
+              "title": "Ling-3.0-flash-Sante 开源权重",
+              "summary": "面向医疗的 MoE 模型，总参数 124B、每 token 激活 5.1B；官方称在专业医疗任务和复杂医学推理上领先同尺寸模型，并加强了深度研究、多 agent 协作和工具调用，权重已开放。",
+              "time": "10-22 23:36",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/AntLingAGI/status/2113293431435149349"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "empty_text": "今天没有新模型"
+    },
+    {
+      "id": "harness",
+      "title": "编码 / Agent 框架",
+      "icon": "🛠️",
+      "items": [
+        {
+          "id": "2026-10-23-004",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 推出 **Claude Duet** 研究预览：会主动干活的 agent 应用",
+          "summary": "独立应用，Claude 以主动 agent 方式工作：主动提醒需要你处理的事、完成交代的任务、你离开后继续做，代你行动前先确认。目前开放候补名单。",
+          "time": "10-22 03:09",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/claudeai/status/2112984664256241837"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-005",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude 网页、桌面、手机应用下周起默认 **auto mode**",
+          "summary": "Pro、Max、Team 套餐的会话将默认自动模式：不再逐步请你批准，由自动检查拦截高风险操作，随时可切回手动。Claude Code 8 月已默认这一模式。",
+          "time": "10-23 04:04",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/claudeai/status/2113360845409583307"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-006",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 把 **Agent Skills** 捐给 Agentic AI Foundation",
+          "summary": "和此前捐出的 MCP 同属一个基金会。官方称自 2025 年 12 月以来已有 70 多个 agent 平台接入该标准，包括 ChatGPT、Cursor、GitHub Copilot 和 VS Code。",
+          "time": "10-23 01:55",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2113328526413996100"
+            }
+          ],
+          "person": "claudedevs",
+          "products": [
+            "claude-code"
+          ]
+        },
+        {
+          "id": "2026-10-23-007",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Google 推出 **Gemini API CLI**（gemini-api）预览和 Agent Compute Engine",
+          "summary": "gemini-api 是给 agent 用的命令行工具：一个二进制加 API key 即可生成图片、视频、语音、音乐，分析媒体、转写音频、管理 agent，不用再猜模型名或写临时脚本。同一天 Google Cloud 在 AGNTCon + MCPCon 发布 Agent Compute Engine，为每个 agent 提供硬件隔离的 microVM，并扩展 Gemini for business 的 agent 治理能力。",
+          "time": "10-22 23:12",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/LyalinDotCom/status/2113287431382601765"
+            },
+            {
+              "label": "Agent Compute Engine",
+              "url": "https://x.com/googlecloud/status/2113285915258794378"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-008",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub Next 与微软研究院推出 **Chopin + Proof-Driven Development Kit** 研究预览",
+          "summary": "PDD Kit 把计划转成形式化规格（Rust 的 Verus 证明语言），再自动证明 agent 写的代码对所有输入都满足规格；证不了的部分退回测试和电脑操作 agent 验证。目标是让工程师审规格而不是逐行审代码，10 月 28–29 日 GitHub Universe 现场演示。",
+          "time": "10-22 00:06",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/github/status/2112938664959562081"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-009",
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline 上架一批免费开源模型",
+          "summary": "新增 Reflection Beam（501B）、Nemotron 3.5 Super VL（120B）、Poolside Laguna S 2.1（118B）、Nemotron 3.5 Lightning（32B）、Solar Mini 4（35B），Cline 称这些模型的 Terminal-Bench 成绩相当于半年前的前沿水平。",
+          "time": "10-23 03:48",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cline/status/2113356814322651618"
+            }
+          ],
+          "product": "cline",
+          "person": "cline",
+          "children": [
+            {
+              "id": "2026-10-23-010",
+              "vendor": "Recursive",
+              "region": "us",
+              "title": "Cline 点评 Recursive 的 Flint：约 2B 激活、MacBook 上能跑",
+              "summary": "Flint 在 Terminal-Bench 2.1 拿到 54.9%，激活参数约 2B，领先其他小 MoE 和三个约 30B 稠密模型中的两个；约 24GB 内存，MacBook Pro 上 125+ tok/s。",
+              "time": "10-22 01:59",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/cline/status/2112967124360802531"
+                }
+              ],
+              "product": "cline"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-011",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qoder 国际版开启 Community Boost：领 **Sonus** 模型额度",
+          "summary": "先领 1,024 SOTA Credits（用于 Sonus 模型），社区每天助力累计到 2 万/3 万/5 万次再解锁 2,048/3,072/4,096；Pro 及以上自动加入，免费用户可申请，10 月 30 日 23:59 前领取。",
+          "time": "10-22 11:00",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2113103182868226550"
+            }
+          ],
+          "person": "qoder_ai_ide",
+          "products": [
+            "qoder-ide",
+            "qoder-cli"
+          ]
+        },
+        {
+          "id": "2026-10-23-012",
+          "vendor": "腾讯",
+          "region": "cn",
+          "title": "腾讯混元发布 **WorkForge**：给长程办公 agent 批量造可验证训练环境",
+          "summary": "从专家工作流出发搭建真实工作区、抽取可核查事实，再生成任务和程序化+语义双重校验器；已扩展到 40 个专业领域、60 种文件类型的 1.67 万个环境，数据量和交互步数越大，长程办公基准的提升越稳定。附论文。",
+          "time": "10-22 17:11",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/TencentHunyuan/status/2113196619667763211"
+            },
+            {
+              "label": "论文",
+              "url": "https://arxiv.org/pdf/2610.04906"
+            }
+          ]
+        }
+      ],
+      "empty_text": "今天没有新动态"
+    },
+    {
+      "id": "releases",
+      "title": "版本更新",
+      "icon": "📦",
+      "items": [
+        {
+          "id": "2026-10-23-013",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **v2.1.309**",
+          "summary": "集中修沙箱漏洞：启动文件不再在沙箱外执行，denyWrite 不能再经符号链接绕过，--mcp-config 文件不可被改写，已禁用的 MCP 服务器不会自动重连。此前 v2.1.307 新增 `/claude-api api-version` 迁移到 API 2026-10-21，并加入 claude_code.safety_event OTel 事件。",
+          "time": "10-23 06:18",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.309"
+            },
+            {
+              "label": "v2.1.307",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.307"
+            }
+          ],
+          "product": "claude-code",
+          "version": "v2.1.309"
+        },
+        {
+          "id": "2026-10-23-014",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "Copilot CLI **v1.0.103**",
+          "summary": "可一键复制代码块，ACP 会话遵循沙箱设置，cloud 回复断线可重连。上一版 v1.0.102 让 prompt 模式遵循托管的 Auto 模型设置、子 agent 遵循工具审批，并支持 git 子目录插件市场。",
+          "time": "10-23 00:21",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/github/copilot-cli/releases/tag/v1.0.103"
+            }
+          ],
+          "product": "copilot-cli",
+          "version": "v1.0.103"
+        },
+        {
+          "id": "2026-10-23-015",
+          "vendor": "Microsoft",
+          "region": "us",
+          "title": "VS Code **1.143.1**",
+          "summary": "1.143 起新会话默认用基于 Copilot SDK 的 harness，新增模型对比，多文件 diff 带文件列表；1.143.1 是随后的修复版。",
+          "time": "10-23 07:04",
+          "links": [
+            {
+              "label": "更新说明",
+              "url": "https://code.visualstudio.com/updates/v1_143"
+            },
+            {
+              "label": "原帖",
+              "url": "https://x.com/code/status/2113005484298883281"
+            }
+          ],
+          "product": "vscode",
+          "version": "1.143.1"
+        },
+        {
+          "id": "2026-10-23-016",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode **v1.19.4**",
+          "summary": "内置 Bun 升到 1.4.4，带安全修复。",
+          "time": "10-22 21:03",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anomalyco/opencode/releases/tag/v1.19.4"
+            }
+          ],
+          "product": "opencode",
+          "version": "v1.19.4"
+        },
+        {
+          "id": "2026-10-23-017",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qwen Code **v0.26.0**",
+          "summary": "主要加强托管 agent（Managed Agent）：支持本地和 SSH 工作区文件引用、附件输入上限提到 8 MiB、新增只读的 --check 部署预检，daemon 支持按会话刷新 Skill 和扩展。",
+          "time": "10-22 07:20",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.0"
+            }
+          ],
+          "product": "qwen-code",
+          "version": "v0.26.0"
+        },
+        {
+          "id": "2026-10-23-018",
+          "vendor": "月之暗面",
+          "region": "cn",
+          "title": "Kimi Code **2.3.0**",
+          "summary": "已有对话的会话切换模型时会先弹确认框；插件 skill 改用 `<pluginId>:<skillName>` 全名调用；远程控制的传输上限从 10 MiB 提到 100 MiB。",
+          "time": "10-21 13:51",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai%2Fkimi-code%402.3.0"
+            }
+          ],
+          "product": "kimi-code",
+          "version": "2.3.0"
+        }
+      ],
+      "empty_text": "今天没有新版本"
+    },
+    {
+      "id": "people",
+      "title": "人物动态",
+      "icon": "🗣️",
+      "items": [
+        {
+          "id": "2026-10-23-019",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Cat Wu：Duet 会在你开口前发现并完成该做的事",
+          "summary": "她说用户反馈希望 Claude 主动多分担工作，Duet 是这个方向上的一大步，并附候补名单链接。",
+          "time": "10-22 03:25",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/_catwu/status/2112988751576330487"
+            }
+          ],
+          "person": "_catwu"
+        },
+        {
+          "id": "2026-10-23-020",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Boris Cherny：Agent Skills 起源于 Claude Code 的一次实验",
+          "summary": "他说业界很多公司已采用这一标准，所以 Anthropic 认为把它和 MCP 一起交给 Agentic AI Foundation 更合适。",
+          "time": "10-23 02:17",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/bcherny/status/2113333859907747871"
+            }
+          ],
+          "person": "bcherny",
+          "product": "claude-code"
+        },
+        {
+          "id": "2026-10-23-021",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Romain Huet 用 Codex 做演示应用庆祝 Decisions API GA",
+          "summary": "他让 Codex 用 Decisions API “重新构想”一款应用（🌭 热狗识别梗），附演示视频。",
+          "time": "10-23 04:37",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/romainhuet/status/2113369156838121938"
+            }
+          ],
+          "person": "romainhuet",
+          "product": "codex-cli"
+        },
+        {
+          "id": "2026-10-23-022",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Logan Kilpatrick：Gemini 4 Argon 上线头 72 小时处理约 **25 万亿 token**",
+          "summary": "他说对智能的需求“惊人且仍被低估”。",
+          "time": "10-21 12:45",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OfficialLoganK/status/2112767157746688480"
+            }
+          ],
+          "person": "officiallogank"
+        }
+      ],
+      "empty_text": "今天没有值得收录的人物动态"
+    },
+    {
+      "id": "other",
+      "title": "其他动态",
+      "icon": "🌐",
+      "items": [
+        {
+          "id": "2026-10-23-023",
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek 据报完成约 **1000 亿元**（约 150 亿美元）融资",
+          "summary": "彭博、路透等报道：原定目标 500 亿元，最终翻倍，宁德时代和腾讯出资最多，美团、吉利等新股东加入，投前估值约 5000 亿元，公司在为 IPO 做准备。DeepSeek 官方未公开回应。",
+          "time": "10-22 10:18",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/zerohedge/status/2113092650693800069"
+            },
+            {
+              "label": "彭博报道摘要",
+              "url": "https://x.com/wallstengine/status/2113132136102559958"
+            },
+            {
+              "label": "路透细节",
+              "url": "https://x.com/mrjoeli/status/2113220266696249445"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-024",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI “Patch the Planet”：AI 协助发现 PHP 严重漏洞（PHP2Shell）",
+          "summary": "OpenAI 模型帮研究者找到 PHP 引擎中的严重漏洞，PHP 约支撑 70% 的网站；OpenAI 牵头维护者和安全厂商准备了两个月修复后才披露，各版本补丁已发布。OpenAI 称这是 AI 首次找到互联网级影响的安全漏洞。",
+          "time": "10-21 22:04",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAI/status/2112907856018309586"
+            },
+            {
+              "label": "博客",
+              "url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/"
+            }
+          ],
+          "children": [
+            {
+              "id": "2026-10-23-025",
+              "vendor": "OpenAI",
+              "region": "us",
+              "title": "附带 Codex skill：检查网站是否受影响",
+              "summary": "让 Codex 指向官方仓库即可按步骤检查。",
+              "time": "10-22 00:35",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/OpenAI/status/2112945805686604033"
+                }
+              ],
+              "product": "codex-cli"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-026",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 模型和 Codex 登陆 Google Cloud Model Garden",
+          "summary": "企业可在 Google Cloud 上直接使用 OpenAI 前沿模型和 Codex agent 工作流。",
+          "time": "10-22 03:23",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAI/status/2112988118471295323"
+            }
+          ],
+          "product": "codex-cli",
+          "children": [
+            {
+              "id": "2026-10-23-027",
+              "vendor": "Anthropic",
+              "region": "us",
+              "title": "Claude Models on Google Cloud（Anthropic 托管）随后正式 GA",
+              "summary": "在 Google Cloud 上使用完整 Claude Platform 功能，走 Google Cloud IAM 凭证、计费和承诺额度抵扣。",
+              "time": "10-23 05:21",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/claudeai/status/2113380122468454765"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-028",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude API 发布 **2026-10-21** 版本，2023 年以来首个正式版本号",
+          "summary": "官方说之后会更频繁地发版本，让开发者在新模型强制要求前先处理破坏性变更；2023-06-01 版本不弃用。",
+          "time": "10-22 05:03",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/ClaudeDevs/status/2113013247209021918"
+            }
+          ],
+          "person": "claudedevs"
+        },
+        {
+          "id": "2026-10-23-029",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Security 支持持续扫描仓库",
+          "summary": "连接仓库后先做一次深度扫描，之后随代码变更自动复扫；Claude Enterprise 公测。",
+          "time": "10-22 01:40",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/claudeai/status/2112962248218148878"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-030",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 前沿红队：用 Claude 大规模做形式化验证",
+          "summary": "与 Theorem Labs 合作，几周内为 100 多个真实开源库证明了安全性质；过去形式化验证只适合小代码库或需要大量专家时间。",
+          "time": "10-23 06:01",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AnthropicAI/status/2113390212911083894"
+            },
+            {
+              "label": "研究",
+              "url": "https://www.anthropic.com/research/formal-verification"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-031",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "METR 和 Redwood 驻场评估 OpenAI 内部 agent 监控系统",
+          "summary": "今夏两家机构的人员在 OpenAI 驻场三周，评估其监控内部 agent 失调行为的系统；OpenAI 称结论已用于加强防护，简要报告已公开。",
+          "time": "10-22 23:57",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/OpenAI/status/2113298833392496746"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-032",
+          "vendor": "Microsoft",
+          "region": "us",
+          "title": "微软 MAI Diagnostic 登上 Science：急诊诊断准确率为医生的 1.7 倍",
+          "summary": "Suleyman 称即使医生可以上网查资料，该系统准确率仍是急诊医生的 1.7 倍，且成本更低、检查更少。",
+          "time": "10-23 02:13",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/mustafasuleyman/status/2113332931423039945"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-23-033",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Google Cloud 开源 **TorchTPU**",
+          "summary": "在 PyTorch 大会上开源，让 PyTorch 原生、硬件加速地跑在 Cloud TPU 和自定义基础设施上。",
+          "time": "10-22 00:13",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/GoogleCloudTech/status/2112940226595213731"
+            }
+          ]
+        }
+      ],
+      "empty_text": "今天没有其他动态"
+    }
+  ],
+  "notes": [
+    "10-22 日报未发，本期覆盖约 48 小时。",
+    "MiniMax M3.1 Flash 原定 10-23 开放权重，截至 08:30 Hugging Face 的 MiniMaxAI 主页还没有上传，许可证也未公布，下期跟进。",
+    "小米：MiMo 账号和罗福莉在窗口内没有新帖；mimo-v2.5-pro / mimo-v2.5 旧模型 ID 已按计划于 10-21 10:00 失效（10-19、10-20 已预告），不重复收录。",
+    "Anthropic S-1 草案相关报道早于本期窗口，公开 S-1 尚未出现在 EDGAR；Kimi K3.1（Kibitz）、Qwen 4（Kalmia）、Gemini 4 Carbon、Claude Fable 5.5 均为传闻，未收录。",
+    "CodeBuddy Code 2.173.0 没有更新说明；Qoder CLI 1.1.77（10-22）只有日期没有具体时间，均未收录。"
+  ],
+  "source_note": "信息来源：X 原帖、各项目 GitHub Releases 及文中注明的媒体报道；时间均为北京时间。",
+  "published_at": "2026-10-23T08:31:54+08:00"
+}

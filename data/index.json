@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-23",
-  "updated_at": "2026-10-23T08:31:54+08:00",
+  "latest": "2026-10-24",
+  "updated_at": "2026-10-24T08:30:05+08:00",
   "issues": [
+    {
+      "date": "2026-10-24",
+      "title": "AI 日报 · 2026-10-24",
+      "highlights": "月之暗面发布 Kimi K3.1 Pro（2.8T 总参、1M 上下文，11 月 4 日前开放权重），Artificial Analysis 智能指数 55 分排第 4，Term…",
+      "item_count": 25,
+      "path": "data/2026-10-24.json",
+      "published_at": "2026-10-24T08:30:05+08:00"
+    },
     {
       "date": "2026-10-23",
       "title": "AI 日报 · 2026-10-23",

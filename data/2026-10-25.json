@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报 · 2026-10-25",
+  "date": "2026-10-25",
+  "window": {
+    "start": "2026-10-24 08:30",
+    "end": "2026-10-25 08:30",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-25 08:27",
+  "highlights": "周六消息不多。The Information 报道 **OpenAI 靠大幅折扣抢走 Anthropic 的编码大客户**：Rippling 的编码任务里 Anthropic 占比从 5 月的 57% 降到 18%，OpenAI 升到 52%。Kimi K3.1 Pro 进入 Arena 的 Agent Arena 第 11 名，成为该榜第一的开放模型；Qoder 把 DeepSeek V4.1 Flash 1017 的免费期延长到 11 月 1 日。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "title": "模型",
+      "icon": "🧠",
+      "items": [
+        {
+          "id": "2026-10-25-001",
+          "vendor": "月之暗面",
+          "region": "cn",
+          "title": "Kimi K3.1 Pro 进入 Arena 的 **Agent Arena 第 11 名**，成为该榜第一的开放模型",
+          "summary": "Arena 称 K3.1 Pro（Max）在 4000 多次真实 agent 会话里净提升 7.6%，排名超过此前开放模型第一的 DeepSeek V4.1 Flash；每任务成本中位数 $1.03，但还不在性价比前沿上。",
+          "time": "10-24 22:57",
+          "update": true,
+          "update_note": "昨天报了发布和 AA 榜单，这次是 Arena 的 agent 实测排名。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/arena/status/2114008313054527901"
+            },
+            {
+              "label": "成本说明",
+              "url": "https://x.com/arena/status/2114008318746517884"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "title": "编码 / Agent 框架",
+      "icon": "🛠️",
+      "items": [
+        {
+          "id": "2026-10-25-002",
+          "vendor": "Qoder",
+          "region": "cn",
+          "title": "Qoder 首日接入 **Kimi K3.1 Pro**，DeepSeek V4.1 Flash 1017 免费期**延长到 11 月 1 日**",
+          "summary": "K3.1 Pro 已在 Qoder 全套产品上线。DeepSeek V4.1 Flash 1017 原定 10 月 24 日结束的 0 积分免费期，现在延长到 11 月 1 日 0 点（北京时间）。",
+          "time": "10-24 11:48",
+          "product": "qoder-ide",
+          "person": "qoder_ai_ide",
+          "update": true,
+          "update_note": "DeepSeek 免费期从 10-24 延长到 11-01。",
+          "links": [
+            {
+              "label": "接入 K3.1 Pro",
+              "url": "https://x.com/qoder_ai_ide/status/2113839981412422116"
+            },
+            {
+              "label": "免费期延长",
+              "url": "https://x.com/qoder_ai_ide/status/2113850799474520402"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "版本更新",
+      "icon": "📦",
+      "items": [
+        {
+          "id": "2026-10-25-003",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qwen Code **0.26.1**",
+          "product": "qwen-code",
+          "version": "0.26.1",
+          "time": "10-24 23:52",
+          "summary": "新增可选的 daemon 令牌持久化（`qwen daemon start --save-token`）；托管会话支持空闲时手动压缩上下文；OpenTUI 界面的输入、编辑和状态栏行为与 Ink 版对齐，状态栏可自定义；shell 工具会提醒模型记录命令写入的文件。另有一项 QQ 机器人群会话隔离的破坏性修复。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "人物动态",
+      "icon": "🗣️",
+      "items": [
+        {
+          "id": "2026-10-25-004",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo 招人：要把 dots 扩展到 **10 亿用户**",
+          "summary": "Tibo 发帖说，想帮忙把 dots 扩展到 10 亿用户的人可以私信他，算是 OpenAI 在为 dots 招人扩容。",
+          "time": "10-25 03:21",
+          "person": "thsottiaux",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2114074885622501706"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "其他动态",
+      "icon": "🌐",
+      "items": [
+        {
+          "id": "2026-10-25-005",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "据 The Information：**OpenAI 用大幅折扣抢 Anthropic 的编码大客户**",
+          "summary": "Replit 拿到 30% 以上折扣、合同每年超 1 亿美元后，把大部分 AI 支出转给 OpenAI（此前 Anthropic 停了折扣）。Rippling CEO Parker Conrad 说，公司编码任务里 Anthropic 占比从 5 月的 57% 降到 18%，OpenAI 从 16% 升到 52%，原因就是更便宜。",
+          "time": "10-25 03:45",
+          "links": [
+            {
+              "label": "Techmeme",
+              "url": "https://x.com/Techmeme/status/2114080932693193033"
+            },
+            {
+              "label": "Rippling 数据",
+              "url": "https://x.com/getsuperintel/status/2114028672306856066"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-25-006",
+          "vendor": "英国政府",
+          "region": "intl",
+          "title": "英国公布“英式 AI 路线”，Sovereign AI 追加 **1.2 亿英镑**",
+          "summary": "John Healey 称政府要支持创新增长、负责任地管控风险。Sovereign AI 追加的 1.2 亿英镑里，6000 万投资英国 AI 公司（扩展到实体和工业 AI），6000 万用于研发采购（AI 安全、医疗 AI 等）。",
+          "time": "10-24 19:38",
+          "links": [
+            {
+              "label": "Healey 原帖",
+              "url": "https://x.com/JohnHealey_MP/status/2113958306897125416"
+            },
+            {
+              "label": "Sovereign AI",
+              "url": "https://x.com/UKSovereignAI/status/2113890870428594474"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-25-007",
+          "vendor": "xAI",
+          "region": "us",
+          "title": "Grok Imagine 发布 AI 改编《奥德赛》第一集",
+          "summary": "xAI 和 Wonder Studios 用 Grok Imagine 做的 AI 改编《奥德赛》放出第一集，时长约 7 分钟，马斯克发帖宣传。",
+          "time": "10-24 13:45",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/elonmusk/status/2113869401930039702"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：@XiaomiMiMo、@XiaomiMiMoDevs 和罗福莉在窗口内没有新帖，只有网友讨论和第三方榜单转述，没收。",
+    "版本检查：CodeBuddy Code 2.175.0 没有公开更新说明，没收。",
+    "蚂蚁 Ling-3.0-flash-Sante（10-22 23:36 开源）、Meta 收购 Sundial（10-24 05:13）、Jon Barron 的 softmax 实现缺陷（10-24 03:03）都发生在窗口之前，没收。英国 6 亿英镑 AI 防务包、AI 生物安全实验室等细节只见于 X 新闻摘要，没找到官方原文，没收。"
+  ],
+  "source_note": "信息来源：X 原帖、各项目 GitHub Releases；时间均为北京时间。",
+  "published_at": "2026-10-25T08:27:59+08:00"
+}

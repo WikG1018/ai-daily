@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报 · 2026-10-26",
+  "date": "2026-10-26",
+  "window": {
+    "start": "2026-10-25 08:25",
+    "end": "2026-10-26 08:20",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-26 08:20",
+  "highlights": "周日消息不多。**月之暗面为 K3.1 Pro 订阅的限流和额度浪费道歉**，给所有订阅用户一次性恢复 25% 的月额度，并减少不必要的子 agent 调用；Kimi Code CLI 2.3.2 也改成默认不主动开子 agent。BOSS 直聘的南北阁团队开源 **Nanbeige4.3-33B**，称在 30B 级开放模型里 agent 能力最强。另有传闻称微软和 GitHub 的提交记录里出现了未发布的 gpt-6.1-terra。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "title": "模型",
+      "icon": "🧠",
+      "items": [
+        {
+          "id": "2026-10-26-001",
+          "vendor": "BOSS直聘 南北阁",
+          "region": "cn",
+          "title": "南北阁开源 **Nanbeige4.3-33B**，主打 30B 级 agent 能力",
+          "summary": "官方称它在约 30B 参数的开放模型里 agent 表现最好，编码和协作类评测成绩突出，接入主流 agent 框架后推理成本低；它还会作为教师模型蒸馏后续的小模型，第一个是 Nanbeige4.3-3B。指令版和 Base 版权重已上 Hugging Face，具体分数为官方自报。",
+          "time": "10-25 20:11",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/nanbeige/status/2114328933181333798"
+            },
+            {
+              "label": "Hugging Face",
+              "url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B"
+            },
+            {
+              "label": "Base 版",
+              "url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B-Base"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "title": "编码 / Agent 框架",
+      "icon": "🛠️",
+      "items": [
+        {
+          "id": "2026-10-26-002",
+          "vendor": "月之暗面",
+          "region": "cn",
+          "title": "Kimi 为 K3.1 Pro 订阅限流道歉，**所有订阅用户一次性恢复 25% 月额度**",
+          "summary": "官方承认限流和不必要的额度消耗是自己的问题。今天每个套餐的订阅用户都恢复 25% 的月额度（约一周用量，已用不到 25% 的直接清零），太平洋时间当天结束前生效；同时调整了套餐参数，减少不必要的子 agent 调用和输出长度。Kimi Code 负责人 Young 也说 CLI 和桌面版已针对 K3.1 Pro 的子 agent 逻辑做了优化。",
+          "time": "10-26 04:14",
+          "product": "kimi-code",
+          "people": [
+            "kimi_moonshot",
+            "young_agi"
+          ],
+          "update": true,
+          "update_note": "K3.1 Pro 前几天已报，这次是订阅额度补偿和子 agent 调用的调整。",
+          "links": [
+            {
+              "label": "官方道歉",
+              "url": "https://x.com/Kimi_Moonshot/status/2114450610724708492"
+            },
+            {
+              "label": "Young 说明",
+              "url": "https://x.com/Young_AGI/status/2114328401330717056"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-26-003",
+          "vendor": "xAI",
+          "region": "us",
+          "title": "马斯克：Grok Bot 现在能**替你打电话**给个人或商家",
+          "summary": "马斯克发帖说，Grok Bot 可以代你拨打电话、提出请求、记下对方的回答，再把通话总结发给你。它引用的是一条整理 Grok Bot 0.77 预发布功能的帖子，里面提到通话时可以等待接听、按键和转接，并能看实时转写。",
+          "time": "10-25 22:35",
+          "links": [
+            {
+              "label": "马斯克原帖",
+              "url": "https://x.com/elonmusk/status/2114365361068138990"
+            },
+            {
+              "label": "功能整理",
+              "url": "https://x.com/alexmichaelio/status/2114056103373758724"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "版本更新",
+      "icon": "📦",
+      "items": [
+        {
+          "id": "2026-10-26-004",
+          "vendor": "月之暗面",
+          "region": "cn",
+          "title": "Kimi Code CLI **2.3.2**",
+          "product": "kimi-code",
+          "version": "2.3.2",
+          "time": "10-25 15:59",
+          "summary": "默认改为直接处理任务，不再主动启动子 agent；只有打开 swarm 模式时才会启动 agent 集群。这和官方减少不必要子 agent 调用、节省额度的说法一致。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai/kimi-code%402.3.2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "人物动态",
+      "icon": "🗣️",
+      "items": [
+        {
+          "id": "2026-10-26-005",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 20：再次重置 Codex 用量，预告“这周会很有意思”",
+          "summary": "Tibo 发帖“Day 20/ Rest and reset”，说太平洋时间午夜前完成，随后表示已经全部生效，“明天尽情用 Codex”，还说接下来一周会很有意思。",
+          "time": "10-25 14:06",
+          "person": "thsottiaux",
+          "product": "codex-cli",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2114237083652882932"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-26-006",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：OpenCode 周活增速创新高，自建推理机柜 24 小时跑了 **6.77 万亿 token**",
+          "summary": "dax 说过去两周 OpenCode 的周活跃用户增速达到新高。他此前还晒出自建推理机柜的数据：24 小时处理 6.77 万亿 token，首 token 延迟中位数 1.16 秒，每秒输出中位数 143 token。",
+          "time": "10-25 23:37",
+          "person": "thdxr",
+          "product": "opencode",
+          "links": [
+            {
+              "label": "周活增速",
+              "url": "https://x.com/thdxr/status/2114380729643851963"
+            },
+            {
+              "label": "机柜数据",
+              "url": "https://x.com/thdxr/status/2114176734056857916"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "其他动态",
+      "icon": "🌐",
+      "items": [
+        {
+          "id": "2026-10-26-007",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "传闻：微软和 GitHub 的提交记录里出现未发布的 **gpt-6.1-terra**",
+          "summary": "有人发现微软 EF Core 仓库曾在 18 个评测配置里把 gpt-6.1-terra 设为默认评审模型，之后又改回 gpt-5.6-terra；一名 GitHub 员工的 Copilot 工作流也把代码审查从 gpt-6.1-sol 换成 gpt-6.1-terra 测成本和质量。OpenAI 没有官宣，属于泄露线索。",
+          "time": "10-25 21:14",
+          "links": [
+            {
+              "label": "提交记录整理",
+              "url": "https://x.com/ren_0xoo/status/2114344888581927121"
+            },
+            {
+              "label": "Copilot SDK 配置",
+              "url": "https://x.com/StatsWire/status/2114298137741304097"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-26-008",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub 密钥扫描分类器升级：采纳率 **+11.5%**，扫描时间中位数 **-86%**",
+          "summary": "GitHub 官方称新版密钥扫描分类器让检测结果的采纳率提高 11.5%，扫描耗时中位数减少 86%。最近 OpenCode、Railway 接连出现密钥泄露事件，这类改进更实用。",
+          "time": "10-26 06:10",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/github/status/2114479620091171249"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "小米：@XiaomiMiMo、@XiaomiMiMoDevs 和罗福莉在窗口内没有新帖，只有第三方转述的国产模型 token 周榜（小米第二，10-24 已报过），没收。",
+    "版本检查：CodeBuddy Code 2.176.0 没有公开更新说明，没收。",
+    "Claude Code 的 Thariq、Anthony Morris 离职发生在 10-24，窗口之前，没收。Anthropic IPO 时间、Qwen 4 灰测等只见于 X 新闻摘要或传闻，没找到一手来源，没收。MiniMax H3 社区贡献汇总（10-26 07:48）偏小，没单列。"
+  ],
+  "source_note": "信息来源：X 原帖、各项目 GitHub Releases；时间均为北京时间。",
+  "published_at": "2026-10-26T08:20:46+08:00"
+}

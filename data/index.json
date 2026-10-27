@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-26",
-  "updated_at": "2026-10-26T08:20:46+08:00",
+  "latest": "2026-10-27",
+  "updated_at": "2026-10-27T08:27:30+08:00",
   "issues": [
+    {
+      "date": "2026-10-27",
+      "title": "AI 日报 · 2026-10-27",
+      "highlights": "OpenAI 正式发布 GPT-6.1 Terra，主打电脑操作，API 价格比上一代 Terra 低一半，称在软件操作评测上追平 GPT-6 Astra，Copilot 和 V…",
+      "item_count": 18,
+      "path": "data/2026-10-27.json",
+      "published_at": "2026-10-27T08:27:30+08:00"
+    },
     {
       "date": "2026-10-26",
       "title": "AI 日报 · 2026-10-26",

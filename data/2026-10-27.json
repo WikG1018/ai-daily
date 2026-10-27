@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报 · 2026-10-27",
+  "date": "2026-10-27",
+  "window": {
+    "start": "2026-10-26 08:20",
+    "end": "2026-10-27 08:27",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-27 08:27",
+  "highlights": "**OpenAI 正式发布 GPT-6.1 Terra**，主打电脑操作，API 价格比上一代 Terra 低一半，称在软件操作评测上追平 GPT-6 Astra，Copilot 和 VS Code 当天接入。**Anthropic 公开提交 IPO 招股书**，计划以 ANT 在纳斯达克上市，上半年营收 162.9 亿美元。OpenAI 还称模型推翻了指数时间假设，待学界验证。小米这边，MiMo Code 发布 v0.1.16。",
+  "xiaomi": {
+    "items": [
+      {
+        "vendor": "小米",
+        "region": "cn",
+        "title": "MiMo Code **v0.1.16**：旧版 Compose 下线，改用 `/compose-next` 流程",
+        "summary": "这一版移除了旧的 compose 主智能体、内置 workflow 和全部 compose:* 技能，复杂任务改用 build 模式下的 /compose-next（澄清、写规格、实现、验证、评审、收尾六步）；MCP 工具改成按需懒加载，实验性的 Orchestrator 模式也去掉了。官方提醒 npm 包目前只含启动器，完整体验建议用原生安装脚本。小米官方 X 账号和罗福莉在窗口内没有新帖。",
+        "time": "10-26 17:44",
+        "product": "mimo-code",
+        "version": "v0.1.16",
+        "links": [
+          {
+            "label": "Release",
+            "url": "https://github.com/XiaomiMiMo/MiMo-Code/releases/tag/v0.1.16"
+          }
+        ],
+        "id": "2026-10-27-001"
+      }
+    ],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "title": "模型",
+      "icon": "🧠",
+      "items": [
+        {
+          "vendor": "OpenAI",
+          "region": "us",
+          "update": true,
+          "update_note": "10-26 期报过提交记录里的 gpt-6.1-terra 传闻，这次是正式发布。",
+          "title": "OpenAI 正式发布 **GPT-6.1 Terra**：主打电脑操作，API 价格比上一代 Terra 低一半",
+          "summary": "官方称它在测软件操作能力的 Agents' Last Exam 上追平 GPT-6 Astra，单 token 价格只有其十分之一，平均完成任务速度比 Astra 和 GPT-6.1 Sol 快 3 倍以上。已向 ChatGPT Work 和 Codex 的 Plus、Pro、Enterprise、Edu 用户推送，API 模型名 gpt-6.1-terra。Artificial Analysis 测得价格为每百万 token 输入 1 美元、输出 5 美元，编码 agent 指数 48 分（Sol 为 54），幻觉率下降 50 个百分点。",
+          "time": "10-27 02:06",
+          "products": [
+            "codex-cli"
+          ],
+          "links": [
+            {
+              "label": "官方发布",
+              "url": "https://x.com/OpenAI/status/2114780711664398349"
+            },
+            {
+              "label": "可用范围",
+              "url": "https://x.com/OpenAI/status/2114780720170164735"
+            },
+            {
+              "label": "Artificial Analysis 评测",
+              "url": "https://x.com/ArtificialAnlys/status/2114781865811063259"
+            },
+            {
+              "label": "编码 agent 指数",
+              "url": "https://x.com/ArtificialAnlys/status/2114781869179031785"
+            }
+          ],
+          "children": [
+            {
+              "vendor": "GitHub",
+              "region": "us",
+              "title": "GPT-6.1 Terra 当天在 GitHub Copilot 和 VS Code 全面可用",
+              "summary": "GitHub Copilot 和 VS Code 当天就把这个模型设为正式可用，上线速度很快。",
+              "time": "10-27 03:20",
+              "product": "vscode",
+              "links": [
+                {
+                  "label": "GitHub",
+                  "url": "https://x.com/github/status/2114799272634007801"
+                },
+                {
+                  "label": "VS Code",
+                  "url": "https://x.com/code/status/2114810240004673907"
+                }
+              ],
+              "id": "2026-10-27-003"
+            }
+          ],
+          "id": "2026-10-27-002"
+        },
+        {
+          "vendor": "腾讯混元",
+          "region": "cn",
+          "title": "腾讯混元开源中英同传模型 **Hy-SimulMT**，延迟约 3 秒",
+          "summary": "边听边译的中英双向同声传译模型，语音进语音出，还能实时克隆说话人音色；官方称延迟约 3 秒、RealSI-Sentence 得分 84.7，一共放出六个检查点，Hy Translate 里也已上线。",
+          "time": "10-26 20:45",
+          "links": [
+            {
+              "label": "官方发布",
+              "url": "https://x.com/TencentHunyuan/status/2114699837476380930"
+            },
+            {
+              "label": "Tencent AI 说明",
+              "url": "https://x.com/TencentAI_News/status/2114717892831060135"
+            }
+          ],
+          "id": "2026-10-27-004"
+        },
+        {
+          "vendor": "MiniMax",
+          "region": "cn",
+          "title": "MiniMax M3.1 Flash 出 Unsloth 动态 GGUF，2-bit 版约 144GB",
+          "summary": "官方转发称 Unsloth 把这个 428B 的 MoE 模型压到 143.9GB 的 2-bit 体积，与原模型的首选 token 一致率为 91.5%，自部署门槛明显降低。",
+          "time": "10-27 04:25",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/MiniMax_AI/status/2114815625310933277"
+            }
+          ],
+          "id": "2026-10-27-005"
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "title": "编码 / Agent 框架",
+      "icon": "🛠️",
+      "items": [
+        {
+          "vendor": "Cursor",
+          "region": "us",
+          "title": "Cursor 发布 **Agent SDK**：用代码定义 agent，可托管也可自部署",
+          "summary": "提示词写在 Markdown 里、工具用 TypeScript 写，可以部署到 Cursor 的托管基础设施或自己的环境，并自带评测，方便每次改动后量化效果。",
+          "time": "10-27 02:58",
+          "product": "cursor",
+          "person": "cursor_ai",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cursor_ai/status/2114793714531102901"
+            }
+          ],
+          "id": "2026-10-27-006"
+        },
+        {
+          "vendor": "Cursor",
+          "region": "us",
+          "title": "DeepSeek V4.1 Flash 上架 Cursor，每个推理档位都在 CursorBench 成本前沿上",
+          "summary": "Cursor 称它每个任务 0.60 到 0.98 美元，这对想用低价模型跑编码 agent 的人是个明确的参考。",
+          "time": "10-27 06:02",
+          "product": "cursor",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cursor_ai/status/2114839997568405608"
+            }
+          ],
+          "id": "2026-10-27-007"
+        },
+        {
+          "vendor": "Cognition",
+          "region": "us",
+          "title": "Cognition 推出新版 **Devin Security**，并拿出数亿美元额度帮团队修漏洞",
+          "summary": "由 Claude Mythos 等前沿安全模型驱动，用来发现、排序并修复紧急漏洞；官方称会提供“数亿美元”的使用额度。",
+          "time": "10-26 23:30",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cognition/status/2114741368627335379"
+            }
+          ],
+          "id": "2026-10-27-008"
+        },
+        {
+          "vendor": "智谱",
+          "region": "cn",
+          "title": "ZCode 每天送 **3 亿 GLM-5.3-Flash token**",
+          "summary": "更新到最新版 ZCode 后在应用内领取，北京时间每天 19:00 起可领、23:00 到次日 09:00 可用。上周的 1024 活动已结束，这是新的每日额度。",
+          "time": "10-27 00:55",
+          "product": "zcode",
+          "person": "zcode_ai",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/zcode_ai/status/2114762939421139426"
+            }
+          ],
+          "id": "2026-10-27-009"
+        },
+        {
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline Desktop v0.0.49 可直接安装和管理本地模型",
+          "summary": "通过 Ollama 或 LM Studio 安装本地模型，Cline 会检测硬件并推荐合适的模型，入口在 Settings、Provider、Local。",
+          "time": "10-27 04:11",
+          "person": "cline",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/cline/status/2114812301216014706"
+            }
+          ],
+          "id": "2026-10-27-010"
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "版本更新",
+      "icon": "📦",
+      "items": [
+        {
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **v2.1.311**",
+          "product": "claude-code",
+          "version": "v2.1.311",
+          "time": "10-27 05:51",
+          "summary": "self-hosted-runner 新增保持空闲会话的参数；修复超过 200K token 时普通上下文会话报“需要 1M 上下文额度”而中断的问题（现在会自动压缩后继续），以及 CLAUDE.md 里超长列表项导致的卡顿。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.311"
+            }
+          ],
+          "id": "2026-10-27-011"
+        },
+        {
+          "vendor": "月之暗面",
+          "region": "cn",
+          "title": "Kimi Code CLI **2.3.3**",
+          "product": "kimi-code",
+          "version": "2.3.3",
+          "time": "10-26 21:22",
+          "summary": "打开 /swarm 模式时会提示高用量警告，子 agent 未启动就被拒绝的调用不再显示为失败的 swarm，并更新了切换模型的确认提示。延续了前两天节省额度的调整。",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai/kimi-code%402.3.3"
+            }
+          ],
+          "id": "2026-10-27-012"
+        },
+        {
+          "vendor": "Cline",
+          "region": "us",
+          "title": "Cline 扩展 **v4.1.26** 与 CLI **3.0.74**",
+          "product": "cline",
+          "products": [
+            "cline-cli"
+          ],
+          "version": "v4.1.26",
+          "time": "10-26 17:06",
+          "summary": "扩展加了本地与云端模型的切换，云端沙箱启动时显示进度卡片，默认模型改回 Claude Sonnet 5.5；CLI 打开已在别处运行的任务时会接入而不是重开一份，只有推理内容时掉线会自动重试，最多重试 3 次。",
+          "links": [
+            {
+              "label": "扩展 Release",
+              "url": "https://github.com/cline/cline/releases/tag/v4.1.26"
+            },
+            {
+              "label": "CLI Release",
+              "url": "https://github.com/cline/cline/releases/tag/cli-v3.0.74"
+            }
+          ],
+          "id": "2026-10-27-013"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "人物动态",
+      "icon": "🗣️",
+      "items": [
+        {
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 22：Terra 回来了，用量是 6.1 Sol 的两倍",
+          "summary": "Tibo 说 GPT-6.1 Terra 在写作和个性上更好，电脑操作很强，在 API 和订阅里给的用量是 6.1 Sol 的 2 倍。前一天的 Day 21 他又重置了一次 Codex 用量。",
+          "time": "10-27 03:24",
+          "person": "thsottiaux",
+          "product": "codex-cli",
+          "links": [
+            {
+              "label": "Day 22",
+              "url": "https://x.com/thsottiaux/status/2114800277677092936"
+            }
+          ],
+          "id": "2026-10-27-014"
+        },
+        {
+          "vendor": "Google",
+          "region": "us",
+          "title": "Varun Mohan：只换成 Antigravity harness 就带来了提升",
+          "summary": "他说有一项提升纯粹是换成 Antigravity harness 带来的，说明同一个模型换个运行框架结果可能差很多。",
+          "time": "10-26 12:50",
+          "person": "_mohansolo",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/_mohansolo/status/2114580372617113878"
+            }
+          ],
+          "id": "2026-10-27-015"
+        },
+        {
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：OpenCode 能通过自身 API 查会话历史",
+          "summary": "他演示 OpenCode 可以通过自己的 API 加 codemode 查询会话历史，让 agent 回头找之前的内容。他也提到团队里有人开始用一直不关的常驻会话，暴露出性能问题。",
+          "time": "10-27 00:23",
+          "person": "thdxr",
+          "product": "opencode",
+          "links": [
+            {
+              "label": "会话检索",
+              "url": "https://x.com/thdxr/status/2114754693255602450"
+            }
+          ],
+          "id": "2026-10-27-016"
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "其他动态",
+      "icon": "🌐",
+      "items": [
+        {
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 正式提交 IPO 招股书，计划以 **ANT** 在纳斯达克上市",
+          "summary": "S-1 显示 2026 年上半年营收 162.9 亿美元（去年同期 11.6 亿），净亏损 807.5 亿美元，主要来自可转债和衍生负债的公允价值变动等非现金项目，经营亏损收窄到 6.93 亿美元；截至 9 月底净收入留存率约 900%，年收入超 10 万美元的客户超过 1.19 万家。发行价和股数尚未填写。",
+          "time": "10-26 21:05",
+          "update": true,
+          "update_note": "之前只有上市传闻，这次是公开提交的招股书。",
+          "links": [
+            {
+              "label": "官方公告",
+              "url": "https://x.com/AnthropicAI/status/2114705042817110293"
+            },
+            {
+              "label": "Fortune",
+              "url": "https://fortune.com/2026/10/26/anthropics-s-1/"
+            },
+            {
+              "label": "招股书摘要",
+              "url": "https://www.stocktitan.net/sec-filings/ANT/s-1-anthropic-pbc-files-s-1-registration-statement-a0477b41760e.html"
+            }
+          ],
+          "id": "2026-10-27-017"
+        },
+        {
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 公布三项 AI 研究成果，称**推翻了指数时间假设（ETH）**",
+          "summary": "OpenAI 称模型证明了所有维度的局部光滑猜想（进而解决 Kakeya 和 Stein 限制猜想），并证伪了复杂度理论里的指数时间假设，两者都附了 Lean 形式化证明；物理方面声称给出包括 QCD 在内的四维量子场论存在性证明，由 David Gross 牵头的专家组审核，暂未公开。这些都还待学界独立验证。",
+          "time": "10-27 05:36",
+          "links": [
+            {
+              "label": "OpenAI 博客",
+              "url": "https://openai.com/index/building-scientific-understanding-with-academic-communities/"
+            },
+            {
+              "label": "发布帖",
+              "url": "https://x.com/i/status/2114833682469122314"
+            },
+            {
+              "label": "The Verge",
+              "url": "https://www.theverge.com/ai-artificial-intelligence/1019143/openai-eth-kaseya-science-math-physics"
+            }
+          ],
+          "id": "2026-10-27-018"
+        }
+      ]
+    }
+  ],
+  "published_at": "2026-10-27T08:27:30+08:00"
+}

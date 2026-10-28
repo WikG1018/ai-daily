@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报 · 2026-10-28",
+  "date": "2026-10-28",
+  "window": {
+    "start": "2026-10-27 08:27",
+    "end": "2026-10-28 08:32",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-28 08:32",
+  "highlights": "**Google DeepMind 发布 Genie 4 世界模型**，能实时生成可交互场景并自带声音和对话，先给受信测试者，之后开放给 AI Ultra 用户和 API。**Anthropic 也发了推翻指数时间假设的论文**，算法由内部 Claude 模型独立找到。蚂蚁开源 Ling-3.1-flash-1019，Codex、Claude Code 和 OpenCode 都有新版。小米这边，公开了 21 自由度仿生灵巧手。",
+  "xiaomi": {
+    "items": [
+      {
+        "id": "2026-10-28-001",
+        "vendor": "小米",
+        "region": "cn",
+        "title": "小米公开 **21 自由度仿生灵巧手**：26 电机混合驱动、全掌 1500 点触觉",
+        "summary": "小米技术官方账号披露，机器人团队从汽车工厂 16 个工段的 2579 个作业 SOP 里选了 1827 个做动作采集和仿真，发现 17 到 21 自由度的平均稳定抓握成功率比 6 到 15 自由度高 15% 到 38%，再往上加收益明显变小，所以定在 21 自由度。整手 26 个电机，混合驱动加腱绳张力控制，全掌 1500 个触觉点，指尖、指腹和指根分辨率 1 毫米，手掌 2 毫米，手掌重 324 克，能覆盖工厂 70.8% 以上的人工操作。MiMo 官方账号和罗福莉在窗口内没有新帖，MiMo Code 也没有新版本。",
+        "time": "10-27 14:42",
+        "links": [
+          {
+            "label": "IT之家",
+            "url": "https://www.ithome.com/1/018/345.htm"
+          },
+          {
+            "label": "21世纪经济报道",
+            "url": "https://www.21jingji.com/article/20261027/herald/57fba671275ff3139690c94fd3b89486.html"
+          }
+        ]
+      }
+    ],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "title": "模型",
+      "icon": "🧠",
+      "items": [
+        {
+          "id": "2026-10-28-002",
+          "vendor": "Google DeepMind",
+          "region": "us",
+          "title": "Google DeepMind 发布 **Genie 4** 世界模型：实时可操控，原生生成声音和对话",
+          "summary": "Genie 4 能实时生成可交互的世界，用自然语言随时改变场景，同时原生生成声音、音乐和对话，Gemini 在背后充当大脑，生成内容带 SynthID 水印。目前只开放给少量受信测试者，之后先给 Google AI Ultra 订阅用户（Project Genie，已开候补）和 Gemini API、AI Studio 的早期合作方，价格和时间都没公布。",
+          "time": "10-28 00:10",
+          "links": [
+            {
+              "label": "DeepMind 原帖",
+              "url": "https://x.com/GoogleDeepMind/status/2115114028338962672"
+            },
+            {
+              "label": "官方博客",
+              "url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/"
+            },
+            {
+              "label": "Logan",
+              "url": "https://x.com/OfficialLoganK/status/2115129174826647863"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-003",
+          "vendor": "蚂蚁",
+          "region": "cn",
+          "title": "蚂蚁开源 **Ling-3.1-flash-1019**，AA 智能指数从 41 升到 44",
+          "summary": "这是 Ling-3.1-flash 的更新版，总参数 560B、激活 25B，上下文 1M，MIT 许可，同时开源了基座模型 Ling-3.1-flash-base。Artificial Analysis 测得智能指数 44（前代 41），Briefcase 的 Elo 涨了 124 到 1521，HLE 43%，每个任务约输出 14.5 万 token、成本 1.49 美元。官方 API 价格是每百万输入 0.30 美元、输出 0.90 美元。",
+          "time": "10-27 20:44",
+          "links": [
+            {
+              "label": "Ant Ling 原帖",
+              "url": "https://x.com/AntLingAGI/status/2115062200687878157"
+            },
+            {
+              "label": "AA 评测",
+              "url": "https://x.com/ArtificialAnlys/status/2115155299334246584"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-004",
+          "vendor": "微软",
+          "region": "us",
+          "title": "微软 **MAI-Image-2.6** 在 Foundry 正式可用，2.7 预览版进图像编辑榜前三",
+          "summary": "MAI-Image-2.6 和 2.6-Flash 在 Microsoft Foundry 转为正式可用。另一边，MAI-Image-2.7-Preview 在 Arena 图像编辑榜总榜第 3（1470 分），在 Artificial Analysis 图像编辑榜第 2，Mustafa Suleyman 称它是全球第二。",
+          "time": "10-27 23:42",
+          "links": [
+            {
+              "label": "Microsoft AI",
+              "url": "https://x.com/MicrosoftAI/status/2115106982730342888"
+            },
+            {
+              "label": "Arena 榜单",
+              "url": "https://x.com/arena/status/2115101113666134276"
+            },
+            {
+              "label": "Mustafa Suleyman",
+              "url": "https://x.com/mustafasuleyman/status/2115099284224008200"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-005",
+          "vendor": "百度",
+          "region": "cn",
+          "title": "百度开源 **Unlimited OCR 2**：长文档解析时延和显存几乎不随页数增长",
+          "summary": "新的 SR-SWA 机制让任意长度文档解析时，每步的时延和显存基本保持不变。官方称在 MPDocBench 和 MarathonDocBench 上达到最好水平。",
+          "time": "10-27 10:41",
+          "links": [
+            {
+              "label": "百度原帖",
+              "url": "https://x.com/Baidu_Inc/status/2114910381311512987"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-006",
+          "vendor": "面壁智能",
+          "region": "cn",
+          "title": "面壁开源 **MiniCPM-OCR 1.0** 和 2B 的 OCR 结果校验模型",
+          "summary": "MiniCPM-OCR 1.0 是 1B 的 OCR 模型，官方称 Real5-OmniDocBench 93.68 分、OCRBench v2 54.7 分，最快每分钟处理 128 页。同时发布 2B 的 MiniCPM-OCR Jev，用来评判 OCR 结果的好坏，在 JevOCRBench 上 93.6 分。",
+          "time": "10-28 00:52",
+          "links": [
+            {
+              "label": "OpenBMB 原帖",
+              "url": "https://x.com/OpenBMB/status/2115124474882469955"
+            },
+            {
+              "label": "GitHub",
+              "url": "https://github.com/OpenBMB/MiniCPM-OCR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "title": "编码 / Agent 框架",
+      "icon": "🛠️",
+      "items": [
+        {
+          "id": "2026-10-28-007",
+          "vendor": "Cursor",
+          "region": "us",
+          "title": "Cursor 设计模式加入 **Annotate**：直接在页面上画和改，给 agent 视觉提示",
+          "summary": "在设计模式里可以直接编辑页面元素、在页面上画标注，还能在不同屏幕尺寸下检查设计，再交给 agent 去改。",
+          "time": "10-28 03:11",
+          "product": "cursor",
+          "links": [
+            {
+              "label": "Cursor 原帖",
+              "url": "https://x.com/cursor_ai/status/2115159585548021814"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-008",
+          "vendor": "Cognition",
+          "region": "us",
+          "title": "Cognition 发布编码评测 **FrontierCode 2.0**，最好的模型只有 45%",
+          "summary": "新版任务更多样、范围更大，提示词故意写得不完整。官方说最好的模型也只拿到 45%，离饱和还远。",
+          "time": "10-28 01:24",
+          "links": [
+            {
+              "label": "Cognition 原帖",
+              "url": "https://x.com/cognition/status/2115132488775524793"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-009",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qoder 海外版送 **12288 SOTA 积分**：10 月 28 到 30 日每天 4096",
+          "summary": "Qoder 海外版 Pro 及以上订阅用户可以领取，每天 4096 积分，连续三天。",
+          "time": "10-27 22:24",
+          "product": "qoder-ide",
+          "links": [
+            {
+              "label": "Qoder 原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2115087258248450415"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "版本更新",
+      "icon": "📦",
+      "items": [
+        {
+          "id": "2026-10-28-010",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Codex CLI **rust-v0.165.0**",
+          "product": "codex-cli",
+          "version": "rust-v0.165.0",
+          "summary": "内置 Google Cloud Vertex AI 接入（model_provider = \"gcp\"），模型列表加入 GPT-6.1 Terra；会话选择器能按仓库筛选，对话中途改推理强度默认开启，新配置默认启用 memory v2。",
+          "time": "10-28 04:09",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-011",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude Code **v2.1.312**",
+          "product": "claude-code",
+          "version": "v2.1.312",
+          "summary": "Claude 应用网关支持用 oidc.user_id_claim 指定其他身份字段，点排队消息的提示就能立即发送；修复只看了开头就覆盖超大 CLAUDE.md 的问题，以及 cd 进子目录后找不到技能的问题。",
+          "time": "10-28 04:24",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.312"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-012",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode **v2.2.0**",
+          "product": "opencode",
+          "version": "v2.2.0",
+          "summary": "桌面版加入实验性插件，一个包能同时带服务端、TUI 和桌面插件；桌面应用改版，插件和 SDK 新增实验性的图片生成接口，新的会话指令写法不会破坏提示缓存。",
+          "time": "10-27 17:04",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/anomalyco/opencode/releases/tag/v2.2.0"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-013",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qwen Code **0.26.2**",
+          "product": "qwen-code",
+          "version": "0.26.2",
+          "summary": "托管模式加入会话权限规则和自动批准，执行中发的消息会进持久队列；新增实验性的共享 agent 循环，无界面模式跑在它上面。托管 Web Shell 的控制项做了不兼容的精简。",
+          "time": "10-27 23:32",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.2"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-014",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "Copilot CLI **v1.0.104**",
+          "product": "copilot-cli",
+          "version": "v1.0.104",
+          "summary": "托管的 fusion 模型下新会话默认用 Auto，Auto 选不到时退回默认设置；Autopilot 会等挂着的后台任务完成；Assisted Permissions 不再需要打开实验模式。",
+          "time": "10-27 10:15",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/github/copilot-cli/releases/tag/v1.0.104"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-015",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Gemini CLI **v0.66.0**",
+          "product": "gemini-cli",
+          "version": "v0.66.0",
+          "summary": "主要是界面和渲染修复；还加了一条提示横幅，说明 Gemini CLI 还没有针对 Gemini 4 做优化。",
+          "time": "10-28 04:26",
+          "links": [
+            {
+              "label": "Release",
+              "url": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.66.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "人物动态",
+      "icon": "🗣️",
+      "items": [
+        {
+          "id": "2026-10-28-016",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：OpenCode 2.0 两周达到 **100 万日活**",
+          "person": "thdxr",
+          "product": "opencode",
+          "summary": "dax 说 OpenCode 2.0 发布两周日活用户到了 100 万。前一天他还说新版桌面插件可以把服务端、TUI 和桌面插件放进同一个包里分发。",
+          "time": "10-28 08:14",
+          "links": [
+            {
+              "label": "100 万日活",
+              "url": "https://x.com/thdxr/status/2115235637339054109"
+            },
+            {
+              "label": "桌面插件",
+              "url": "https://x.com/thdxr/status/2115047360417960154"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "其他动态",
+      "icon": "🌐",
+      "items": [
+        {
+          "id": "2026-10-28-017",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 也发布**推翻指数时间假设（ETH）**的论文，算法由内部 Claude 模型找到",
+          "update": true,
+          "update_note": "10-27 报过 OpenAI 称推翻 ETH，Anthropic 随后公开了自己独立得到的结果",
+          "summary": "论文《A 2^o(n) Time Algorithm for 3-SAT》署名 Claude（Anthropic），给出能在亚指数时间内计数 3-SAT 解的算法（2^O(n log log n/√log n)），并附 Lean 4 形式化证明。论文说核心算法是 10 月 16 日由内部 Claude 研究模型在没有人工参与的情况下找到的，用了 1400 万输出 token。结果只有渐近意义上的理论价值，仍待学界审查。",
+          "time": "10-27 12:00",
+          "links": [
+            {
+              "label": "论文与 Lean 证明",
+              "url": "https://github.com/anthropics/formal-math/tree/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth"
+            },
+            {
+              "label": "Levent Alpöge",
+              "url": "https://x.com/__alpoge__/status/2114930095009968506"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-018",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 公布 Claude 参与**新药研发**的早期成果，并开始自研药物",
+          "summary": "Anthropic 和 Generate、Divergence、BigHat、Enveda、TCG/Pleiades 和百时美施贵宝六家合作。例子包括 Generate 的设计周期缩短约 70%，Divergence 一个月做出约 3.5 万个设计，Enveda 用 Claude 审文档，审核时间减少 89%。Anthropic 还收购了 Mithril Medicine，开始自己做药。",
+          "time": "10-28 04:27",
+          "links": [
+            {
+              "label": "Anthropic 原帖",
+              "url": "https://x.com/AnthropicAI/status/2115178675050307942"
+            },
+            {
+              "label": "官方博客",
+              "url": "https://www.anthropic.com/research/early-progress-drug-development"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-019",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 与美国 GSA 签 OneGov 协议，各级政府用 Claude **打六折**",
+          "summary": "新协议覆盖美国联邦、州、地方、部落和领地政府，可以按 40% 折扣使用 Claude。",
+          "time": "10-28 06:20",
+          "links": [
+            {
+              "label": "Anthropic 原帖",
+              "url": "https://x.com/AnthropicAI/status/2115207004293853358"
+            },
+            {
+              "label": "官方公告",
+              "url": "https://www.anthropic.com/news/expanding-partnership-gsa"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-28-020",
+          "vendor": "xAI",
+          "region": "us",
+          "title": "Grok Bot 一批新功能：Pages、Vault、1Password 和苹果应用集成",
+          "summary": "mattyp 发视频介绍 Grok Bot 新功能，包括 Pages、Vault、1Password 集成、苹果应用集成、生成视频、新角色和 X Spaces。",
+          "time": "10-28 00:02",
+          "links": [
+            {
+              "label": "介绍视频",
+              "url": "https://x.com/mattyp/status/2115111897397628974"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "传闻未收：Azure 模型目录出现 claude-fable-5-5、GLM-5.5-Flash 的上架信息，都没有官方确认。",
+    "CodeBuddy 2.177.1、MiniMax Code 0.7.1 没有更新说明，没收。"
+  ],
+  "source_note": "信息来源：X 原帖、GitHub Release、官方博客及文中注明的媒体报道。时间均为北京时间。",
+  "published_at": "2026-10-28T08:32:04+08:00"
+}

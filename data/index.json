@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-27",
-  "updated_at": "2026-10-27T08:27:30+08:00",
+  "latest": "2026-10-28",
+  "updated_at": "2026-10-28T08:32:04+08:00",
   "issues": [
+    {
+      "date": "2026-10-28",
+      "title": "AI 日报 · 2026-10-28",
+      "highlights": "Google DeepMind 发布 Genie 4 世界模型，能实时生成可交互场景并自带声音和对话，先给受信测试者，之后开放给 AI Ultra 用户和 API。",
+      "item_count": 20,
+      "path": "data/2026-10-28.json",
+      "published_at": "2026-10-28T08:32:04+08:00"
+    },
     {
       "date": "2026-10-27",
       "title": "AI 日报 · 2026-10-27",

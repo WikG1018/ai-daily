@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报 · 2026-10-29",
+  "date": "2026-10-29",
+  "window": {
+    "start": "2026-10-28 08:32",
+    "end": "2026-10-29 08:22",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-29 08:25",
+  "highlights": "**Google 发布 Gemini 4 Carbon**，在 AA 智能指数 v5 以 59 分排第一，网络安全和长程任务最强，但目前只开放给 Fairwind 计划里的网络防御方。**GitHub Universe 上 Copilot Fusion 正式可用**，自动编排 Claude 和 GPT 模型，AA 实测得分只比 Claude Code（Opus 5.5）低 2 分、成本约一半，Enterprise 客户也不再需要单独买 Copilot。OpenAI 让 ChatGPT Pro 和 Business 用户每月领最多 500 美元 API 额度；国内 Kimi Code 2.4.0 能导入 Claude Code 和 Codex 会话，TRAE 接入 GPT-6.1-Terra。小米今天无新动态。",
+  "xiaomi": {
+    "items": [],
+    "empty_text": "小米今天无新动态：@XiaomiMiMo、@XiaomiMiMoDevs 和罗福莉在时间窗内没有新帖，MiMo Code 也没有新版本。REDMI K100（预装 MiMo 驱动的超级小爱 2.0）是 10-27 晚发布的，不在本期时间窗内。"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "title": "模型",
+      "icon": "🧠",
+      "items": [
+        {
+          "id": "2026-10-29-001",
+          "vendor": "Google DeepMind",
+          "region": "us",
+          "title": "Gemini 4 Carbon 发布，AA 智能指数 v5 第一",
+          "time": "10-29 01:02",
+          "summary": "Google 称 Carbon 是其最强模型，网络安全和长程任务达到 SOTA，在 AA 智能指数 v5 拿到 59 分排第一。本周起先开放给部分网络防御方，再经 Fairwind 计划逐步扩大，面向开发者、企业和消费者的时间未定；入门价与 Argon 相同（输入 $2、输出 $10 每百万 token），之后涨到 $4/$20。",
+          "links": [
+            {
+              "label": "Google DeepMind 原帖",
+              "url": "https://x.com/GoogleDeepMind/status/2115489356437651654"
+            },
+            {
+              "label": "官方博客",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/"
+            },
+            {
+              "label": "Logan 原帖",
+              "url": "https://x.com/OfficialLoganK/status/2115489284404940898"
+            }
+          ],
+          "people": [
+            "officiallogank"
+          ],
+          "children": [
+            {
+              "id": "2026-10-29-002",
+              "title": "Varun Mohan：Antigravity 内部已在用 Carbon",
+              "time": "10-29 01:32",
+              "summary": "Varun 称 Antigravity 团队内部已用 Carbon，会先扩大 Fairwind 访问，再在 Antigravity 更广泛开放。",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/_mohansolo/status/2115496830876475555"
+                }
+              ],
+              "person": "_mohansolo",
+              "vendor": "Google",
+              "region": "us"
+            },
+            {
+              "id": "2026-10-29-003",
+              "title": "Cline：多数基准超过 Opus 5.5、成本约一半（自测）",
+              "time": "10-29 01:50",
+              "summary": "Cline 称 Carbon 在其测试中几乎所有基准都超过 Opus 5.5，成本约一半，比 Argon 提升 18%，属第三方自测。",
+              "links": [
+                {
+                  "label": "原帖",
+                  "url": "https://x.com/cline/status/2115501578916601925"
+                }
+              ],
+              "product": "cline",
+              "vendor": "Cline",
+              "region": "us"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-004",
+          "vendor": "Artificial Analysis",
+          "region": "intl",
+          "title": "AA 智能指数 v5 上线，开源与闭源差距拉大",
+          "time": "10-28 10:11",
+          "summary": "v5 把 60% 权重放到私有测试集，加入 FrontierCode 2.0、Terminal-Bench-Science 等新评测。按 AA 的说法，开放权重模型与闭源前沿的差距从 3 分拉大到 12 分，多款中国开放模型名次下降；这是此后 Gemini 4 Carbon 等新模型排名的新标尺。",
+          "links": [
+            {
+              "label": "AA 原帖",
+              "url": "https://x.com/ArtificialAnlys/status/2115265133467635877"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-005",
+          "vendor": "NVIDIA",
+          "region": "us",
+          "title": "NVIDIA 开放 Nemotron 3.5 Transcribe 语音识别模型",
+          "time": "10-28 23:05",
+          "summary": "AA 测评显示这款 30B 总参、4B 激活的多语种转写模型词错率 2.8%，在开放权重语音识别里并列第一。",
+          "links": [
+            {
+              "label": "AA 原帖",
+              "url": "https://x.com/ArtificialAnlys/status/2115459886045942161"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "title": "编码 / Agent 框架",
+      "icon": "🛠️",
+      "items": [
+        {
+          "id": "2026-10-29-006",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "GitHub Universe：Copilot Fusion 正式可用，Copilot 应用与 projects 上线",
+          "time": "10-29 01:45",
+          "summary": "Copilot Fusion 按任务在 Anthropic 和 OpenAI 多个模型间编排，用户只选 Standard/High/Max 档位；同时发布 Copilot 应用、跨多仓库并行的 Copilot projects、跨 Copilot 应用、VS Code、CLI 和网页的会话接续、能从结果中学习的 Copilot automations 和 code review Max。GitHub Enterprise 客户从当天起无需单独订阅即可使用全部 Copilot 功能，按 AI 额度计费。",
+          "links": [
+            {
+              "label": "GitHub 博客",
+              "url": "https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/"
+            },
+            {
+              "label": "GitHub 原帖",
+              "url": "https://x.com/github/status/2115500308873052465"
+            },
+            {
+              "label": "Kyle Daigle 原帖",
+              "url": "https://x.com/kdaigle/status/2115490644143874425"
+            }
+          ],
+          "products": [
+            "copilot-cli",
+            "vscode"
+          ],
+          "people": [
+            "kdaigle"
+          ],
+          "children": [
+            {
+              "id": "2026-10-29-007",
+              "title": "AA 实测 Copilot Fusion",
+              "time": "10-29 00:14",
+              "summary": "AA 编码 agent 指数中 Fusion 比 Claude Code + Opus 5.5 低 2 分，单任务成本 $5.59 对 $11.42。",
+              "links": [
+                {
+                  "label": "AA 原帖",
+                  "url": "https://x.com/ArtificialAnlys/status/2115477376981508419"
+                }
+              ],
+              "vendor": "Artificial Analysis",
+              "region": "intl"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-008",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "ChatGPT Pro/Business 每月可领最多 500 美元 API 额度",
+          "time": "10-29 07:17",
+          "summary": "OpenAI Devs 宣布 ChatGPT Pro 和 Business 订阅可每月领取最多 500 美元 API 额度，等于把订阅权益延伸到自建应用和 agent。Romain Huet 在巴黎活动上提前透露了这一消息。",
+          "links": [
+            {
+              "label": "OpenAI Devs 原帖",
+              "url": "https://x.com/OpenAIDevs/status/2115583698074755078"
+            },
+            {
+              "label": "Romain 原帖",
+              "url": "https://x.com/romainhuet/status/2115592419454648723"
+            }
+          ],
+          "people": [
+            "openaidevs",
+            "romainhuet"
+          ]
+        },
+        {
+          "id": "2026-10-29-009",
+          "vendor": "字节",
+          "region": "cn",
+          "title": "TRAE 接入 GPT-6.1-Terra",
+          "time": "10-28 18:10",
+          "summary": "TRAE 宣布已可使用 OpenAI 新出的 GPT-6.1-Terra，国内 IDE 跟进速度很快。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/Trae_ai/status/2115385691127558221"
+            }
+          ],
+          "product": "trae",
+          "person": "trae_ai"
+        },
+        {
+          "id": "2026-10-29-010",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qoder 推 Qoder Sites，并公布 GLM-5.3 档位实测",
+          "time": "10-28 20:21",
+          "summary": "Qoder Sites 可通过对话直接搭建网站（15:45 发布）；Qoder 另称在约 200 个用例的 QoderBench 上，GLM-5.3 从 Max 切到 High 成本降 40.5%、得分只降 6.3%。",
+          "links": [
+            {
+              "label": "GLM-5.3 实测原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2115418711716991029"
+            },
+            {
+              "label": "Qoder Sites 原帖",
+              "url": "https://x.com/qoder_ai_ide/status/2115349137293987992"
+            }
+          ],
+          "product": "qoder-ide",
+          "person": "qoder_ai_ide"
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "版本更新",
+      "icon": "📦",
+      "items": [
+        {
+          "id": "2026-10-29-011",
+          "vendor": "Microsoft",
+          "region": "us",
+          "title": "VS Code 1.144.0",
+          "time": "10-29 02:51",
+          "product": "vscode",
+          "version": "1.144.0",
+          "summary": "配合 Universe 上线 Copilot Fusion 模型路由、跨端会话接续和云端任务，Copilot harness 成为默认，并加入 agent 电脑操作和 Canvases 预览。",
+          "links": [
+            {
+              "label": "更新说明",
+              "url": "https://code.visualstudio.com/updates/v1_144"
+            },
+            {
+              "label": "GitHub Release",
+              "url": "https://github.com/microsoft/vscode/releases/tag/1.144.0"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-012",
+          "vendor": "月之暗面",
+          "region": "cn",
+          "title": "Kimi Code 2.4.0",
+          "time": "10-28 19:45",
+          "product": "kimi-code",
+          "version": "2.4.0",
+          "summary": "新增 /import-sessions，可导入 Claude Code 和 Codex 的会话；Plan 模式改为只能由用户开启且每份计划都需审核，Tower 默认并发从 16 提到 256，MCP 断线自动重连。",
+          "links": [
+            {
+              "label": "GitHub Release",
+              "url": "https://github.com/MoonshotAI/kimi-code/releases/tag/%40moonshot-ai/kimi-code%402.4.0"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-013",
+          "vendor": "阿里",
+          "region": "cn",
+          "title": "Qwen Code 0.26.3",
+          "time": "10-28 22:36",
+          "product": "qwen-code",
+          "version": "0.26.3",
+          "summary": "新增持久化 Workflow 模式，Generated UI 卡片可保留状态；qwen4 系列模型按 100 万 token 上下文识别，并修复 XML 工具调用恢复问题。",
+          "links": [
+            {
+              "label": "GitHub Release",
+              "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.3"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-014",
+          "vendor": "DeepSeek",
+          "region": "cn",
+          "title": "DeepSeek Harness dsh-v0.2.2-alpha.2（预发布）",
+          "time": "10-28 10:50",
+          "product": "deepseek-harness",
+          "version": "dsh-v0.2.2-alpha.2",
+          "summary": "新增实验性 subagent_oar 工具，可把独立任务交给本机 Codex 或 Claude CLI；实验性支持在独立 Git 工作树中运行会话并查看关联 PR 状态和 diff，界面新增 6 种语言。",
+          "links": [
+            {
+              "label": "GitHub Release",
+              "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.2-alpha.2"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-015",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "Copilot CLI v1.0.105",
+          "time": "10-28 08:44",
+          "product": "copilot-cli",
+          "version": "v1.0.105",
+          "summary": "长上下文会话里也能在 /model 选择 Copilot Fusion High 或 Max。",
+          "links": [
+            {
+              "label": "GitHub Release",
+              "url": "https://github.com/github/copilot-cli/releases/tag/v1.0.105"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "人物动态",
+      "icon": "🗣️",
+      "items": [
+        {
+          "id": "2026-10-29-016",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo：Codex 用量 Day 23 重置；Chat 与 Work 合并今年内推进",
+          "time": "10-29 07:35",
+          "person": "thsottiaux",
+          "product": "codex-cli",
+          "summary": "Tibo 10-28 10:42 宣布第 23 天重置 Codex 用量；今早又说 Chat 与 Work 的合并正在做，但还没开始推送，目标是今年内。",
+          "links": [
+            {
+              "label": "Chat/Work 原帖",
+              "url": "https://x.com/thsottiaux/status/2115588390414581916"
+            },
+            {
+              "label": "Day 23 原帖",
+              "url": "https://x.com/thsottiaux/status/2115273064481218829"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-017",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Boris Cherny：犹他州政府试点 Claude Code",
+          "time": "10-29 01:09",
+          "person": "bcherny",
+          "product": "claude-code",
+          "summary": "犹他州给 10 个机构的 34 名开发者配了 Claude Code，80% 在 30 分钟内跑通环境，71% 称节省了 20 小时以上。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/bcherny/status/2115491259381072269"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-018",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "Kyle Daigle：今年 GitHub 推送量已超 2024 和 2025 之和",
+          "time": "10-29 06:14",
+          "person": "kdaigle",
+          "summary": "今年 GitHub 上已有 179 亿次 push，超过前两年总和，agent 带来的代码量增长在平台数据上很直观。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/kdaigle/status/2115568031074292081"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-019",
+          "vendor": "GitHub",
+          "region": "us",
+          "title": "Mario Rodriguez：新 Git 架构明年初达每秒 7200 次写入",
+          "time": "10-29 01:04",
+          "person": "mariorod1",
+          "summary": "GitHub 正在为 agent 带来的提交量重做 Git 架构，目标明年初支撑每秒 7200 次写入。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/mariorod1/status/2115489949013381617"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "其他动态",
+      "icon": "🌐",
+      "items": [
+        {
+          "id": "2026-10-29-020",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude for Legal 上线现成 artifact 模板库",
+          "time": "10-28 23:34",
+          "summary": "新增合同审查、监管动态扫描、引注核查等现成 artifact 模板，律师可以直接拿来用。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/claudeai/status/2115467192276025500"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-021",
+          "vendor": "xAI",
+          "region": "us",
+          "title": "Grok API 支持 guidelines 参数",
+          "time": "10-29 07:20",
+          "summary": "所有 API 客户现在都能在文本请求里附带 guidelines 参数，用来约束 Grok 的回答方式。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/grok/status/2115584612122718296"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-29-022",
+          "vendor": "Meta",
+          "region": "us",
+          "title": "Meta 向高校研究开放 Muse 访问",
+          "time": "10-29 01:08",
+          "summary": "Meta AI 宣布支持大学研究项目，提供 Muse 模型访问。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/AIatMeta/status/2115490919923548307"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "传闻：社区发现 DeepSeek Harness 测试文件中出现 deepseek-v5、deepseek-v5-open、deepseek-v5-next 等占位名，官方未发布任何 V5 信息，仅供参考。",
+    "未收：REDMI K100/超级小爱 2.0（10-27 发布，窗口外）、OpenCode v1.19.5（仅修 bug）、CodeBuddy Code 2.178.0（无更新说明）。"
+  ],
+  "source_note": "信息来源：X 原帖、GitHub Release、官方博客及文中注明的媒体报道。时间均为北京时间。",
+  "published_at": "2026-10-29T08:25:42+08:00"
+}

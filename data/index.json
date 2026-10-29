@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-28",
-  "updated_at": "2026-10-28T08:32:04+08:00",
+  "latest": "2026-10-29",
+  "updated_at": "2026-10-29T08:25:42+08:00",
   "issues": [
+    {
+      "date": "2026-10-29",
+      "title": "AI 日报 · 2026-10-29",
+      "highlights": "Google 发布 Gemini 4 Carbon，在 AA 智能指数 v5 以 59 分排第一，网络安全和长程任务最强，但目前只开放给 Fairwind 计划里的网络防御方。",
+      "item_count": 22,
+      "path": "data/2026-10-29.json",
+      "published_at": "2026-10-29T08:25:42+08:00"
+    },
     {
       "date": "2026-10-28",
       "title": "AI 日报 · 2026-10-28",

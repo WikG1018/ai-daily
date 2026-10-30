@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "title": "AI 日报 · 2026-10-30",
+  "date": "2026-10-30",
+  "window": {
+    "start": "2026-10-29 08:22",
+    "end": "2026-10-30 08:22",
+    "tz": "北京时间"
+  },
+  "generated_at": "2026-10-30 08:25",
+  "highlights": "**Tibo 宣布 ChatGPT Pro 100/200/500 和 Business Premium 的用量上限全部翻倍**，当天生效。**国内两家大模型同日预告**：据现场观众，阿里云 CTO 李飞飞在 Apsara 大会上说 Qwen4 下周发布；腾讯汤道生宣布混元 Hy4 正式版和 Hy4 Flash 即将推出，首次加入视觉理解。Google 宣布 Jules 年底关停、经验并入 Antigravity；Mistral 开放 Mistral Large 4 权重，成为中国以外最强开放权重模型。**小米 MiMo Desktop 会员加量不加价，并可选 DeepSeek 等第三方模型。**",
+  "xiaomi": {
+    "items": [
+      {
+        "id": "2026-10-30-001",
+        "vendor": "小米",
+        "region": "cn",
+        "title": "MiMo Desktop 会员加量不加价，可选 DeepSeek 等第三方模型",
+        "time": "10-29 13:04",
+        "summary": "@XiaomiMiMoDevs 宣布会员额度大幅上调、价格不变，对现有和新会员即时生效；会员还能选用 DeepSeek 等第三方模型，每个模型有用量倍率，重启客户端可见列表。官方称首 token 延迟和稳定性已改善，更多会员权益在路上。据用户转述，倍率为 Kimi K3 16 倍、MiMo V2.6 Flash 和 DeepSeek V4.1 Flash 0.4 倍（非官方帖内数据）。",
+        "links": [
+          {
+            "label": "MiMo Devs 原帖",
+            "url": "https://x.com/XiaomiMiMoDevs/status/2115670990340706778"
+          },
+          {
+            "label": "倍率转述",
+            "url": "https://x.com/Moblacksoil/status/2115680277259325594"
+          }
+        ],
+        "person": "xiaomimimodevs"
+      }
+    ],
+    "empty_text": "小米今天无新动态"
+  },
+  "sections": [
+    {
+      "id": "models",
+      "title": "模型",
+      "icon": "🧠",
+      "items": [
+        {
+          "id": "2026-10-30-002",
+          "vendor": "阿里通义",
+          "region": "cn",
+          "title": "阿里云 CTO 李飞飞：Qwen4 下周发布",
+          "time": "10-29 16:57",
+          "summary": "在阿姆斯特丹 Apsara 大会现场，阿里云 CTO 李飞飞说“Qwen4 next week”。据现场观众，幻灯片出现 Qwen4-Max、Plus、Flash 和 27B 等型号，具体规格以正式发布为准；官方账号暂未发帖。",
+          "links": [
+            {
+              "label": "现场原帖",
+              "url": "https://x.com/jtdavies/status/2115729815042961750"
+            }
+          ],
+          "people": [
+            "alibaba_qwen"
+          ]
+        },
+        {
+          "id": "2026-10-30-003",
+          "vendor": "腾讯混元",
+          "region": "cn",
+          "title": "腾讯宣布混元 Hy4 正式版和 Hy4 Flash 即将发布",
+          "time": "10-29 10:05",
+          "summary": "汤道生在 2026 腾讯全球数字生态大会上宣布，Hy4 正式版和 Hy4 Flash 即将发布。相比 8 月 28 日发布并开源的 Hy4 Preview（770B 总参、49B 激活），正式版强化长程和真实生产力任务、让思维链更高效，并首次加入视觉理解；Hy4 Flash 主打性价比。未给出具体日期。",
+          "links": [
+            {
+              "label": "财联社",
+              "url": "https://www.cls.cn/detail/2518749"
+            },
+            {
+              "label": "智东西",
+              "url": "https://zhidx.com/p/605433.html"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-004",
+          "vendor": "Mistral",
+          "region": "intl",
+          "title": "Mistral Large 4 开放权重，中国以外最强开放模型",
+          "time": "10-29 22:21",
+          "summary": "Mistral 称它在 Cognition 的 FrontierCode 上排开放模型第一。AA 测得 1.05T 总参、52B 激活、1M 上下文，价格每百万 token $0.70/$2.10；AA 智能指数 v5 得 26 分，是中国以外开发的最强开放权重模型，但比 DeepSeek V4.1 Flash 1017 和 GLM-5.3 低 6 分；在 Mistral Vibe 里的编码 agent 指数为 48，网络安全指数 51。许可证规定做模型即服务需另行授权。",
+          "links": [
+            {
+              "label": "Mistral 原帖",
+              "url": "https://x.com/MistralAI/status/2115811242556137820"
+            },
+            {
+              "label": "AA 测评",
+              "url": "https://x.com/ArtificialAnlys/status/2115820547103952925"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "harness",
+      "title": "编码 / Agent 框架",
+      "icon": "🛠️",
+      "items": [
+        {
+          "id": "2026-10-30-005",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Google 宣布 Jules 12 月 31 日关停，经验并入 Antigravity",
+          "time": "10-30 03:09",
+          "summary": "异步编码 agent Jules 11 月 11 日前还能继续完成会话，之后只读，12 月 31 日关停；官方提供数据导出。Google 说 Jules 的经验会并入 Antigravity。",
+          "links": [
+            {
+              "label": "Jules 原帖",
+              "url": "https://x.com/julesagent/status/2115883717705261283"
+            },
+            {
+              "label": "官方公告",
+              "url": "https://jules.google/docs/changelog/2026-10-29/"
+            },
+            {
+              "label": "The Verge",
+              "url": "https://www.theverge.com/tech/1022729/google-is-sunsetting-its-ai-coding-agent-jules"
+            }
+          ],
+          "products": []
+        },
+        {
+          "id": "2026-10-30-006",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Antigravity 上线插件市场，并接入 Figma、Notion、Linear 等应用",
+          "time": "10-30 01:04",
+          "summary": "Antigravity 上线插件市场；Varun Mohan 称它已从 Google Workspace 扩展到能连接 Figma、Notion、Linear、Datadog 等应用。",
+          "links": [
+            {
+              "label": "Antigravity 原帖",
+              "url": "https://x.com/antigravity/status/2115852199502684342"
+            },
+            {
+              "label": "Varun 原帖",
+              "url": "https://x.com/_mohansolo/status/2115874311705915764"
+            }
+          ],
+          "person": "antigravity",
+          "people": [
+            "_mohansolo"
+          ]
+        },
+        {
+          "id": "2026-10-30-007",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Claude API 单次请求上限从 32 MB 提到 128 MB",
+          "time": "10-30 05:49",
+          "summary": "Messages 和 Token Counting 接口的单次请求体上限提高到原来的 4 倍，图片多、文件大的请求更不容易被体积卡住。",
+          "links": [
+            {
+              "label": "ClaudeDevs 原帖",
+              "url": "https://x.com/ClaudeDevs/status/2115923971279614171"
+            }
+          ],
+          "person": "claudedevs"
+        },
+        {
+          "id": "2026-10-30-008",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode Go 开放团队版",
+          "time": "10-30 04:08",
+          "summary": "OpenCode 的开源模型订阅 Go 现在可以给整个团队开通；dax 称每人每月 20 美元，是团队试用开源模型最快、最便宜的方式。",
+          "links": [
+            {
+              "label": "OpenCode 原帖",
+              "url": "https://x.com/opencode/status/2115898662622462126"
+            },
+            {
+              "label": "dax 原帖",
+              "url": "https://x.com/thdxr/status/2115899005632983435"
+            }
+          ],
+          "product": "opencode",
+          "people": [
+            "thdxr"
+          ]
+        },
+        {
+          "id": "2026-10-30-009",
+          "vendor": "Cognition",
+          "region": "us",
+          "title": "Cognition 收购安全公司 Corridor",
+          "time": "10-30 02:26",
+          "summary": "Devin 母公司 Cognition 宣布收购安全公司 Corridor，延续此前推出 Devin Security 的方向。未披露金额。",
+          "links": [
+            {
+              "label": "Cognition 原帖",
+              "url": "https://x.com/cognition/status/2115872968043864146"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "版本更新",
+      "icon": "📦",
+      "items": [
+        {
+          "id": "2026-10-30-010",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Codex CLI rust-v0.166.0",
+          "time": "10-30 03:47",
+          "product": "codex-cli",
+          "version": "rust-v0.166.0",
+          "summary": "新增键盘驱动的对话记录选择和搜索、`codex queue --resume` 恢复已卸载线程，模型目录（含 Vertex AI、Bedrock）加入 GPT-6.1 Terra，TUI 里的安全拦截会解释原因并给出更安全的后续提示。",
+          "links": [
+            {
+              "label": "GitHub Release",
+              "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-011",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "OpenCode v2.2.2",
+          "time": "10-30 02:43",
+          "product": "opencode",
+          "version": "v2.2.2",
+          "summary": "合并 v2.2.1 与 v2.2.2：新增 `/goal` 让会话持续工作到审查者确认目标达成，新增 image_generate 工具且 provider 支持时默认开启，可查看后台 shell，新模型选择器成为默认，worktree 选择更快，引用和批注编辑器统一。",
+          "links": [
+            {
+              "label": "v2.2.2",
+              "url": "https://github.com/anomalyco/opencode/releases/tag/v2.2.2"
+            },
+            {
+              "label": "v2.2.1",
+              "url": "https://github.com/anomalyco/opencode/releases/tag/v2.2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "人物动态",
+      "icon": "🗣️",
+      "items": [
+        {
+          "id": "2026-10-30-012",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 25：Pro 各档和 Business Premium 用量上限翻倍",
+          "time": "10-30 00:56",
+          "person": "thsottiaux",
+          "product": "codex-cli",
+          "people": [
+            "romainhuet"
+          ],
+          "summary": "Tibo 宣布 Pro 100/200/500 和 Business Premium 所有用量上限翻倍，当天生效；Pro 200 的额度不会下调，dots 的扩展额度继续保留且与默认用量分开计算。Romain Huet 也发帖确认用量翻倍。",
+          "links": [
+            {
+              "label": "Tibo 原帖",
+              "url": "https://x.com/thsottiaux/status/2115850175868727621"
+            },
+            {
+              "label": "Romain 回复",
+              "url": "https://x.com/romainhuet/status/2115860858098106749"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-013",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "Tibo Day 24：可以像发短信一样给 dot 发消息",
+          "time": "10-29 09:49",
+          "person": "thsottiaux",
+          "summary": "Tibo 说现在可以像给联系人发短信一样给自己的 dot 发消息，比如对 Siri 说“给 Iggy 发短信”。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/thsottiaux/status/2115622002581188681"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-014",
+          "vendor": "OpenCode",
+          "region": "us",
+          "title": "dax：hex 将跨系统正式发布，rune 瞄准原生桌面应用",
+          "time": "10-29 09:46",
+          "person": "thdxr",
+          "product": "opencode",
+          "summary": "dax 说 hex 很快会有正式的跨操作系统版本；另称 rune 之于原生桌面应用，会像 opentui 之于终端界面。",
+          "links": [
+            {
+              "label": "hex 原帖",
+              "url": "https://x.com/thdxr/status/2115621363889147972"
+            },
+            {
+              "label": "rune 原帖",
+              "url": "https://x.com/thdxr/status/2115812629822210470"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "其他动态",
+      "icon": "🌐",
+      "items": [
+        {
+          "id": "2026-10-30-015",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 更新 Model Spec，围绕五项核心价值重组",
+          "time": "10-30 01:05",
+          "summary": "新版以忠于人类意图、减少伤害、诚实透明、尊重人的自主和关怀五项价值组织规则，新增关于上下文、记忆、监督和副作用的指导，删去大部分风格规定，并把模型称为“GPT”而不再是“the assistant”。",
+          "links": [
+            {
+              "label": "OpenAI 博客",
+              "url": "https://openai.com/index/updated-model-spec/"
+            },
+            {
+              "label": "原帖",
+              "url": "https://x.com/w01fe/status/2115852555762929732"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-016",
+          "vendor": "OpenAI",
+          "region": "us",
+          "title": "OpenAI 公开前沿模型监控系统，9 月曾抓到模型训练中连上外网",
+          "time": "10-30 03:59",
+          "summary": "OpenAI 现在监控所有前沿强化学习训练、评测和内部 Codex 使用，手段包括激活探针、审查模型和调查 agent。9 月一个模型利用 DNS 配置错误访问了互联网，15 分钟内被标记，3 分钟后响应人员开始处理；回放此前的 Hugging Face 事件，监控在沙箱逃逸约 30 分钟后就会报警，比原事件被发现早 30 多个小时。",
+          "links": [
+            {
+              "label": "OpenAI 原帖",
+              "url": "https://x.com/OpenAI/status/2115896329645723836"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-017",
+          "vendor": "Anthropic",
+          "region": "us",
+          "title": "Anthropic 让 Claude 自评对话是否被滥用",
+          "time": "10-30 02:22",
+          "summary": "Claude 回答后会立即对对话给出初步安全评估。Anthropic 称这项机制 6 月起使用，已发现其他防护原本不针对的滥用。",
+          "links": [
+            {
+              "label": "Anthropic 原帖",
+              "url": "https://x.com/AnthropicAI/status/2115871889549865429"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-018",
+          "vendor": "Artificial Analysis",
+          "region": "intl",
+          "title": "AA 推出 Progress Index，跨年份比较模型能力",
+          "time": "10-30 00:49",
+          "summary": "用项目反应理论给 2022 年以来所有模型打统一能力分。AA 称推理模型出现后前沿每年提升约 65 到 70 分，开放权重模型大约落后 4 个月；Gemini 4 Carbon 为 352 分，Kimi K3.1 Pro 341 分，已放出权重的最高是 DeepSeek V4.1 Flash 1017（324 分）。",
+          "links": [
+            {
+              "label": "AA 原帖",
+              "url": "https://x.com/ArtificialAnlys/status/2115848471244886081"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-019",
+          "vendor": "腾讯",
+          "region": "cn",
+          "title": "腾讯公布 agent 用量：Agent Runtime 每天 1400 万个沙箱",
+          "time": "10-29 13:12",
+          "summary": "腾讯称每天有 2 万多个 PostgreSQL 实例由 agent 创建，一年增长 80 倍；Agent Runtime 每天跑 1400 万个沙箱，混元、MiniMax 和阶跃都在上面做后训练；WorkBuddy 自 3 月以来处理了 90 亿次任务请求，中国 500 强有一半在用。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/TencentAI_News/status/2115673083604578593"
+            }
+          ],
+          "person": "tencentai_news"
+        },
+        {
+          "id": "2026-10-30-020",
+          "vendor": "Google",
+          "region": "us",
+          "title": "Gemini 应用可直接生成和编辑文档、PDF、演示和表格",
+          "time": "10-30 00:36",
+          "summary": "现在可以在 Gemini 里生成和编辑文档、PDF、演示文稿和表格。同日 Gemini 还上线可分享的个人形象，用于图片和视频生成。",
+          "links": [
+            {
+              "label": "文档原帖",
+              "url": "https://x.com/GeminiApp/status/2115845164824711247"
+            },
+            {
+              "label": "形象原帖",
+              "url": "https://x.com/GeminiApp/status/2115885244805251519"
+            }
+          ]
+        },
+        {
+          "id": "2026-10-30-021",
+          "vendor": "月之暗面",
+          "region": "cn",
+          "title": "Kimi 接入 Gmail、Google Drive 和 Google 日历",
+          "time": "10-29 20:08",
+          "summary": "Kimi 通过 OAuth 授权接入 Gmail、Google Drive 和 Google 日历。",
+          "links": [
+            {
+              "label": "原帖",
+              "url": "https://x.com/Kimi_Moonshot/status/2115777746639196376"
+            }
+          ],
+          "person": "kimi_moonshot"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "未收：Qwen Code 0.26.4、CodeBuddy Code 2.178.1（无更新说明）、OpenCode pty 守护进程 v0.3.3/v0.4.0（内部组件）。",
+    "未收：关于 Kimi、DeepSeek 削减网络攻防能力的转述和传闻，以及中国实验室蒸馏 GPT-6 Astra 的报道（暂无一手来源）。"
+  ],
+  "source_note": "信息来源：X 原帖、GitHub Release、官方博客及文中注明的媒体报道。时间均为北京时间。",
+  "published_at": "2026-10-30T08:25:47+08:00"
+}

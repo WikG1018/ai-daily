@@ -1,8 +1,16 @@
 {
   "schema_version": 1,
-  "latest": "2026-10-29",
-  "updated_at": "2026-10-29T08:25:42+08:00",
+  "latest": "2026-10-30",
+  "updated_at": "2026-10-30T08:25:47+08:00",
   "issues": [
+    {
+      "date": "2026-10-30",
+      "title": "AI 日报 · 2026-10-30",
+      "highlights": "Tibo 宣布 ChatGPT Pro 100/200/500 和 Business Premium 的用量上限全部翻倍，当天生效。",
+      "item_count": 21,
+      "path": "data/2026-10-30.json",
+      "published_at": "2026-10-30T08:25:47+08:00"
+    },
     {
       "date": "2026-10-29",
       "title": "AI 日报 · 2026-10-29",
